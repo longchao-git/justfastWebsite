@@ -1,0 +1,10 @@
+{
+  "links": {
+    "home": "Home"
+  },
+  "home": {
+    "title": "Welcome to the homepage",
+    "meta": "This is a simple website",
+    "moduleTitle": ["Popular VLOG","Popular Travel Record"]
+  }
+}
