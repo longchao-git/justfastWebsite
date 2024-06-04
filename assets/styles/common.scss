@@ -42,12 +42,12 @@
     overflow: -moz-scrollbars-none;
   }
   .el-button.el-button--text{
-    color: #09236C !important;
+    color: #ee8080 !important;
     padding: 0;
   }
   .el-button--primary{
-    background-color: #09236C !important;
-    border-color: #09236C !important;
+    background-color: #ee8080 !important;
+    border-color: #ee8080 !important;
   }
   .el-breadcrumb__inner.is-link:hover {
     color: #133ba0 !important;
@@ -575,10 +575,11 @@
 
   .base-bg {
     @extend .tran-300ms;
-    background: #09236c !important;
+    border-radius: 25px;
+    background: #ee8080 !important;
 
     &:hover {
-      background: #09236c !important;
+      background: #365775 !important;
     }
   }
 

@@ -2,46 +2,45 @@
     <div class="footer-box disflex al-center max-width f-column">
         <div class="disflex p-relative contact-box">
             <div class="asy-box">
-                <div class="f-title center">
-                    <img class="footer_icon" src="~/assets/images/icon_service.png" alt="" />
-                    <span class="service_title">{{ $t('footer.footerItem')[0].title }}</span>
+                <div class="f-title ">
+                    <img class="footer_icon" src="~/assets/images/cloudSales/header2-logo.svg" alt="" />
+                    <span class="service_title">Wishing you a flavorful journey and bon appétit</span>
                 </div>
-                <!-- <div class="f-divider"></div> -->
-                <div class="asy-phone">
-                    <div style="padding: 4px 0" class="center asy-phone-text">{{$t('footer.footerItem')[0].content}}</div>
-                    <div style="padding: 4px 0" class="center">{{$t('footer.footerItem')[0].desc}}</div>
-                </div>
-            </div>
-            <div class="asy-box">
-                <div class="f-title center">
-                    <img class="footer_icon" src="~/assets/images/icon_about.png" alt="" />
-                    <span class="service_title">{{ $t('footer.footerItem')[1].title }}</span>
-                </div>
-                <!-- <div class="f-divider"></div> -->
-                <div class="asy-phone">
-                    <div style="padding: 4px 0" class="asView-text">
-                        {{ $t('footer.footerItem')[1].content }}
-                    </div>
-                </div>
-            </div>
-            <div class="asy-box">
-                <div class="f-title center">
-                    <img class="footer_icon" src="~/assets/images/icon_more.png" alt="" />
-                    <span class="service_title">{{ $t('footer.footerItem')[2].title }}</span>
-                </div>
-                <!-- <div class="f-divider"></div> -->
-                <div class="asy-phone disflex" style="justify-content: space-around; margin-top: 40px">
-                    <div class="more_text">{{ $t('footer.footerItem')[2].content[0] }}</div>
-                    <div class="more_text">{{ $t('footer.footerItem')[2].content[1] }}</div>
-                    <div class="more_text">{{ $t('footer.footerItem')[2].content[2] }}</div>
-                    <div class="more_text">{{ $t('footer.footerItem')[2].content[3] }}</div>
-                </div>
-            </div>
-        </div>
 
+            </div>
+            <div class="asy-box">
+                <div class="f-title ">
+                    <div class='isViewTxet'>Company</div>
+                </div>
+                <!-- <div class="f-divider"></div> -->
+                <div class="asy-phone">
+                  <div class="service_title">Home</div>
+                  <div class="service_title">Contact</div>
+                </div>
+            </div>
+          <div class="asy-box">
+            <div class="f-title ">
+              <div class='isViewTxet'>Useful Links</div>
+            </div>
+            <!-- <div class="f-divider"></div> -->
+            <div class="asy-phone">
+              <div class="service_title">Endless Culinary Choices</div>
+              <div class="service_title">Convenient Ordering</div>
+              <div class="service_title">Swift Delivery</div>
+              <div class="service_title">Quality Assurance</div>
+            </div>
+          </div>
+          <div class="asy-box">
+            <div class="f-title ">
+              <div class='isViewTxet'>Subscribe To Our Newsletter</div>
+            </div>
+            <div class="asy-phone">
+              <div class="service_title">May our service continue to simplify your life and enhance your dining experiences</div>
+            </div>
+          </div>
+        </div>
         <div class="disflex al-center copyright-box ju-center font12">
-            <div>{{ $t('footer.footerBottom').desc }}</div>
-            <div><a target="_blank" :href="'//' ">{{ $t('footer.footerBottom').content }}</a>&nbsp;</div>
+            <div><a target="_blank" :href="'//' ">Copyright © 2024.KUAIZI All rights reserved.</a>&nbsp;</div>
         </div>
     </div>
 </template>
@@ -82,7 +81,7 @@ export default {
 
 <style scoped lang="scss">
 .footer-box {
-    background: #133ba0;
+    background: #FFFFFF;
     padding: 32px 0 0;
 
     a {
@@ -92,38 +91,20 @@ export default {
     .f-title {
         @extend .tran-300ms;
         font-size: 18px;
-        color: rgba(255, 255, 255, 0.9);
+        color:#616976;
         margin-bottom: 16px;
         display: flex;
         flex-direction: column;
-        align-items: center;
         .footer_icon {
-            width: 47px;
-            height: 47px;
+            width: 150px;
+            height: 49px;
             margin-bottom: 8px;
         }
-        .service_title {
-            position: relative;
-            &::after{
-                content: '';
-                display: block;
-                width: 92px;
-                height: 1px;
-                background: rgba(255, 255, 255, 0.22);
-                position: absolute;
-                left: -102px;
-                top: 50%;
-            }
-            &::before {
-                content: '';
-                display: block;
-                width: 92px;
-                height: 1px;
-                background: rgba(255, 255, 255, 0.22);
-                position: absolute;
-                right: -102px;
-                top: 50%;
-            }
+        .isViewTxet{
+          font-size: 24px;
+          font-style: normal;
+          font-weight: 500;
+          color: #03163B;
         }
     }
 
@@ -135,12 +116,12 @@ export default {
     }
 
     .asy-box {
-        width: 410px;
+        width: 250px;
         height: 141px;
         margin: 0 72px 8px 72px;
 
         .asy-phone {
-            color: rgba(255, 255, 255, 0.7);
+            color: #616976;
             font-weight: 400;
             margin-bottom: 20px;
             position: relative;
@@ -148,17 +129,8 @@ export default {
             > div {
                 font-size: 16px;
             }
-            .asy-phone-text,
-            .more_text {
-                font-weight: bold;
-                font-size: 20px;
-            }
-            .asView-text {
-                font-size: 16px !important;
-                line-height: 22px;
-                margin-top: 20px;
-                text-align: center;
-            }
+
+
         }
     }
 
@@ -166,7 +138,7 @@ export default {
         display: flex;
         text-align: center;
         padding-bottom: 16px;
-        color: rgba(255, 255, 255, 0.4);
+        color: #616976;
         margin-top: 32px;
 
         span {
@@ -248,27 +220,23 @@ export default {
 
         .contact-box {
             width: 100%;
-            flex-direction: column;
 
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
             .asy-box {
-                height: 100%;
+
                 padding-bottom: 8px;
                 margin: 0;
-                width: 100%;
-
+                width: 50%;
                 .asy-phone {
-                    color: white;
                     margin-top: 0;
                     line-height: inherit;
                     margin-bottom: 16px;
                     > div {
                         font-size: 12px !important;
                     }
-                    .asView-text {
-                        font-size: 12px !important;
-                        line-height: 16px;
-                        margin-top: 10px;
-                    }
+
                     span {
                         display: block;
                     }
