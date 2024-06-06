@@ -1,7 +1,6 @@
 export default {
 	// api请求基础路径
-	BASE_URL: 'http://47.109.107.177:9030/',
-  BASE_WSURL: 'ws://47.109.107.177:9030/messageSocket/',
+	BASE_URL: 'https://www.aioeuropa.com/api/v1/',
 	// 状态码错误信息
 	ERROR_CODE: {
 		4: '请求超时',

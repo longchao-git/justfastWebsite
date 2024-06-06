@@ -11,8 +11,10 @@
                    type='image/svg+xml' />
           </nuxt-link>
           <v-spacer />
-          <v-btn @click='handleClick' class='login-bt try-out-bt'  height='50px' >Contact Us</v-btn>
-
+          <div class='flex-wrap'>
+            <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt'  height='50px' > {{ $t('header.lang') }}</v-btn>
+            <v-btn @click='handleClick' class='login-bt try-out-bt'  height='50px' >{{ $t('header.information') }}</v-btn>
+          </div>
         </div>
       </div>
 
@@ -22,8 +24,8 @@
                type='image/svg+xml' />
         <!-- 登录样式 -->
         <div class='flex-wrap'>
-          <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt'  height='50px' >Contact Us</v-btn>
-          <v-btn @click='handleClick' class='login-bt try-out-bt'  height='50px' >Contact Us</v-btn>
+          <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt'  height='50px' > {{ $t('header.lang') }}</v-btn>
+          <v-btn @click='handleClick' class='login-bt try-out-bt'  height='50px' >{{ $t('header.information') }}</v-btn>
         </div>
       </div>
     </v-app-bar>
@@ -103,6 +105,9 @@ export default {
     }
   },
   methods: {
+    handleClick(){
+      window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843'
+    },
     /** 处理联系方式弹框的状态 */
     handleInfoWindowState(value) {
       this.isShowContactInfoDialog = value;

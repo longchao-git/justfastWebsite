@@ -1,7 +1,5 @@
 <template>
     <div class="cloud_sales_sales-collaboration-mechanism">
-
-
         <div class="_bottom">
             <div class="_left">
                 <img  src="../../assets/images/cloudSales/home/about2-image.png" alt="" />
@@ -9,16 +7,22 @@
             <div class="_right">
               <div class="content">
                 <p>
-                  About Us
-                  Partner With Our Trusted Platform Today.</p>
+                  {{ $t('index.twoName') }}</p>
               </div>
                 <dl>
-                    <dd @mouseover="currentStepsIndex = index" @click="currentStepsIndex = index" v-for="(item, index) in stepsList" :key="index" :class="[currentStepsIndex === index ? 'selected' : '']">
+                    <dd @mouseover="currentStepsIndex = 0" @click="currentStepsIndex = 0"  :class="[currentStepsIndex === 0 ? 'selected' : '']">
                         <div>
                             <div>
-                                <span>{{item.content}}</span>
+                                <span>{{ $t('index.twoTop') }}</span>
                             </div>
                         </div>
+                    </dd>
+                    <dd @mouseover="currentStepsIndex = 1" @click="currentStepsIndex = 1"  :class="[currentStepsIndex === 1 ? 'selected' : '']">
+                      <div>
+                        <div>
+                          <span>{{ $t('index.twoBoot') }} </span>
+                        </div>
+                      </div>
                     </dd>
                 </dl>
             </div>
@@ -32,16 +36,7 @@
             return {
                 // 当前选择的步骤
                 currentStepsIndex: 0,
-                // 步骤的内容
-                stepsList: [
-                    {
-                        content: "Experience the Flavors of the World, Delivered to Your Doorstep! Discover culinary delights from around the globe with our convenient food delivery platform. Satisfy your cravings with a diverse selection of mouthwatering dishes, all just a few taps away.",
-                    },
-                    {
-                        content: "Whether you're in the mood for savory, spicy, or sweet, we've got you covered. Fast, fresh, and hassle-free – we bring your favorite restaurants to you. Order now and let your taste buds embark on a global culinary journey without leaving your home!",
-                    },
 
-                ],
             }
         }
     }
@@ -90,7 +85,7 @@
                             transition: .3s;
                             &:hover {
                                 transition: .3s;
-                                border-color: #4981ff;
+                                border-color: #ee8080;
                                 background: linear-gradient(90deg, #e1ecfc, #f6f9ff, #ffffff);
                             }
                             > div {
@@ -105,7 +100,7 @@
                                 }
                             }
                             &::before {
-                                background: #467fff;
+                                background: #ee8080;
                                 color: #fff;
                                 width: 40px;
                                 height: 40px;
@@ -126,11 +121,11 @@
                     }
                     .selected {
                         > div {
-                            border-color: #4981ff !important;
-                            background: linear-gradient(90deg, #CBDFFF, #ecf3ff, #ffffff) !important;
+                            border-color: #ee8080 !important;
+                            background: linear-gradient(90deg, #ee8080, #ecf3ff, #ffffff) !important;
                             &::before {
                                 background: #fff !important;
-                                color: #467fff !important;
+                                color: #ee8080 !important;
                             }
                         }
                     }

@@ -1,23 +1,30 @@
-import config from '../config'
+import config from '../config';
 
 export const state = () => ({
-    locales: ['en', 'fr', 'es', 'ar', 'zh', 'ja'],
-    locale: 'zh'
-})
+  locales: ['zh', 'es'],
+  locale: 'es',
+  userInfo: {}
+});
 
 export const getters = {
-
-}
+  //语言
+  getLocale: state => {
+    return state.locale;
+  },
+  getUserInfo: state => {
+    return state.userInfo;
+  }
+};
 
 export const mutations = {
-    SET_LANG(state, locale) {
-        if (state.locales.indexOf(locale) !== -1) {
-            state.locale = locale
-        }
-    },
+  SET_LANG(state, locale) {
+    if (state.locales.indexOf(locale) !== -1) {
+      state.locale = locale;
+    }
+  },
+  SET_USERINFO(state, userInfo) {
+    state.userInfo = userInfo
+  },
+};
 
-}
-
-export const actions = {
-
-}
+export const actions = {};

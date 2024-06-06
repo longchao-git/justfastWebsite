@@ -1,91 +1,51 @@
 {
-    "links": {
-        "home": "首页"
-    },
-    "home": {
-        "title": "欢迎来到首页",
-        "meta": "这是一个简单的网站",
-        "moduleTitle": [
-            "热门 VLOG",
-            "热门游记"
-        ],
-        "btnText": [
-            "查看全部"
-        ]
-    },
     "header": {
-        "local": "定位",
-        "message": "消息中心",
         "lang": "语言切换",
-        "personal": "个人中心",
-        "login": "登录",
-        "register": "注册",
-        "information": "个人信息",
-        "help": "帮助中心",
-        "placeholder": "请输入您想要搜索的内容",
-        "searchBtn": "立即搜索"
+        "information": "下载app"
+    },
+    "index": {
+        "oneTitle": "欢迎来到商务快子",
+        "oneName": "通过我们的服务添加您的业务",
+        "oneContent": "释放您的潜力并推动增长。我们通过定制解决方案帮助企业做出业务决策，从而提高业绩。",
+        "oneButtonLeft": "Play Store",
+        "oneButtonRight": "App Store",
+        "twoName": "立即与我们值得信赖的平台合作。",
+        "twoTop": "体验世界风味，送货上门！通过我们便捷的食品配送平台，探索来自世界各地的美食。只需轻点几下，即可享受各种令人垂涎欲滴的菜肴，满足您的味蕾。",
+        "twoBoot": "无论您想吃咸味、辣味还是甜味的美食，我们都能满足您的需求。快速、新鲜、无忧无虑——我们将您最喜欢的餐厅带到您身边。立即订购，让您的味蕾足不出户即可踏上全球美食之旅！",
+        "threeName": "我们提供的外卖服务",
+        "threeTitle": "在 KUAIZI，我们拥有一支充满热情和经验丰富的团队，致力于为您带来最佳的用餐体验。我们的团队由热爱美食、科技和客户满意度的人组成。在 KUAIZI，我们拥有一支充满热情和经验丰富的团队，致力于为您带来最佳的用餐体验。我们的团队由热爱美食、科技和客户满意度的人组成。",
+        "threeLeftTopName": "无限美食选择",
+        "threeLeftTopTitle": "探索众多餐厅和美食，尽在指尖。从当地美食到国际美食，总有一款能满足您的各种需求。",
+        "threeLeftBootName": "快速送货",
+        "threeLeftBootTitle": "我们以快速、可靠地为您送餐而自豪。我们高效的配送系统可确保您的餐食在短时间内热腾腾、新鲜的送到您家门口。",
+        "threeRightTopName": "订购方便",
+        "threeRightTopTitle": "只需在我们用户友好的应用程序或网站上点击几下即可订购您喜欢的菜肴。我们直观的界面让订购变得轻而易举，您可以根据自己的喜好定制餐点。\n\n",
+        "threeRightBootName": "质量保证",
+        "threeRightBootTitle": "从合作餐厅到食品包装，我们始终将质量和安全放在首位。您可以放心，我们的餐食都是精心准备和配送的。\n\n"
+
     },
     "footer": {
-        "footerItem": [
-            {
-                "title": "客服支持",
-                "content": "13999999999@163.com",
-                "desc": "客服在线 9:00-18:30"
-            },
-            {
-                "title": "关于我们",
-                "content": "我们是一家专注于世界文旅文化的企业，用户 可以通过短视频、图文等形式记录生活点滴",
-                "desc": ""
-            },
-            {
-                "title": "更多服务",
-                "content": [
-                    "问题反馈",
-                    "用户协议",
-                    "隐私政策",
-                    "隐私政策",
-                    "帮助中心"
-                ],
-                "desc": ""
-            }
-        ],
+        "footerItem":{
+            "title": "祝您旅途愉快，胃口大开"
+        },
+        "Company": {
+            "name": "公司",
+            "content": "家",
+            "desc": "接触"
+        },
+        "UsefulLinks": {
+            "name": "有用的链接",
+            "content": "无限美食选择",
+            "desc": "订购方便",
+            "contentOne": "快速送货",
+            "descOne": "质量保证"
+        },
+        "SubscribeToOurNewsletter": {
+            "name": "订阅我们的新闻",
+            "content": "希望我们的服务能够继续简化您的生活并增强您的用餐体验。"
+        },
         "footerBottom": {
-            "desc": "Copyright©2022 www.zhiruan.com All Rights Reservers",
-            "content": "华悟智软（成都）科技有限公司 版权所有 蜀ICP备17002623号-13 "
+            "desc": "版权所有 © 2024.KUAIZI 保留所有权利。"
         }
-    },
-    "contentDetail": {
-        "time": "发表于",
-        "navList": ["行程记录", "旅行记录", "评论记录"],
-        "records": "条评价",
-        "talk": "评论",
-        "like": "点赞",
-        "from": "来自",
-        "talkBtn": "我也说两句",
-        "msgBack": "回复",
-        "submit": "提交",
-        "quality": "质量",
-        "placeholder": "给文章赞美赞美..."
-    },
-    "authorIndex": {
-        "title": "欢迎来到一个热爱旅行的医生博主的主页",
-        "desc": "作者简介",
-        "descContent": "我们是一家专注于世界文旅文化的企业，用户可以通过短视频、图文等形式记录生活点滴",
-        "navList": [
-            "帖子",
-            "收藏夹",
-            "关注"
-        ],
-        "noData": "暂无数据",
-        "follow": "关注",
-        "fans": "粉丝",
-        "like": "点赞",
-        "collect": "收藏",
-        "followed": "已关注",
-        "button": ["+关注","私信"]
-    },
-    "personalCenter": {
-        "title": "个人信息",
-        "navList": ["全部功能","个人信息","个人主页","我的环球足迹","消息中心","账号管理"]
     }
 }

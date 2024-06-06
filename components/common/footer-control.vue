@@ -4,43 +4,43 @@
             <div class="asy-box">
                 <div class="f-title ">
                     <img class="footer_icon" src="~/assets/images/cloudSales/header2-logo.svg" alt="" />
-                    <span class="service_title">Wishing you a flavorful journey and bon appétit</span>
+                    <span class="service_title"> {{ $t('footer.footerItem.title') }}</span>
                 </div>
 
             </div>
             <div class="asy-box">
-                <div class="f-title ">
-                    <div class='isViewTxet'>Company</div>
+                <div class="f-title">
+                    <div class='isViewTxet'>{{ $t('footer.Company.name') }}</div>
                 </div>
                 <!-- <div class="f-divider"></div> -->
                 <div class="asy-phone">
-                  <div class="service_title">Home</div>
-                  <div class="service_title">Contact</div>
+                  <div class="service_title">{{ $t('footer.Company.Home') }}</div>
+                  <div class="service_title">{{ $t('footer.Company.Contact') }}</div>
                 </div>
             </div>
           <div class="asy-box">
             <div class="f-title ">
-              <div class='isViewTxet'>Useful Links</div>
+              <div class='isViewTxet'>{{ $t('footer.UsefulLinks.name') }}</div>
             </div>
             <!-- <div class="f-divider"></div> -->
             <div class="asy-phone">
-              <div class="service_title">Endless Culinary Choices</div>
-              <div class="service_title">Convenient Ordering</div>
-              <div class="service_title">Swift Delivery</div>
-              <div class="service_title">Quality Assurance</div>
+              <div class="service_title">{{ $t('footer.UsefulLinks.content') }}</div>
+              <div class="service_title">{{ $t('footer.UsefulLinks.desc') }}</div>
+              <div class="service_title">{{ $t('footer.UsefulLinks.contentOne') }}</div>
+              <div class="service_title">{{ $t('footer.UsefulLinks.descOne') }}</div>
             </div>
           </div>
           <div class="asy-box">
             <div class="f-title ">
-              <div class='isViewTxet'>Subscribe To Our Newsletter</div>
+              <div class='isViewTxet'>{{ $t('footer.SubscribeToOurNewsletter.name') }}</div>
             </div>
             <div class="asy-phone">
-              <div class="service_title">May our service continue to simplify your life and enhance your dining experiences</div>
+              <div class="service_title">{{ $t('footer.SubscribeToOurNewsletter.content') }}</div>
             </div>
           </div>
         </div>
         <div class="disflex al-center copyright-box ju-center font12">
-            <div><a target="_blank" :href="'//' ">Copyright © 2024.KUAIZI All rights reserved.</a>&nbsp;</div>
+            <div><a target="_blank" :href="'//' ">{{ $t('footer.footerBottom.desc') }}</a>&nbsp;</div>
         </div>
     </div>
 </template>

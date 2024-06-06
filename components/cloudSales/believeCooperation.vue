@@ -1,21 +1,20 @@
 <template>
     <div class="cloud_sales_believe-cooperation">
         <div class="content">
-            <p>Takeaway Services We Offered</p>
-          <div>At KUAIZI, we have a passionate and experienced team committed to bringing you the best dining experiences. Our team is comprised of individuals who share a love for food, technology, and customer satisfaction.
-            At KUAIZI, we have a passionate and experienced team committed to bringing you the best dining experiences. Our team is comprised of individuals who share a love for food, technology, and customer satisfaction.</div>
+            <p> {{ $t('index.threeName') }}</p>
+          <div>{{ $t('index.threeTitle') }}</div>
         </div>
 
         <div class="_bottom">
             <div class="_left">
                 <dl>
                     <dd>
-                        <p>Endless Culinary Choices</p>
-                        <div>Explore a vast array of restaurants and cuisines at your fingertips. From local favorites to international delicacies, there's something to satisfy every craving.</div>
+                        <p>{{ $t('index.threeLeftTopName') }}</p>
+                        <div>{{ $t('index.threeLeftTopTitle') }}</div>
                     </dd>
                     <dd>
-                        <p>Swift Delivery</p>
-                        <div>We take pride in delivering your meal quickly and reliably. Our efficient delivery system ensures your food arrives hot and fresh at your doorstep in no time.</div>
+                        <p>{{ $t('index.threeLeftBootName') }}</p>
+                        <div>{{ $t('index.threeLeftBootTitle') }}</div>
                     </dd>
 
                 </dl>
@@ -24,12 +23,12 @@
             <div class="_right">
                 <dl>
                     <dd>
-                        <p>Convenient Ordering</p>
-                        <div>Order your favorite dishes with just a few taps on our user-friendly app or website. Our intuitive interface makes ordering a breeze, and you can customize your meal to your exact preferences.</div>
+                        <p>{{ $t('index.threeRightTopName') }}</p>
+                        <div>{{ $t('index.threeRightTopTitle') }}</div>
                     </dd>
                     <dd>
-                        <p>Quality Assurance</p>
-                        <div>We prioritize quality and safety, from the restaurants we partner with to our food packaging. Enjoy peace of mind knowing that your meal is prepared and delivered with care.</div>
+                        <p>{{ $t('index.threeRightBootName') }}</p>
+                        <div>{{ $t('index.threeRightBootTitle') }}</div>
                     </dd>
 
                 </dl>
@@ -93,7 +92,7 @@
 
                         &:hover {
                             p, div {
-                                color: #6091ff;
+                                color: #ee8080;
                             }
                         }
                         p {

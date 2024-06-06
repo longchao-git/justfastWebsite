@@ -1,13 +1,50 @@
 {
-    "links": {
-        "home": "首页"
+  "header": {
+    "lang": "Cambiar idioma",
+    "information": "Download"
+  },
+  "index": {
+    "oneTitle": "Welcome to Business KUAI-ZI",
+    "oneName": "Add Your Business With Our Services",
+    "oneContent": "Unlock Your Potential and Drive Growth. We help business to perform with our customized solutions helping them take business decisions.",
+    "oneButtonLeft": "Play Store",
+    "oneButtonRight": "App Store",
+    "twoName": "About Us Partner With Our Trusted Platform Today.",
+    "twoTop": "Experience the Flavors of the World, Delivered to Your Doorstep! Discover culinary delights from around the globe with our convenient food delivery platform. Satisfy your cravings with a diverse selection of mouthwatering dishes, all just a few taps away.",
+    "twoBoot": "Whether you're in the mood for savory, spicy, or sweet, we've got you covered. Fast, fresh, and hassle-free – we bring your favorite restaurants to you. Order now and let your taste buds embark on a global culinary journey without leaving your home!",
+    "threeName": "Takeaway Services We Offered",
+    "threeTitle": "At KUAIZI, we have a passionate and experienced team committed to bringing you the best dining experiences. Our team is comprised of individuals who share a love for food, technology, and customer satisfaction. At KUAIZI, we have a passionate and experienced team committed to bringing you the best dining experiences. Our team is comprised of individuals who share a love for food, technology, and customer satisfaction.",
+    "threeLeftTopName": "Endless Culinary Choices",
+    "threeLeftTopTitle": "Explore a vast array of restaurants and cuisines at your fingertips. From local favorites to international delicacies, there's something to satisfy every craving.",
+    "threeLeftBootName": "Swift Delivery",
+    "threeLeftBootTitle": "We take pride in delivering your meal quickly and reliably. Our efficient delivery system ensures your food arrives hot and fresh at your doorstep in no time.",
+    "threeRightTopName": "Convenient Ordering",
+    "threeRightTopTitle": "Order your favorite dishes with just a few taps on our user-friendly app or website. Our intuitive interface makes ordering a breeze, and you can customize your meal to your exact preferences.",
+    "threeRightBootName": "Quality Assurance",
+    "threeRightBootTitle": "We prioritize quality and safety, from the restaurants we partner with to our food packaging. Enjoy peace of mind knowing that your meal is prepared and delivered with care."
+  },
+  "footer": {
+    "footerItem":{
+      "title": "Wishing you a flavorful journey and bon appétit"
     },
-    "home": {
-        "title": "欢迎来到首页",
-        "meta": "这是一个简单的网站",
-        "moduleTitle": [
-            "热门 VLOG",
-            "热门游记"
-        ]
+    "Company": {
+      "name": "Company",
+      "content": "Home",
+      "desc": "Contact"
+    },
+    "UsefulLinks": {
+      "name": "Useful Links",
+      "content": "Endless Culinary Choices",
+      "desc": "Convenient Ordering",
+      "contentOne": "Swift Delivery",
+      "descOne": "Convenient Ordering"
+    },
+    "SubscribeToOurNewsletter": {
+      "name": "Subscribe To Our Newsletter",
+      "content": "May our service continue to simplify your life and enhance your dining experiences"
+    },
+    "footerBottom": {
+      "desc": "Copyright © 2024.KUAIZI All rights reserved. "
     }
+  }
 }

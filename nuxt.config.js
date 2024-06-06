@@ -12,10 +12,10 @@ export default {
 
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        titleTemplate: '文旅',
-        title: '文旅',
+        titleTemplate: 'KUAIZI',
+        title: 'KUAIZI',
         htmlAttrs: {
-            lang: 'zh'
+            lang: 'es'
         },
         meta: [
             { charset: 'utf-8' },
@@ -71,6 +71,7 @@ export default {
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
+        { src: '~/plugins/LocalStorage.js' },
         { src: '~/plugins/element-ui.js' },
         { src: '~/plugins/websocket.js' },
         { src: '~/plugins/i18n.js' },

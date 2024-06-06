@@ -5,14 +5,12 @@
       <div class='h-content'>
         <div class='h-conte'>
           <div class='_left'>
-            <div class='Business'>Welcome to Business KUAI-ZI</div>
-            <div class='Services'>Add Your Business With Our Services</div>
-            <div class='Potential'>Unlock Your Potential and Drive Growth. We help business to perform with our
-              customized solutions helping them take business decisions.
-            </div>
+            <div class='Business'>{{ $t('index.oneTitle') }}</div>
+            <div class='Services'>{{ $t('index.oneName') }}</div>
+            <div class='Potential'>{{ $t('index.oneContent') }}</div>
             <div class='button-view' style='display: flex; width: 100%'>
-              <v-btn @click='loginType = 0'  height='50px' class='try-out-bt' style='margin-right: 20px;margin-bottom: 20px'> Schedule A Consultation</v-btn>
-              <v-btn @click='handleClick'  height='50px'style='margin-bottom: 20px' >Contact Us</v-btn>
+              <v-btn @click='handleClick(1)'  height='50px' class='try-out-bt' style='margin-right: 20px;margin-bottom: 20px'>{{ $t('index.oneButtonLeft') }}</v-btn>
+              <v-btn @click='handleClick(2)'  height='50px' class='try-out-bt' style='margin-bottom: 20px' >{{ $t('index.oneButtonRight') }}</v-btn>
             </div>
           </div>
           <div class='_right'>
@@ -52,6 +50,7 @@ export default {
     CloudSalesHomeList,
     LoginWindow,
     believeCooperation,
+    collaborationMechanism,
   },
   data() {
     return {
@@ -83,8 +82,13 @@ export default {
       this.loginType = value;
     },
 
-    handleClick() {
-      window.location.href = '/addressIndex';
+    handleClick(type) {
+      if(type === 1){
+        window.location.href =  'https://play.google.com/store/apps/details?id=com.ppinbuy.olebuy&amp;hl=zh&amp;gl=US'
+      }else {
+        window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843'
+      }
+      // window.location.href = '/addressIndex';
     },
     //
     showPosition(position) {
@@ -107,8 +111,8 @@ export default {
       console.log('Geolocation is not supported by this browser.');
     }
 
-    const params = { dictionaryType: 1 };
-    this.$axios.get('/dictionary/getContentByType', { params }).then(res => {
+    const params = { page: 1 };
+    this.$axios.post('/client/waimai/shop/shoplist', params ).then(res => {
       console.log(res);
     });
 
