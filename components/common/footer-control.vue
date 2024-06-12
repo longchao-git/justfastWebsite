@@ -14,8 +14,8 @@
                 </div>
                 <!-- <div class="f-divider"></div> -->
                 <div class="asy-phone">
-                  <div class="service_title">{{ $t('footer.Company.Home') }}</div>
-                  <div class="service_title">{{ $t('footer.Company.Contact') }}</div>
+                  <div class="service_title">{{ $t('footer.Company.content') }}</div>
+                  <div class="service_title">{{ $t('footer.Company.desc') }}</div>
                 </div>
             </div>
           <div class="asy-box">

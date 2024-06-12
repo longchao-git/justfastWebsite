@@ -14,6 +14,8 @@ export default ({redirect, $axios}) => {
     if (config.headers['Content-Type'] === 'multipart/form-data') {
       config.data = objToFormData(config.data)
     }
+
+    config.headers['Access-Control-Allow-Origin'] =  '*';
     // config.headers['token'] = localStorage.getItem('token') || '';
     return config
   }, error => {
