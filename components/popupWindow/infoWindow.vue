@@ -18,7 +18,7 @@
               </div>
             </div>
             <div class='flex_center'>
-              <div @click='handleConfirmSubbit' class='button_info'>提交</div>
+              <div @click='handleConfirmSubbit' class='button_info'>保存</div>
             </div>
           </div>
         </v-card>

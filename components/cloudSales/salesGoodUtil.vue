@@ -1,22 +1,18 @@
 <template>
     <div class="content_tab">
-        <div class="tabs">
-            <div @click="handleChangeTabs(1)" class="tabs_item" :class="{ active: active === 1 }">热门VLOG</div>
-            <div @click="handleChangeTabs(2)" class="tabs_item" :class="{ active: active === 2 }">热门游记</div>
-            <div @click="handleChangeTabs(3)" class="tabs_item" :class="{ active: active === 3 }">金牌代理人</div>
-        </div>
+
         <div class="card_container">
             <div class="card_item" v-for="item in 12" :key="item">
                 <div class="card_img_container">
                     <img class="card_img fit-cover" :src="'https://picsum.photos/200/300?id=' + item + 1" />
-                    <!-- <video ref="video_1" src="~/assets/images/video.mp4" class="card_img fit-cover"></video> -->
-                    <img class="play_control cursor-pointer" src="~/assets/images/icon_play.png" />
-                    <img class="play_collect cursor-pointer" src="~/assets/images/icon_collect_off.png" />
                 </div>
                 <div class="flex flex-column">
-                    <span class="font18 fontb beyond">泰国 呵叻府Pong Ta Long 出行vlog~</span>
-                    <span class="color-4B4B4B font14 line22">距离你<span>4529 km</span></span>
-                    <span class="color-383838 font14 line22 beyond">游客说:“非常适合我这种单人成行的游客打卡”</span>
+                    <span class="font18 fontb beyond">凯爱第三大 </span>
+                    <div style='display: flex;flex-direction: row; justify-content: space-between;'>
+                      <span class="color-4B4B4B font14 line22">€4.3</span>
+                      <div class="buttonView">+</div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -75,37 +71,34 @@ export default {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
     }
     .card_item {
-        margin-right: 32px;
-        width: calc((100% - 96px) / 4);
+        width: calc((100% - 120px) / 6);
         margin-bottom: 32px;
         .card_img_container {
             position: relative;
             margin-bottom: 16px;
             .card_img {
                 width: 100%;
-                height: 312px;
+                height: 120px;
                 border-radius: 8px;
             }
-            .play_control {
-                width: 60px;
-                height: 60px;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 2;
-            }
-            .play_collect {
-                width: 40px;
-                height: 40px;
-                position: absolute;
-                right: 8px;
-                top: 8px;
-                z-index: 2;
-            }
+
         }
+      .buttonView{
+        width: 20px;
+        height: 20px;
+        background:  #ee8080;
+        border-radius: 20px;
+        text-align: center;
+        color:white;
+        font-size: 20px;
+        font-weight: bold;
+        margin-right: 6px;
+        line-height: 20px;
+
+      }
     }
     .card_item:nth-child(4n) {
         margin-right: 0;
@@ -146,14 +139,7 @@ export default {
                 .card_img {
                     height: 212px;
                 }
-                .play_control {
-                    width: 40px;
-                    height: 40px;
-                }
-                .play_collect {
-                    width: 30px;
-                    height: 30px;
-                }
+
             }
             .card_item:nth-child(3n) {
                 margin-right: 0;
@@ -185,14 +171,7 @@ export default {
                 .card_img {
                     height: 150px !important;
                 }
-                .play_control {
-                    width: 30px;
-                    height: 30px;
-                }
-                .play_collect {
-                    width: 20px;
-                    height: 20px;
-                }
+
             }
             .card_item:nth-child(2n) {
                 margin-right: 0 !important;

@@ -1,7 +1,11 @@
 {
   "header": {
     "lang": "Cambiar idioma",
-    "information": "Download"
+    "information": "Download",
+    "placeholder": "Por favor ingrese para ver los comerciantes de pedidos"
+  },
+  "home": {
+    "moduleTitle": "Todos los hoteles"
   },
   "index": {
     "oneTitle": "Welcome to Business KUAI-ZI",

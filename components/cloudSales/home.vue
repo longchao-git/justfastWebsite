@@ -1,14 +1,8 @@
 <template>
     <div class="cloud_sales_home p-relative">
-        <template v-if="true">
+        <template>
             <!-- 热门VLOG -->
-            <expansion-market :title="$t('home.moduleTitle')[0]"/>
-            <!-- 热门游记 -->
-            <expansion-market :title="$t('home.moduleTitle')[1]" />
-        </template>
-        <template v-else>
-            <!-- tab 样式  热门VLOG 热门游记-->
-            <sales-good-util />
+            <expansion-market />
         </template>
 
     </div>
@@ -16,12 +10,10 @@
 
 <script>
 import ExpansionMarket from './expansionMarket';
-import SalesGoodUtil from './salesGoodUtil';
 
 export default {
     components: {
-        ExpansionMarket,
-        SalesGoodUtil,
+        ExpansionMarket
     },
 };
 </script>

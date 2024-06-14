@@ -1,7 +1,11 @@
 {
     "header": {
         "lang": "语言切换",
-        "information": "下载app"
+        "information": "下载app",
+        "placeholder": "请输入查看下单商家"
+    },
+    "home": {
+      "moduleTitle": "所有饭店"
     },
     "index": {
         "oneTitle": "欢迎来到商务快子",

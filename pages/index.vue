@@ -28,7 +28,7 @@
     <!--全球合作商组件-->
 <!--    <global-partners style='margin-bottom: 16px' />-->
     <!-- 云销售首页组件集合 -->
-<!--    <cloud-sales-home-list />-->
+
     <!-- 登录弹窗 type - 0: 个人  1: 企业 -->
     <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
   </div>
@@ -36,7 +36,7 @@
 
 <script>
 import GlobalPartners from '../components/common/global-partners';
-import CloudSalesHomeList from '../components/cloudSales/home';
+
 import LoginWindow from '../components/popupWindow/loginWindow.vue';
 import collaborationMechanism from '../components/cloudSales/collaborationMechanism.vue';
 import believeCooperation from '../components/cloudSales/believeCooperation.vue';
@@ -47,7 +47,6 @@ import error from '@/layouts/error';
 export default {
   components: {
     GlobalPartners,
-    CloudSalesHomeList,
     LoginWindow,
     believeCooperation,
     collaborationMechanism,

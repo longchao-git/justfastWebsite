@@ -7,13 +7,15 @@
       <div class='phone-menu-box max-width'>
         <div class='disflex al-center phone-menu-bar max-width'>
           <nuxt-link style='margin-right: 14px' class='clear-flex h-logo-img' to='/'>
-            <embed width='60%'  :src="require('~/assets/images/cloudSales/header2-logo.svg')"
+            <embed width='60%' :src="require('~/assets/images/cloudSales/header2-logo.svg')"
                    type='image/svg+xml' />
           </nuxt-link>
           <v-spacer />
           <div class='flex-wrap'>
-            <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt'  height='50px' > {{ $t('header.lang') }}</v-btn>
-            <v-btn @click='handleClick' class='login-bt try-out-bt'  height='50px' >{{ $t('header.information') }}</v-btn>
+            <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt' height='50px'> {{ $t('header.lang')
+              }}
+            </v-btn>
+            <v-btn @click='handleClick(1)' class='login-bt try-out-bt' height='50px'>{{ $t('header.information') }}</v-btn>
           </div>
         </div>
       </div>
@@ -23,9 +25,15 @@
         <embed :src="require('~/assets/images/cloudSales/header2-logo.svg')" style='margin-right: 14px' width='8%'
                type='image/svg+xml' />
         <!-- 登录样式 -->
+        <div class='login-input' >
+          <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' />
+          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>
+        </div>
         <div class='flex-wrap'>
-          <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt'  height='50px' > {{ $t('header.lang') }}</v-btn>
-          <v-btn @click='handleClick' class='login-bt try-out-bt'  height='50px' >{{ $t('header.information') }}</v-btn>
+          <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt' height='50px'> {{ $t('header.lang')
+            }}
+          </v-btn>
+          <v-btn @click='handleClick(1)' class='login-bt try-out-bt' height='50px'>{{ $t('header.information') }}</v-btn>
         </div>
       </div>
     </v-app-bar>
@@ -105,8 +113,12 @@ export default {
     }
   },
   methods: {
-    handleClick(){
-      window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843'
+    handleClick(type) {
+      if(type === 1){
+        window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843';
+      }else {
+        window.location.href = '/creation';
+      }
     },
     /** 处理联系方式弹框的状态 */
     handleInfoWindowState(value) {
@@ -147,7 +159,21 @@ export default {
       width: 5.31%;
       height: 2.77%;
     }
-
+    .login-input {
+       width: 600px;
+      height: 44px;
+      margin: 0 126px 0 166px;
+      border-radius: 60px;
+      background: #f6f9f8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 28px;
+      .el-input__inner{
+        background: transparent;
+        border: none;
+      }
+    }
     .login-bt {
       box-shadow: inset 0 0 20px #EE8080;
       background: #EE8080;
