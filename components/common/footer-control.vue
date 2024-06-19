@@ -119,7 +119,9 @@ export default {
         width: 250px;
         height: 141px;
         margin: 0 72px 8px 72px;
-
+        display: flex;
+      flex-direction: column;
+      align-items: center;
         .asy-phone {
             color: #616976;
             font-weight: 400;

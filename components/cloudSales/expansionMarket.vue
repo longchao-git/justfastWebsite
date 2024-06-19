@@ -90,6 +90,7 @@ export default {
 /* 中屏幕*/
 @media screen and(max-width: $big-pc-width) {
     .cloud_sales_expansion_market {
+      width: 90%;
         .card_container {
             .card_item {
                 width: calc((100% - 96px) / 4);
@@ -104,6 +105,7 @@ export default {
 /** 平板屏幕 */
 @media screen and (max-width: $pad-max-width) {
     .cloud_sales_expansion_market {
+      width: 100%;
         .title {
             margin-bottom: 16px;
         }

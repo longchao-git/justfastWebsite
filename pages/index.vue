@@ -185,7 +185,8 @@ export default {
         }
         .button-view{
           margin-top: 20px;
-          flex-wrap: wrap;
+          display: flex;
+
           .v-btn{
             border-radius: 35px !important;
           }

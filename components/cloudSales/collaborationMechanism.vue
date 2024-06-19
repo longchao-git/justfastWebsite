@@ -67,7 +67,7 @@
             width: 100%;
             margin: 200px auto 130px;
             ._right, ._left {
-                align-self: flex-start;
+                //align-self: flex-start;
             }
             ._right {
               margin-left: 30px;
@@ -164,7 +164,7 @@
                 }
             }
             > ._bottom {
-                flex-direction: column;
+
                 width: initial;
                 margin: 160px auto 80px;
                 ._right {
@@ -201,7 +201,7 @@
                 ._left {
                     margin: 10px auto 0;
                     img {
-                        display: none;
+                        //display: none;
                         width: auto;
                         max-width: 500px;
                         padding: 0 40px;

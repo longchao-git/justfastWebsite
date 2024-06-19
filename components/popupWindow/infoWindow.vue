@@ -86,7 +86,7 @@ export default {
   position: relative;
   text-align: center;
   border-radius: 8px;
-  background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(10, 218, 254, 0.2) 0%, rgba(10, 218, 254, 0) 100%), #fff;
+  background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.2) 0%, rgba(10, 218, 254, 0) 100%), #fff;
 
   .info-window_close-icon {
     position: absolute;
@@ -135,10 +135,10 @@ export default {
       cursor: pointer;
 
       .setView {
-        border: 1px solid #09236c !important;
+        border: 1px solid #ee8080 !important;
 
         > div {
-          color: #09236c !important;
+          color: #ee8080 !important;
         }
       }
 
@@ -180,7 +180,7 @@ export default {
   .button_info {
     width: 304px;
     height: 53px;
-    background: #0c266e;
+    background: #ee8080;
     border-radius: 4px 4px 4px 4px;
     text-align: center;
     line-height: 53px;

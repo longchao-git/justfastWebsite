@@ -11,7 +11,13 @@
                    type='image/svg+xml' />
           </nuxt-link>
           <v-spacer />
-          <div class='flex-wrap'>
+          <div class='login-input' >
+            <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
+            <!--          el-icon-search-->
+            <i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>
+            <!--          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>-->
+          </div>
+          <div style='display: flex'>
             <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt' height='50px'> {{ $t('header.lang')
               }}
             </v-btn>
@@ -26,11 +32,13 @@
                type='image/svg+xml' />
         <!-- 登录样式 -->
         <div class='login-input' >
-          <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' />
-          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>
+          <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
+<!--          el-icon-search-->
+          <i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>
+<!--          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>-->
         </div>
-        <div class='flex-wrap'>
-          <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt' height='50px'> {{ $t('header.lang')
+        <div  style='display: flex'>
+          <v-btn @click='handleInfoWindowState(true)' class='login-bt try-out-bt' height='50px' style='margin-right: 20px;'> {{ $t('header.lang')
             }}
           </v-btn>
           <v-btn @click='handleClick(1)' class='login-bt try-out-bt' height='50px'>{{ $t('header.information') }}</v-btn>
@@ -164,14 +172,19 @@ export default {
       height: 44px;
       margin: 0 126px 0 166px;
       border-radius: 60px;
-      background: #f6f9f8;
+      background: #ee8080;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 28px;
+      color: white !important;
       .el-input__inner{
         background: transparent;
         border: none;
+        color:  #FFFFFF;
+      }
+      .el-input__inner::-webkit-input-placeholder {
+        color:  #FFFFFF;
       }
     }
     .login-bt {
