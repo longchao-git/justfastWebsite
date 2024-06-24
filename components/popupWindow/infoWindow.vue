@@ -192,6 +192,7 @@ export default {
 
 /* 中屏幕*/
 @media screen and(max-width: $big-pc-width) {
+
 }
 
 /** 平板屏幕 */

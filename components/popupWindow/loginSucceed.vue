@@ -55,7 +55,7 @@ export default {
 /** 登录卡片样式 */
 .login-window-card {
   border-radius: 8px;
-  background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(10, 218, 254, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
+  background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
   width: 540px;
   height: 320px;

@@ -6,10 +6,16 @@
       <!--手机端-->
       <div class='phone-menu-box max-width'>
         <div class='disflex al-center phone-menu-bar max-width'>
-          <nuxt-link style='margin-right: 14px' class='clear-flex h-logo-img' to='/'>
-            <embed width='60%' :src="require('~/assets/images/cloudSales/header2-logo.svg')"
-                   type='image/svg+xml' />
-          </nuxt-link>
+<!--          <nuxt-link style='margin-right: 14px' class='clear-flex h-logo-img' to='/'>-->
+<!--            <embed width='60%' :src="require('~/assets/images/cloudSales/header2-logo.svg')"-->
+<!--                   type='image/svg+xml' />-->
+<!--          </nuxt-link>-->
+          <img
+            @click="handleHome"
+            :src="require('~/assets/images/cloudSales/header2-logo.svg')"
+            style="width: 8%; max-height: 100px; margin-right: 14px; cursor: pointer; object-fit: cover"
+            alt=""
+          />
           <v-spacer />
           <div class='login-input' >
             <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
@@ -28,8 +34,17 @@
 
       <!--PC端-->
       <div class='disflex ju-center max-width al-center col-f pc-menu-box'>
-        <embed :src="require('~/assets/images/cloudSales/header2-logo.svg')" style='margin-right: 14px' width='8%'
-               type='image/svg+xml' />
+<!--        <div @click="handleHome" style='cursor: pointer'>-->
+<!--          <embed :src="require('~/assets/images/cloudSales/header2-logo.svg')"  style='margin-right: 14px;' width='8%'-->
+<!--                 type='image/svg+xml' />-->
+        <img
+          @click="handleHome"
+          :src="require('~/assets/images/cloudSales/header2-logo.svg')"
+          style="width: 8%; max-height: 100px; margin-right: 14px; cursor: pointer; object-fit: cover"
+          alt=""
+        />
+<!--        </div>-->
+
         <!-- 登录样式 -->
         <div class='login-input' >
           <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
@@ -121,6 +136,9 @@ export default {
     }
   },
   methods: {
+    handleHome() {
+      window.location.href = '/';
+    },
     handleClick(type) {
       if(type === 1){
         window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843';

@@ -1,60 +1,49 @@
 <template>
-  <div v-if="type !== -1&&type !== 2" class="login-window">
+  <div v-if="type===1" class="login-window">
     <div class="login-window-card"  :class="type===1?'login-class':''">
         <div>
           <div class="loginView">
             <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
                  alt=""/>
           </div>
-          <p>登录或注册</p>
+          <p>支付/地址</p>
           <div class="loginClass">
-            <img class="logoCard" src="../../assets/images/cloudSales/popupWindow/logo.png"
-                 alt=""/>
-            <div class="name">欢迎来到国际文旅平台</div>
-            <div class="login_input" v-if="type === 0">
-              <div>国家/地区</div>
-
-              <el-cascader style="flex: 1"
-                v-model="tradeTypeId"
-                :options="companyTypeList"
-                @change="handleChange"></el-cascader>
-            </div>
-            <div class="login_input p-relative"  v-if="type === 0">
-              <div>手机号码</div>
-
-                <input
-                  v-model="context"
-                  placeholder="请输入"
-                  class="c-input"/>
-                <span class="button">{{isshow?'':'获取验证码'}}</span>
-
-            </div>
-            <div class="login_input"  v-if="type === 1">
-              <div>邮箱</div>
+            <div class="login_input"  >
+              <div>街道城市国家</div>
               <input
                 v-model="context"
                 placeholder="请输入"
                 class="c-input"/>
             </div>
             <div class="login_input"  >
-              <div>{{type === 0?'手机验证码':'邮箱验证码'}}</div>
+              <div>房间号</div>
               <input
                 v-model="context"
                 placeholder="请输入"
                 class="c-input"/>
             </div>
-            <div class="viewSetTion">
-              <img @click="handleChangeType(-1)"  src="../../assets/images/cloudSales/popupWindow/le.png"
-                   alt=""/>
-              <div>我确认已年满18 周岁，且已认真阅读并同意爱彼迎的 <span>服务条款、支付服务条款、非歧视政策和隐私政策</span> 。如您居住在中国，您的信息将在中国按照中国法律(包括隐私和信息披露法律)的要求处理。</div>
+            <div class="login_input"  >
+              <div>邮编</div>
+              <input
+                v-model="context"
+                placeholder="请输入"
+                class="c-input"/>
             </div>
-            <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">登录或注册</v-btn>
-            <div class="viewXian">
-              <div></div>
-              <span>或</span>
-              <div></div>
+            <div class="login_input"  >
+              <div>备注</div>
+              <input
+                v-model="context"
+                placeholder="请输入"
+                class="c-input"/>
             </div>
-            <v-btn width="100%" height="48px" @click="type = (type===0?1:0)">{{type === 0?'使用邮箱进行登录':'使用手机号进行登录'}}</v-btn>
+            <div class="login_input"  >
+              <div>卡号</div>
+              <input
+                v-model="context"
+                placeholder="请输入"
+                class="c-input"/>
+            </div>
+            <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
           </div>
         </div>
     </div>
@@ -122,16 +111,16 @@ export default {
 }
 
 .login-class{
-  height: 640px !important;
+  height: 520px !important;
 }
 
 /** 登录卡片样式 */
 .login-window-card {
   border-radius: 8px;
-  background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(10, 218, 254, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
+  background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
   width: 540px;
-  height: 700px;
+  height: 740px;
   position: relative;
 
   > div {
@@ -182,7 +171,7 @@ export default {
         align-items: center;
         margin-top: 12px;
         .button{
-          color: #0A98FE;
+          color: #ee8080;
           font-size: 14px;
           position: absolute;
           right: 24px;
@@ -193,7 +182,7 @@ export default {
           height: 48px;
         }
         >div{
-          width: 100px;
+          width: 120px;
           flex-shrink: 0;
           text-align: right;
           color: #2C2C2C;
@@ -221,7 +210,7 @@ export default {
           -webkit-box-orient: vertical;
           width: 100%;
           >span{
-            color: #0A98FE;
+            color: #ee8080;
           }
         }
       }
@@ -251,7 +240,7 @@ export default {
 
   /** 登录卡片样式 */
   .login-window-card {
-    width: 500px;
+    width: 600px;
 
     > div {
       > div {
@@ -281,7 +270,7 @@ export default {
 /** 手机屏幕 */
 @media screen and (max-width: $phone-max-width) {
   .login-class{
-    height: 480px !important;
+    height: 560px !important;
   }
   /** 登录卡片样式 */
   .login-window-card {
@@ -336,7 +325,7 @@ export default {
             color: #1D2129;
             >span{
               font-size: 12px;
-              color: #0A98FE;
+              color: #ee8080;
             }
           }
         }

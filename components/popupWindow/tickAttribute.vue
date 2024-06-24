@@ -17,7 +17,7 @@
           <h3 class='module_title'>属性</h3>
           <div class='mxTick'>
             <div v-for='(item,index) in [1,2,3]'>
-              <div>无辣</div>
+              <div class='font14'>无辣</div>
               <img class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
                    alt=""/>
             </div>
