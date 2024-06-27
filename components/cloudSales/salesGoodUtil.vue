@@ -11,10 +11,9 @@
         <div class='flex flex-column'>
           <span class='font18 fontb beyond'>凯爱第三大 </span>
           <div style='display: flex;flex-direction: row; justify-content: space-between;'>
-            <span class='color-4B4B4B font14 line22'>€4.3</span>
+            <span class='color-4B4B4B  line22 classNameView'>€4.3</span>
             <div class='buttonView' @click='loginbindTap'>+</div>
           </div>
-
         </div>
       </div>
     </div>
@@ -127,7 +126,9 @@ export default {
       }
 
     }
-
+    .classNameView{
+      font-size: 14px;
+    }
     .buttonView {
       width: 20px;
       height: 20px;
@@ -157,6 +158,15 @@ export default {
       .card_img {
         height: 250px;
       }
+    }
+    .classNameView{
+      font-size: 20px !important;
+    }
+    .buttonView {
+      width: 40px !important;
+      height: 40px !important;
+      font-size: 40px !important;
+      line-height: 40px !important;
     }
   }
 }

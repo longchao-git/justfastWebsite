@@ -50,5 +50,20 @@
     "footerBottom": {
       "desc": "Copyright © 2024.KUAIZI All rights reserved. "
     }
+  },
+  "creation": {
+    "title": "Haga clic para cargar más"
+  },
+  "contentDetail": {
+    "title": "Ha elegido",
+    "name": "Orden"
+  },
+  "loginPopup": {
+    "name": "Pago/dirección",
+    "fromOne": "Calle ciudad país",
+    "fromTwo": "Número de habitación",
+    "fromTree": "código postal",
+    "fromFour": "Comentarios",
+    "fromFive": "La tarjeta"
   }
 }

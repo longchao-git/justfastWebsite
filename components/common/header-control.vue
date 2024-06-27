@@ -187,7 +187,7 @@ export default {
     }
     .login-input {
        width: 600px;
-      height: 44px;
+      height: 52px;
       margin: 0 126px 0 166px;
       border-radius: 60px;
       background: #ee8080;

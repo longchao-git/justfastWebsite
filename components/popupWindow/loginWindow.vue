@@ -1,43 +1,43 @@
 <template>
   <div v-if="type===1" class="login-window">
-    <div class="login-window-card"  :class="type===1?'login-class':''">
+    <div class="login-tan-card"  :class="type===1?'login-class':''">
         <div>
           <div class="loginView">
             <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
                  alt=""/>
           </div>
-          <p>支付/地址</p>
+          <p>{{ $t('loginPopup.name') }}</p>
           <div class="loginClass">
             <div class="login_input"  >
-              <div>街道城市国家</div>
+              <div>{{ $t('loginPopup.fromOne') }}</div>
               <input
                 v-model="context"
                 placeholder="请输入"
                 class="c-input"/>
             </div>
             <div class="login_input"  >
-              <div>房间号</div>
+              <div>{{ $t('loginPopup.fromTwo') }}</div>
               <input
                 v-model="context"
                 placeholder="请输入"
                 class="c-input"/>
             </div>
             <div class="login_input"  >
-              <div>邮编</div>
+              <div>{{ $t('loginPopup.fromTree') }}</div>
               <input
                 v-model="context"
                 placeholder="请输入"
                 class="c-input"/>
             </div>
             <div class="login_input"  >
-              <div>备注</div>
+              <div>{{ $t('loginPopup.fromFour') }}</div>
               <input
                 v-model="context"
                 placeholder="请输入"
                 class="c-input"/>
             </div>
             <div class="login_input"  >
-              <div>卡号</div>
+              <div>{{ $t('loginPopup.fromFive') }}</div>
               <input
                 v-model="context"
                 placeholder="请输入"
@@ -115,7 +115,7 @@ export default {
 }
 
 /** 登录卡片样式 */
-.login-window-card {
+.login-tan-card {
   border-radius: 8px;
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
@@ -239,7 +239,7 @@ export default {
 @media screen and(max-width: $big-pc-width) {
 
   /** 登录卡片样式 */
-  .login-window-card {
+  .login-tan-card {
     width: 600px;
 
     > div {
@@ -273,9 +273,9 @@ export default {
     height: 560px !important;
   }
   /** 登录卡片样式 */
-  .login-window-card {
+  .login-tan-card {
     width: 300px;
-    height: 540px;
+    height: 540px !important;
     > div {
 
       p {

@@ -2,7 +2,7 @@
   <div class="detail_container">
     <cloud-sales-home-list />
     <div class="flex flex-a-c flex-j-c" style="cursor: pointer">
-      <span class="color-242424 font14">点击加载更多</span>
+      <span class="color-242424 font14">{{ $t('creation.title') }}</span>
     </div>
   </div>
 </template>

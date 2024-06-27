@@ -189,7 +189,7 @@ export default {
 
   /** 登录卡片样式 */
   .login-window-card {
-    width: 500px;
+    width: 80%;
 
     > div {
       > div {

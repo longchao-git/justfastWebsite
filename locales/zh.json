@@ -51,5 +51,20 @@
         "footerBottom": {
             "desc": "版权所有 © 2024.KUAIZI 保留所有权利。"
         }
+    },
+    "creation": {
+      "title": "点击加载更多"
+    },
+    "contentDetail": {
+      "title": "已选择",
+      "name": "下单"
+    },
+    "loginPopup": {
+      "name": "支付/地址",
+      "fromOne": "街道城市国家",
+      "fromTwo": "房间号",
+      "fromTree": "邮编",
+      "fromFour": "备注",
+      "fromFive": "卡号"
     }
 }

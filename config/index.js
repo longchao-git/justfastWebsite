@@ -1,6 +1,6 @@
 export default {
 	// api请求基础路径
-	BASE_URL: 'http://www.aioeuropa.com/api/v1/',
+	BASE_URL: 'http://www.cuai-zi.net/api/v1/',
 	// 状态码错误信息
 	ERROR_CODE: {
 		4: '请求超时',

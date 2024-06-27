@@ -1,9 +1,9 @@
 <template>
   <div class='detail_container'>
     <sales-good-util />
-    <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: space-between;margin: 0 auto;'>
-      <span class='color-242424 font14'>已选择4个</span>
-      <div @click='handleCloseLoginDialog(1)' class='button_info'>下单</div>
+    <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
+      <span class='color-242424 font14 ' >{{ $t('contentDetail.title') }} 4</span>
+      <div @click='handleCloseLoginDialog(1)' class='button_info' style='margin-left: 32px'>{{ $t('contentDetail.name') }}</div>
     </div>
     <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
   </div>
