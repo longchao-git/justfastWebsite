@@ -11,12 +11,15 @@ export default ({redirect, $axios}) => {
     config.timeout = 1000 * 60
 
     // 不同请求方式不同处理
-    if (config.headers['Content-Type'] === 'multipart/form-data') {
-      config.data = objToFormData(config.data)
-    }
-
+    config.data.CLIENT_OS = 'IOS'
+    config.data.CLIENT_API = 'CUSTOM'
+    config.data.TOKEN =  localStorage.getItem('token') || '';
+    config.data.LNG =  localStorage.getItem('LNG') || -3.7160397;
+    config.data.LAT =  localStorage.getItem('LAT') || 40.4202472;
+    config.data.data = JSON.stringify(config.data.data)
+    config.data = objToFormData(config.data)
     config.headers['Access-Control-Allow-Origin'] =  '*';
-    // config.headers['token'] = localStorage.getItem('token') || '';
+    config.headers['content-type'] =  'application/x-www-form-urlencoded';
     return config
   }, error => {
     return Promise.reject(error)

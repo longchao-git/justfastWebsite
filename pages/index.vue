@@ -9,8 +9,12 @@
             <div class='Services'>{{ $t('index.oneName') }}</div>
             <div class='Potential'>{{ $t('index.oneContent') }}</div>
             <div class='button-view' style='display: flex; width: 100%'>
-              <v-btn @click='handleClick(1)'  height='50px' class='try-out-bt' style='margin-right: 20px;margin-bottom: 20px'>{{ $t('index.oneButtonLeft') }}</v-btn>
-              <v-btn @click='handleClick(2)'  height='50px' class='try-out-bt' style='margin-bottom: 20px' >{{ $t('index.oneButtonRight') }}</v-btn>
+              <v-btn @click='handleClick(1)' height='50px' class='try-out-bt'
+                     style='margin-right: 20px;margin-bottom: 20px'>{{ $t('index.oneButtonLeft') }}
+              </v-btn>
+              <v-btn @click='handleClick(2)' height='50px' class='try-out-bt' style='margin-bottom: 20px'>
+                {{ $t('index.oneButtonRight') }}
+              </v-btn>
             </div>
           </div>
           <div class='_right'>
@@ -26,7 +30,7 @@
     <collaborationMechanism></collaborationMechanism>
     <believeCooperation></believeCooperation>
     <!--全球合作商组件-->
-<!--    <global-partners style='margin-bottom: 16px' />-->
+    <!--    <global-partners style='margin-bottom: 16px' />-->
     <!-- 云销售首页组件集合 -->
 
     <!-- 登录弹窗 type - 0: 个人  1: 企业 -->
@@ -49,7 +53,7 @@ export default {
     GlobalPartners,
     LoginWindow,
     believeCooperation,
-    collaborationMechanism,
+    collaborationMechanism
   },
   data() {
     return {
@@ -82,10 +86,10 @@ export default {
     },
 
     handleClick(type) {
-      if(type === 1){
-        window.location.href =  'https://play.google.com/store/apps/details?id=com.ppinbuy.olebuy&amp;hl=zh&amp;gl=US'
-      }else {
-        window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843'
+      if (type === 1) {
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.ppinbuy.olebuy&amp;hl=zh&amp;gl=US';
+      } else {
+        window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843';
       }
       // window.location.href = '/addressIndex';
     },
@@ -109,9 +113,10 @@ export default {
     } else {
       console.log('Geolocation is not supported by this browser.');
     }
-
-    const params = { page: 1 };
-    this.$axios.post('/client/waimai/shop/shoplist', params ).then(res => {
+    const params = {
+      data: {'page': 1, "cate_id":0,"pei_filter":"","youhui_filter":"","feature_filter":"","order":"","index":1 }
+    };
+    this.$axios.post('/client/waimai/shop/shoplist', params).then(res => {
       console.log(res);
     });
 
@@ -154,6 +159,7 @@ export default {
 
       ._left {
         width: 35%;
+
         .Business {
           color: #FFF;
           font-size: 16px;
@@ -176,32 +182,36 @@ export default {
           text-transform: capitalize;
           margin-top: .3em;
         }
-        .Potential{
+
+        .Potential {
           color: #616976;
           font-size: 16px;
           font-style: normal;
           font-weight: 400;
           line-height: 26px
         }
-        .button-view{
+
+        .button-view {
           margin-top: 20px;
           display: flex;
 
-          .v-btn{
+          .v-btn {
             border-radius: 35px !important;
           }
         }
       }
 
-      ._right{
-          .oneImg{
-            width: 220px;
-          }
-          .oneTwo{
-            width: 220px;
-            margin-left: 16px;
-          }
-        .oneTree{
+      ._right {
+        .oneImg {
+          width: 220px;
+        }
+
+        .oneTwo {
+          width: 220px;
+          margin-left: 16px;
+        }
+
+        .oneTree {
           width: 456px;
           margin-top: 20px;
         }
@@ -247,9 +257,10 @@ export default {
             font-size: 32px;
           }
 
-          .button-view{
+          .button-view {
             margin-top: 20px;
-            .v-btn{
+
+            .v-btn {
               border-radius: 35px !important;
             }
           }
