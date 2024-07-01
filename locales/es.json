@@ -2,7 +2,9 @@
   "header": {
     "lang": "Cambiar idioma",
     "information": "Download",
-    "placeholder": "Por favor ingrese para ver los comerciantes de pedidos"
+    "placeholder": "Por favor ingrese para ver los comerciantes de pedidos",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
   },
   "home": {
     "moduleTitle": "Todos los hoteles"

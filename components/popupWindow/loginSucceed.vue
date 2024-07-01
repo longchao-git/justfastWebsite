@@ -6,13 +6,10 @@
           <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
                alt=""/>
         </div>
-        <div class="loginClass">
-          <div class="name">“halo，终于等到您
-            你是否愿意写一份关于自己家乡的游记？”</div>
-        </div>
-        <div class="flex_center">
-          <div @click="handleConfirmSubbit" class="button_info">提交</div>
-        </div>
+
+          <img  src="https://www.cuai-zi.net/attachs/shop/shopshare/123.png" style='width: 100%'
+               alt=""/>
+
       </div>
     </div>
   </div>
@@ -57,12 +54,12 @@ export default {
   border-radius: 8px;
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
-  width: 540px;
-  height: 320px;
+  width: 264px;
+  //height: 320px;
   position: relative;
 
   > div {
-    position: absolute;
+    //position: absolute;
     top: 0;
     width: 100%;
     text-align: center;

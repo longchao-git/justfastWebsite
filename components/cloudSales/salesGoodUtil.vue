@@ -1,23 +1,46 @@
 <template>
   <div class='content_tab'>
     <div class='flex flex-bw flex-a-c title'>
-      <h3 class='module_title'>cascsac</h3>
+      <h3 class='module_title'>{{ topInfo.title }} <span v-if="topInfo.yyst != '1'" style='color: #ee8080'>(打烊了)</span></h3>
     </div>
-    <div class='card_container'>
-      <div class='card_item' v-for='item in 12' :key='item'>
-        <div class='card_img_container'>
-          <img class='card_img fit-cover' :src="'https://picsum.photos/200/300?id=' + item + 1" />
-        </div>
-        <div class='flex flex-column'>
-          <span class='font18 fontb beyond'>凯爱第三大 </span>
-          <div style='display: flex;flex-direction: row; justify-content: space-between;'>
-            <span class='color-4B4B4B  line22 classNameView'>€4.3</span>
-            <div class='buttonView' @click='loginbindTap'>+</div>
+    <div  v-for="(item,index) in list" :key='index'>
+      <div style='color: #ee8080;margin-bottom: 12px' class=' font14'>{{item.title}}</div>
+      <div class='card_container'>
+        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'>
+          <div class='card_img_container'>
+            <img class='card_img fit-cover' :src="item.photo" />
+          </div>
+          <div class='flex flex-column'>
+            <span class='font18 fontb beyond'>{{ items.title }} </span>
+            <div style='display: flex;flex-direction: row; justify-content: space-between;'>
+              <span class=' line22 classNameView' style='color: #ee8080;'>
+                	<span>€</span>
+								{{items.price}}
+								<span>/ {{items.unit}}</span>
+								<span class='del ml5' v-if="items.is_discount == '1'">
+								{{items.oldprice}}/{{items.unit}}
+								</span>
+              </span>
+              <div class='flex flex-j-end' v-if="items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0">
+                <div class='buttonView' @click='addCart(1,index,indexs)' v-if="items.num">-</div>
+                <div class="num" v-if="items.num">
+                  {{items.num}}
+                </div>
+                <div class='buttonView' @click='addCart(2,index,indexs)' >+</div>
+              </div>
+
+              <div class='spec serg_btnss' v-else-if="items.sale_sku<=0">已售罄</div>
+              <div class='spec serg_btn'  @click='loginbindTap(items.product_id,items)'  v-else>
+                可选规格
+                <span class='num' v-if="items.num > 0">{{ items.num }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <tick-attribute :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></tick-attribute>
+
+    <tick-attribute :type='loginType' :specification='specification' :productInfo='productInfo' @handleCloseLoginDialog='handleCloseLoginDialog'></tick-attribute>
   </div>
 </template>
 
@@ -28,10 +51,30 @@ export default {
   components: {
     tickAttribute
   },
+  props: {
+    topInfo: {
+      type: Object,
+      default: {}
+    },
+    list: {
+      type: Array,
+      default: []
+    },
+    shop_id:{
+      type: String,
+      default: ''
+    },
+
+  },
   data() {
     return {
       active: 1,
-      loginType: -1
+      loginType: -1,
+      specShow: false,
+      newSpecs: {},
+      ecartList:[],
+      specification:[],
+      productInfo:{},
     };
   },
   methods: {
@@ -43,9 +86,22 @@ export default {
       console.log(value)
       this.loginType = value;
     },
-    loginbindTap(){
+    loginbindTap(product_id,item){
       this.loginType = 2;
-    }
+      this.productInfo = item
+      this.specification = item.specification
+    },
+    //加入购物车
+    addCart(type,index,indexs) {
+
+
+      this.$emit('addCilck', {
+        type,
+        index,
+        indexs,
+      })
+
+    },
   }
 };
 </script>
@@ -78,7 +134,22 @@ export default {
       }
     }
   }
-
+  .serg_btn {
+    background: #FF797C !important;
+    font-size: 10px !important;
+    line-height: 16px !important;
+    height: 16px !important;
+    padding: 0 7px !important;
+    color: #fff !important;
+  }
+  .serg_btnss{
+    background: #ffffff !important;
+    font-size: 10px !important;
+    line-height: 16px !important;
+    height: 16px !important;
+    padding: 0 7px !important;
+    color: #999 !important;
+  }
   .module_title {
     font-size: 48px;
     font-weight: 700;
@@ -108,13 +179,14 @@ export default {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+
+    //justify-content: space-between;
   }
 
   .card_item {
     width: calc((100% - 120px) / 6);
     margin-bottom: 32px;
-
+    margin-right: 12px;
     .card_img_container {
       position: relative;
       margin-bottom: 16px;

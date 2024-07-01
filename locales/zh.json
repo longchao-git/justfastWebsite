@@ -2,7 +2,12 @@
     "header": {
         "lang": "语言切换",
         "information": "下载app",
-        "placeholder": "请输入查看下单商家"
+        "placeholder": "请输入查看下单商家",
+        "login": "登录",
+        "register": "注册"
+    },
+    "userPopup": {
+      "name": "登录"
     },
     "home": {
       "moduleTitle": "所有饭店"

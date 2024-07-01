@@ -27,7 +27,7 @@ export default ({redirect, $axios}) => {
 
   // 返回结果拦截器
   $axios.interceptors.response.use(response => {
-    console.log(response)
+
     if (response.status === 200) {
       // 判断登陆是否过期
       // if (response.data.code === 1007 || response.data.code === 500) {
@@ -37,14 +37,10 @@ export default ({redirect, $axios}) => {
       //     return Promise.reject(response.data);
       // }
       // 操作成功
-      if (response.data.code === 1001) {
-        return Promise.resolve(response.data.body);
+      if (response.data.error=='0') {
+        return Promise.resolve(response.data.data);
       } else {
-        // token 错误，重新登录
-        if (response.data.code === 1010) {
-          errorManage(data)
-        }
-        return Promise.reject(response.data);
+
       }
     } else {
       return Promise.reject(response.data);

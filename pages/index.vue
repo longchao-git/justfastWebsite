@@ -113,12 +113,7 @@ export default {
     } else {
       console.log('Geolocation is not supported by this browser.');
     }
-    const params = {
-      data: {'page': 1, "cate_id":0,"pei_filter":"","youhui_filter":"","feature_filter":"","order":"","index":1 }
-    };
-    this.$axios.post('/client/waimai/shop/shoplist', params).then(res => {
-      console.log(res);
-    });
+
 
     window.addEventListener('scroll', this.scrollEvent.bind(this));
   }

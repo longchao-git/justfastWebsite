@@ -3,7 +3,8 @@ import config from '../config';
 export const state = () => ({
   locales: ['zh', 'es'],
   locale: 'es',
-  userInfo: {}
+  userInfo: {},
+  searchKeywords: '',
 });
 
 export const getters = {
@@ -21,6 +22,10 @@ export const mutations = {
     if (state.locales.indexOf(locale) !== -1) {
       state.locale = locale;
     }
+  },
+  SET_KEYWORDS(state, keywords) {
+    console.log(keywords)
+    state.searchKeywords = keywords;
   },
   SET_USERINFO(state, userInfo) {
     state.userInfo = userInfo

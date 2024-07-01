@@ -1,6 +1,6 @@
 export default {
 	// api请求基础路径
-	// BASE_URL: 'https://www.cuai-zi.net/api/v1/',// 正式
+	// BASE_URL: 'https://www.cuai-zi.net/api/v1/', // 正式
   BASE_URL: 'https://www.cuai-zi.com/api/v1/', // 测试
 
 	// 状态码错误信息

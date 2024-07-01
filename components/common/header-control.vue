@@ -17,7 +17,7 @@
             alt=""
           />
           <v-spacer />
-          <div class='login-input' >
+          <div class='login-input' v-if='getActiveMenuInx>0'>
             <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
             <!--          el-icon-search-->
             <i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>
@@ -46,7 +46,7 @@
 <!--        </div>-->
 
         <!-- 登录样式 -->
-        <div class='login-input' >
+        <div class='login-input' v-if='getActiveMenuInx>0' >
           <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
 <!--          el-icon-search-->
           <i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>
@@ -57,13 +57,37 @@
             }}
           </v-btn>
           <v-btn @click='handleClick(1)' class='login-bt try-out-bt' height='50px'>{{ $t('header.information') }}</v-btn>
+<!--          <v-btn @click='handleClick(1)' class='login-bt try-out-bt' height='50px'>{{ $t('header.information') }}</v-btn>-->
+          <v-menu eager bottom offset-y left open-on-hover>
+            <template #activator="{ attrs, on }">
+              <v-tab v-bind="attrs" v-on="on" class="v-tab--active">
+                <v-btn  class='login-bt try-out-bt' height='50px'>{{ $t('header.login') }}</v-btn>
+              </v-tab>
+            </template>
+            <v-list flat>
+              <template v-if='true'>
+                <v-list-item link>
+                  <v-list-item-title @click="handleCloseLoginDialog(1)">{{ $t('header.login') }}/{{ $t('header.register') }}</v-list-item-title>
+                </v-list-item>
+              </template>
+              <template v-else>
+                <v-list-item href="/personalCenter?type=3">
+                  <v-list-item-title>{{ $t('header.navList')[0] }}</v-list-item-title>
+                </v-list-item>
+                <v-list-item href="/personalCenter?type=2">
+                  <v-list-item-title>{{ $t('header.navList')[1] }}</v-list-item-title>
+                </v-list-item>
+                <v-list-item link href="/message">
+                  <v-list-item-title style="color: #292e35 !important">{{ $t('header.navList')[2] }}</v-list-item-title>
+                </v-list-item>
+              </template>
+            </v-list>
+          </v-menu>
         </div>
       </div>
     </v-app-bar>
     <!-- 登录弹窗 -  -->
-    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
-    <!-- 登录成功弹窗 -  -->
-    <login-succeed :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
+    <login-user :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <!-- 语言切换 -->
     <info-window :isShow='isShowContactInfoDialog' @handleClose='handleInfoWindowState' />
   </div>
@@ -71,15 +95,16 @@
 
 <script>
 import LoginWindow from '@/components/popupWindow/loginWindow';
-import loginSucceed from '@/components/popupWindow/loginSucceed';
+import LoginUser from '@/components/popupWindow/loginLogin';
 import InfoWindow from '@/components/popupWindow/infoWindow';
+import { mapGetters, mapMutations, mapState,mapActions } from 'vuex';
 
 export default {
   name: 'header-control',
   components: {
     LoginWindow,
     InfoWindow,
-    loginSucceed
+    LoginUser
   },
   data() {
     return {
@@ -95,9 +120,17 @@ export default {
   watch: {
     $route() {
       this.isShowPhoneMenu = false;
+    },
+    searchKeywords(){
+      this.context = this.searchKeywords;
     }
   },
+  created() {
+    console.log(this.searchKeywords)
+    this.context = this.searchKeywords;
+  },
   computed: {
+    ...mapState(['searchKeywords']),
     // 获取url 路径
     getUrlPath() {
       return this.$route.path;
@@ -125,13 +158,12 @@ export default {
     // 获取菜单选中下标
     getActiveMenuInx() {
       const activeMenus = [
+        [],
         ['/', ''],
-        ['/product/solutions/brand', '/product/capability/brand', '/product/solutions/ai-crm', '/product/capability/ai-crm'],
-        ['/sass-solution', '/sass-private'],
-        ['/teamwork'],
-        ['/headlines', '/headlines-detail', '/popular-tags'],
-        ['/about']
+        ['/creation'],
       ];
+      // console.log(this.getUrlPath)
+      // console.log(activeMenus.findIndex(item => item.includes(this.getUrlPath)))
       return activeMenus.findIndex(item => item.includes(this.getUrlPath));
     }
   },
@@ -143,15 +175,21 @@ export default {
       if(type === 1){
         window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843';
       }else {
-        window.location.href = '/creation';
+        if (!this.context) {
+          this.$message.warning(this.$t('header.placeholder'));
+          return;
+        }
+        window.location.href = '/creation?keywords=' + this.context;
       }
     },
+
     /** 处理联系方式弹框的状态 */
     handleInfoWindowState(value) {
       this.isShowContactInfoDialog = value;
     },
     /** 处理登录弹框的关闭操作 */
     handleCloseLoginDialog(value) {
+      console.log(value)
       this.loginType = value;
     }
   }

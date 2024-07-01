@@ -7,22 +7,32 @@
                alt=""/>
         </div>
         <div class="loginClass">
-          <img class='card_img fit-cover' :src="'https://picsum.photos/200/300?id=3'" />
+          <img class='card_img fit-cover' :src="productInfo.photo" />
           <div class='ml1'>
-            <div>红烧排骨</div>
-            <span class='color-4B4B4B font14 line22'>€4.3</span>
+            <div>{{ productInfo.title }}</div>
+            <span class='color-4B4B4B font14 line22'>
+              <span class=' line22 classNameView' style='color: #ee8080;'>
+                	<span>€</span>
+								{{productInfo.price}}
+								<span>/ {{productInfo.unit}}</span>
+								<span class='del ml5'v-if="productInfo.is_discount == '1'">
+								{{productInfo.oldprice}}/{{productInfo.unit}}
+								</span>
+              </span>
+            </span>
           </div>
         </div>
-        <div>
-          <h3 class='module_title'>属性</h3>
+        <div v-for='(item,index) in specification'>
+          <h3 class='module_title'>{{ item.key}}</h3>
           <div class='mxTick'>
-            <div v-for='(item,index) in [1,2,3]'>
-              <div class='font14'>无辣</div>
-              <img class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
+            <div v-for='(items,indexs) in item.val'>
+              <div class='font14'>{{ items }}</div>
+              <img v-if='items.show' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
+                   alt=""/>
+              <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
                    alt=""/>
             </div>
           </div>
-
         </div>
         <div class="flex_center">
           <div @click="handleConfirmSubbit" class="button_info">确定</div>
@@ -34,7 +44,21 @@
 
 <script>
 export default {
-  props: ['type'],
+
+  props: {
+    type: {
+      type: Number,
+      default: -1
+    },
+    specification: {
+      type: Array,
+      default: []
+    },
+    productInfo:{
+      type: Object,
+      default: {}
+    },
+  },
   data(){
     return{
       companyTypeList:[],
@@ -44,13 +68,14 @@ export default {
       radio:1,
     }
   },
+
   methods: {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
       this.$emit('handleCloseLoginDialog', value)
     },
     handleConfirmSubbit(){
-
+      this.$emit('handleCloseLoginDialog', -1)
     }
   }
 }
@@ -76,12 +101,12 @@ export default {
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
   width: 540px;
-  height:100%;
+  //height:100%;
   max-height: 620px;
   position: relative;
 
   > div {
-    position: absolute;
+    //position: absolute;
     top: 0;
     width: 100%;
     text-align: center;

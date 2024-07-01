@@ -1,7 +1,7 @@
 <template>
   <div class="detail_container">
-    <cloud-sales-home-list />
-    <div class="flex flex-a-c flex-j-c" style="cursor: pointer">
+    <expansion-market :lists='lists'/>
+    <div class="flex flex-a-c flex-j-c mt3" style="cursor: pointer" @click='bindTapCilck'>
       <span class="color-242424 font14">{{ $t('creation.title') }}</span>
     </div>
   </div>
@@ -10,25 +10,52 @@
 <script>
 import config from '../config';
 import { mapMutations } from 'vuex';
-import CloudSalesHomeList from '../components/cloudSales/home';
+
+import ExpansionMarket from '@/components/cloudSales/expansionMarket';
 export default {
   components: {
-    CloudSalesHomeList
+    ExpansionMarket
   },
   data() {
     return {
-
-
+      page:1,
+      lists:[],
+      keywords:'',
     };
   },
 
   async fetch() {},
   methods: {
+    ...mapMutations(['SET_KEYWORDS']),
     handleAuthor(){
       window.location.href = '/authorIndex'
+    },
+    bindTapCilck(){
+      this.page++
+      this.shopSearch()
+    },
+    shopSearch(){
+      const params = {
+        data: {'page': this.page, "type":"shops","title":this.keywords}
+      };
+      this.$axios.post('/client/waimai/shop/search', params).then(res => {
+
+        if(this.page == 1 ){
+          this.lists = res.items
+        }else {
+          this.lists = this.lists.concat(res.items)
+        }
+
+      });
     }
   },
-  mounted() {},
+  mounted() {
+    if (this.$route.query.keywords) {
+      this.keywords = this.$route.query.keywords
+      this.SET_KEYWORDS(this.$route.query.keywords);
+    }
+    this.shopSearch()
+  },
 };
 </script>
 <style>
