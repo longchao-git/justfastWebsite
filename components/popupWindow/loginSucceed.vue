@@ -7,7 +7,7 @@
                alt=""/>
         </div>
 
-          <img  src="https://www.cuai-zi.net/attachs/shop/shopshare/123.png" style='width: 100%'
+          <img  :src="posterUrl" style='width: 100%'
                alt=""/>
 
       </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  props: ['type'],
+  props: ['type','posterUrl'],
   data(){
     return{
       companyTypeList:[],

@@ -26,7 +26,7 @@
           <h3 class='module_title'>{{ item.key}}</h3>
           <div class='mxTick'>
             <div v-for='(items,indexs) in item.val'>
-              <div class='font14'>{{ items }}</div>
+              <div class='font14'>{{ items.spec_name }}</div>
               <img v-if='items.show' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
                    alt=""/>
               <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
@@ -34,6 +34,17 @@
             </div>
           </div>
         </div>
+        <h3 class='module_title'>规格</h3>
+        <div  class='mxTick'>
+          <div v-for='(item,index) in specs'>
+            <div class='font14'>{{ item.spec_name }}</div>
+            <img v-if='item.show' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
+                 alt=""/>
+            <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
+                 alt=""/>
+          </div>
+        </div>
+
         <div class="flex_center">
           <div @click="handleConfirmSubbit" class="button_info">确定</div>
         </div>
@@ -51,6 +62,10 @@ export default {
       default: -1
     },
     specification: {
+      type: Array,
+      default: []
+    },
+    specs: {
       type: Array,
       default: []
     },

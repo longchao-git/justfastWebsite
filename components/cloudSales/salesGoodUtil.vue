@@ -3,10 +3,10 @@
     <div class='flex flex-bw flex-a-c title'>
       <h3 class='module_title'>{{ topInfo.title }} <span v-if="topInfo.yyst != '1'" style='color: #ee8080'>(打烊了)</span></h3>
     </div>
-    <div  v-for="(item,index) in list" :key='index'>
+    <div  v-for="(item,index) in list" :key='index' >
       <div style='color: #ee8080;margin-bottom: 12px' class=' font14'>{{item.title}}</div>
       <div class='card_container'>
-        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'>
+        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'  v-if="items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0">
           <div class='card_img_container'>
             <img class='card_img fit-cover' :src="item.photo" />
           </div>
@@ -23,7 +23,7 @@
               </span>
               <div class='flex flex-j-end' v-if="items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0">
                 <div class='buttonView' @click='addCart(1,index,indexs)' v-if="items.num">-</div>
-                <div class="num" v-if="items.num">
+                <div class="num mr1" v-if="items.num">
                   {{items.num}}
                 </div>
                 <div class='buttonView' @click='addCart(2,index,indexs)' >+</div>
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <tick-attribute :type='loginType' :specification='specification' :productInfo='productInfo' @handleCloseLoginDialog='handleCloseLoginDialog'></tick-attribute>
+    <tick-attribute :type='loginType' :specification='specification' :specs='specs' :productInfo='productInfo' @handleCloseLoginDialog='handleCloseLoginDialog'></tick-attribute>
   </div>
 </template>
 
@@ -71,6 +71,7 @@ export default {
       active: 1,
       loginType: -1,
       specShow: false,
+      specs:[],
       newSpecs: {},
       ecartList:[],
       specification:[],
@@ -89,12 +90,11 @@ export default {
     loginbindTap(product_id,item){
       this.loginType = 2;
       this.productInfo = item
+      this.specs = item.specs
       this.specification = item.specification
     },
     //加入购物车
     addCart(type,index,indexs) {
-
-
       this.$emit('addCilck', {
         type,
         index,

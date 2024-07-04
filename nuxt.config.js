@@ -71,6 +71,8 @@ export default {
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
+        { src: '~/plugins/qrcode.js', ssr: false },
+        { src: '~/plugins/html2canvas.js', ssr: false },
         { src: '~/plugins/LocalStorage.js' },
         { src: '~/plugins/element-ui.js' },
         { src: '~/plugins/websocket.js' },
