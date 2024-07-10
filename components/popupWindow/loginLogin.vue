@@ -12,21 +12,21 @@
             <div>{{ $t('loginPopup.fromOne') }}</div>
             <input
               v-model="context"
-              placeholder="请输入"
+              :placeholder="$t('loginPopup.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromTwo') }}</div>
             <input
               v-model="context"
-              placeholder="请输入"
+              :placeholder="$t('loginPopup.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromTree') }}</div>
             <input
               v-model="context"
-              placeholder="请输入"
+              :placeholder="$t('loginPopup.ingrese')"
               class="c-input"/>
           </div>
 

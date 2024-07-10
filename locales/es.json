@@ -7,7 +7,10 @@
     "register": "Registrarse"
   },
   "home": {
-    "moduleTitle": "Todos los hoteles"
+    "moduleTitle": "Todos los restaurantes",
+    "lengua": "lengua",
+    "tasa": "tasa" ,
+    "ingrese":"Por favor ingrese"
   },
   "index": {
     "oneTitle": "Welcome to Business KUAI-ZI",
@@ -54,7 +57,11 @@
     }
   },
   "creation": {
-    "title": "Haga clic para cargar más"
+    "title": "Haga clic para cargar más",
+    "cerrado": "cerrado",
+    "gastos": "Sin gastos de envío",
+    "Agotado": "Agotado ya",
+    "disponibles": "Especificaciones opcionales disponibles"
   },
   "contentDetail": {
     "title": "Ha elegido",

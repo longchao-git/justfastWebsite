@@ -8,8 +8,8 @@
                  alt='' />
           </div>
           <div class='info-window_view'>
-            <p class='pone'>语言和地区</p>
-            <div class='name'>选择语言和区域</div>
+            <p class='pone'>{{ $t('home.lengua')}}</p>
+
             <div class='languageView'>
               <div @click='handleSelectLang(item)' v-for='(item, index) in languageList' :key='item.value'
                    :class='{ setView: setIndex === item.value }'>

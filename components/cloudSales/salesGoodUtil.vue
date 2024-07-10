@@ -1,7 +1,7 @@
 <template>
   <div class='content_tab'>
     <div class='flex flex-bw flex-a-c title'>
-      <h3 class='module_title'>{{ topInfo.title }} <span v-if="topInfo.yyst != '1'" style='color: #ee8080'>(打烊了)</span></h3>
+      <h3 class='module_title'>{{ topInfo.title }} <span v-if="topInfo.yyst != '1'" style='color: #ee8080'>({{ $t('creation.cerrado')}})</span></h3>
     </div>
     <div  v-for="(item,index) in list" :key='index' >
       <div style='color: #ee8080;margin-bottom: 12px' class=' font14'>{{item.title}}</div>
@@ -29,9 +29,9 @@
                 <div class='buttonView' @click='addCart(2,index,indexs)' >+</div>
               </div>
 
-              <div class='spec serg_btnss' v-else-if="items.sale_sku<=0">已售罄</div>
+              <div class='spec serg_btnss' v-else-if="items.sale_sku<=0">{{  $t('creation.Agotado') }}</div>
               <div class='spec serg_btn'  @click='loginbindTap(items.product_id,items)'  v-else>
-                可选规格
+                {{  $t('creation.disponibles') }}
                 <span class='num' v-if="items.num > 0">{{ items.num }}</span>
               </div>
             </div>

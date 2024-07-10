@@ -36,7 +36,8 @@ export default {
     },
     shopSearch(){
       const params = {
-        data: {'page': this.page, "type":"shops","title":this.keywords}
+        // "LANG":localStorage.getItem('locale')
+        data: {'page': this.page, "type":"shops","title":this.keywords, }
       };
       this.$axios.post('/client/waimai/shop/search', params).then(res => {
 

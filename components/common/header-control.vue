@@ -58,31 +58,31 @@
           </v-btn>
           <v-btn @click='handleClick(1)' class='login-bt try-out-bt' height='50px'>{{ $t('header.information') }}</v-btn>
 <!--          <v-btn @click='handleClick(1)' class='login-bt try-out-bt' height='50px'>{{ $t('header.information') }}</v-btn>-->
-          <v-menu eager bottom offset-y left open-on-hover>
-            <template #activator="{ attrs, on }">
-              <v-tab v-bind="attrs" v-on="on" class="v-tab--active">
-                <v-btn  class='login-bt try-out-bt' height='50px'>{{ $t('header.login') }}</v-btn>
-              </v-tab>
-            </template>
-            <v-list flat>
-              <template v-if='true'>
-                <v-list-item link>
-                  <v-list-item-title @click="handleCloseLoginDialog(1)">{{ $t('header.login') }}/{{ $t('header.register') }}</v-list-item-title>
-                </v-list-item>
-              </template>
-              <template v-else>
-                <v-list-item href="/personalCenter?type=3">
-                  <v-list-item-title>{{ $t('header.navList')[0] }}</v-list-item-title>
-                </v-list-item>
-                <v-list-item href="/personalCenter?type=2">
-                  <v-list-item-title>{{ $t('header.navList')[1] }}</v-list-item-title>
-                </v-list-item>
-                <v-list-item link href="/message">
-                  <v-list-item-title style="color: #292e35 !important">{{ $t('header.navList')[2] }}</v-list-item-title>
-                </v-list-item>
-              </template>
-            </v-list>
-          </v-menu>
+<!--          <v-menu eager bottom offset-y left open-on-hover>-->
+<!--            <template #activator="{ attrs, on }">-->
+<!--              <v-tab v-bind="attrs" v-on="on" class="v-tab&#45;&#45;active">-->
+<!--                <v-btn  class='login-bt try-out-bt' height='50px'>{{ $t('header.login') }}</v-btn>-->
+<!--              </v-tab>-->
+<!--            </template>-->
+<!--            <v-list flat>-->
+<!--              <template v-if='true'>-->
+<!--                <v-list-item link>-->
+<!--                  <v-list-item-title @click="handleCloseLoginDialog(1)">{{ $t('header.login') }}/{{ $t('header.register') }}</v-list-item-title>-->
+<!--                </v-list-item>-->
+<!--              </template>-->
+<!--              <template v-else>-->
+<!--                <v-list-item href="/personalCenter?type=3">-->
+<!--                  <v-list-item-title>{{ $t('header.navList')[0] }}</v-list-item-title>-->
+<!--                </v-list-item>-->
+<!--                <v-list-item href="/personalCenter?type=2">-->
+<!--                  <v-list-item-title>{{ $t('header.navList')[1] }}</v-list-item-title>-->
+<!--                </v-list-item>-->
+<!--                <v-list-item link href="/message">-->
+<!--                  <v-list-item-title style="color: #292e35 !important">{{ $t('header.navList')[2] }}</v-list-item-title>-->
+<!--                </v-list-item>-->
+<!--              </template>-->
+<!--            </v-list>-->
+<!--          </v-menu>-->
         </div>
       </div>
     </v-app-bar>

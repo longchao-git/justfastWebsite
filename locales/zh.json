@@ -10,7 +10,10 @@
       "name": "登录"
     },
     "home": {
-      "moduleTitle": "所有饭店"
+      "moduleTitle": "所有饭店",
+      "lengua": "语言",
+      "tasa": "规格",
+      "ingrese":"请输入"
     },
     "index": {
         "oneTitle": "欢迎来到商务快子",
@@ -58,7 +61,11 @@
         }
     },
     "creation": {
-      "title": "点击加载更多"
+      "title": "点击加载更多",
+      "cerrado": "打烊了",
+      "gastos": "免配送费",
+      "Agotado": "已售罄",
+      "disponibles": "可选规格"
     },
     "contentDetail": {
       "title": "已选择",

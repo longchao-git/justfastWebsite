@@ -5,16 +5,29 @@
       <div class='h-content'>
         <div class='h-conte'>
           <div class='_left'>
+
             <div class='Business'>{{ $t('index.oneTitle') }}</div>
             <div class='Services'>{{ $t('index.oneName') }}</div>
+            <div class='login-input' >
+              <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
+              <!--          el-icon-search-->
+              <i class="el-icon-search " @click='handleClick(3)' style='font-size: 24px'></i>
+              <!--          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>-->
+            </div>
             <div class='Potential'>{{ $t('index.oneContent') }}</div>
             <div class='button-view' style='display: flex; width: 100%'>
-              <v-btn @click='handleClick(1)' height='50px' class='try-out-bt'
-                     style='margin-right: 20px;margin-bottom: 20px'>{{ $t('index.oneButtonLeft') }}
-              </v-btn>
-              <v-btn @click='handleClick(2)' height='50px' class='try-out-bt' style='margin-bottom: 20px'>
-                {{ $t('index.oneButtonRight') }}
-              </v-btn>
+<!--              <v-btn @click='handleClick(1)' height='50px' class='try-out-bt'-->
+<!--                     style='margin-right: 20px;margin-bottom: 20px'>-->
+                <img  src="../assets/images/ios.svg" @click='handleClick(1)'  style='margin-right: 20px;cursor: pointer'
+                      alt=""/>
+<!--                {{ $t('index.oneButtonLeft') }}-->
+<!--              </v-btn>-->
+<!--              <v-btn @click='handleClick(2)' height='50px' class='try-out-bt' style='margin-bottom: 20px;'>-->
+
+                <img  src="../assets/images/playIcon.svg" @click='handleClick(2)'   style='margin-right: 20px;cursor: pointer'
+                      alt=""/>
+<!--                {{ $t('index.oneButtonRight') }}-->
+<!--              </v-btn>-->
             </div>
           </div>
           <div class='_right'>
@@ -87,9 +100,15 @@ export default {
 
     handleClick(type) {
       if (type === 1) {
-        window.location.href = 'https://play.google.com/store/apps/details?id=com.ppinbuy.olebuy&amp;hl=zh&amp;gl=US';
-      } else {
-        window.location.href = 'https://apps.apple.com/cn/app/justfast-cliente/id6480045843';
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.kuaizi.waimai&pcampaignid=web_share';
+      } else if(type === 2) {
+        window.location.href = 'https://apps.apple.com/es/app/kuaizi/id6447261841';
+      }else {
+        if (!this.context) {
+          this.$message.warning(this.$t('header.placeholder'));
+          return;
+        }
+        window.location.href = '/creation?keywords=' + this.context;
       }
       // window.location.href = '/addressIndex';
     },
@@ -119,7 +138,28 @@ export default {
   }
 };
 </script>
-
+<style lang='scss'>
+.login-input {
+  width: 100%;
+  height: 52px;
+  margin: 30px 0;
+  border-radius: 60px;
+  background: #ee8080;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28px;
+  color: white !important;
+  .el-input__inner{
+    background: transparent;
+    border: none;
+    color:  #FFFFFF;
+  }
+  .el-input__inner::-webkit-input-placeholder {
+    color:  #FFFFFF;
+  }
+}
+</style>
 <style scoped lang='scss'>
 .customer-collection_footer-close {
   position: fixed;

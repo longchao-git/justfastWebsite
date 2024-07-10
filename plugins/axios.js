@@ -13,6 +13,8 @@ export default ({redirect, $axios}) => {
     // 不同请求方式不同处理
     config.data.CLIENT_OS = 'IOS'
     config.data.CLIENT_API = 'CUSTOM'
+    config.data.LANG = localStorage.getItem('locale')?localStorage.getItem('locale'):'es'
+
     config.data.TOKEN =  localStorage.getItem('token') || '';
     config.data.LNG =  localStorage.getItem('LNG') || -3.7160397;
     config.data.LAT =  localStorage.getItem('LAT') || 40.4202472;

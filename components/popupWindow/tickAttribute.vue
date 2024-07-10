@@ -34,7 +34,7 @@
             </div>
           </div>
         </div>
-        <h3 class='module_title'>规格</h3>
+        <h3 class='module_title'>{{ $t('home.tasa')}}</h3>
         <div  class='mxTick'>
           <div v-for='(item,index) in specs'>
             <div class='font14'>{{ item.spec_name }}</div>

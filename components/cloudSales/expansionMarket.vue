@@ -7,7 +7,7 @@
       <div @click='goDetail(item.shop_id)' class='card_item' v-for='(item,index) in lists' :key='index'>
         <div class='card_img_container'>
           <img class='card_img fit-cover' :src='item.logo' />
-          <div class='state' v-if="item.yyst != '1'">打烊了</div>
+          <div class='state' v-if="item.yyst != '1'">{{ $t('creation.cerrado') }}</div>
         </div>
         <div class='flex flex-column'>
           <span class='font18 fontb beyond'>{{ item.title }}</span>
@@ -17,7 +17,7 @@
             </div>
 
             <div class='text_freight'>
-              <span v-if='item.freight == 0'>免配送费</span>
+              <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
               <span v-else-if='item.is_reduce_pei == 1'>配送费{{ item.reduceEd_freight }}起</span>
               <span v-else>配送€{{ item.freight }}起</span>
             </div>
