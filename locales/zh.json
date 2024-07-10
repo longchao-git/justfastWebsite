@@ -13,7 +13,9 @@
       "moduleTitle": "所有饭店",
       "lengua": "语言",
       "tasa": "规格",
-      "ingrese":"请输入"
+      "ingrese":"请输入",
+      "partir": "起送",
+      "Gastos": "配送"
     },
     "index": {
         "oneTitle": "欢迎来到商务快子",

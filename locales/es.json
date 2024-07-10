@@ -10,7 +10,9 @@
     "moduleTitle": "Todos los restaurantes",
     "lengua": "lengua",
     "tasa": "tasa" ,
-    "ingrese":"Por favor ingrese"
+    "ingrese":"Por favor ingrese",
+    "partir": "Envíos a partir de",
+    "Gastos": "Gastos de envío"
   },
   "index": {
     "oneTitle": "Welcome to Business KUAI-ZI",

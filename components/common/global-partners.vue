@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       config: {
-        bgImgSrc: require('~/assets/images/global-map.png'),
+        // bgImgSrc: require('~/assets/images/global-map.png'),
         halo: {
           show: true,
           duration: [30, 30],
