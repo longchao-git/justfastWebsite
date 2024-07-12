@@ -102,7 +102,7 @@ export default {
     },
     shopDetail() {
       const params = {
-        data: { 'shop_id': this.shop_id }
+        data: { 'shop_id': this.shop_id ,"LANG": "es" }
       };
       this.$axios.post('/client/waimai/shop/detail', params).then(res => {
         this.topInfo = res.detail;
