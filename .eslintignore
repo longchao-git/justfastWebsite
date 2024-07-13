@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+nuxt.config.js
 /dist
 /pages
 /components
@@ -7,6 +8,9 @@ node_modules
 /store
 /layouts
 /mixins
+/hooks
+/utils
+/config
 
 # local env files
 .env.local
