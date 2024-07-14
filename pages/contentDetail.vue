@@ -137,7 +137,7 @@
 				let qrcode = new this.$RCode('qrcodeImg', {
 					width: 80, // 设置宽度，单位像素
 					height: 80, // 设置高度，单位像素
-					text: this.topInfo.share_url // 设置二维码内容或跳转地址
+					text: 'https://cuai-zi.net/web/app_share.html' // 设置二维码内容或跳转地址
 				})
 			},
 
