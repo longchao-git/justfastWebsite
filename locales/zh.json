@@ -80,5 +80,22 @@
       "fromTree": "邮编",
       "fromFour": "备注",
       "fromFive": "卡号"
-    }
+    },
+  "loginOrRegister": {
+    "title": "登录或注册",
+    "formLabel": [
+      "国家/地区",
+      "手机号码",
+      "手机验证码"
+    ],
+    "btnText": [
+      "登录或注册",
+      "获取验证码",
+      "后重新获取"
+    ],
+    "placeholder": [
+      "请输入",
+      "请选择"
+    ]
+  }
 }

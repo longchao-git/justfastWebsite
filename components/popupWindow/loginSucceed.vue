@@ -1,15 +1,13 @@
 <template>
-  <div v-if="type === 2" class="login-window">
-    <div class="login-window-card" >
+  <div v-if='type === 2' class='login-window'>
+    <div class='login-window-card'>
       <div>
-        <div class="loginView">
-          <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
-               alt=""/>
+        <div class='loginView'>
+          <img @click='handleChangeType(-1)' src='../../assets/images/cloudSales/popupWindow/icon_delet.png'
+               alt='' />
         </div>
-
-          <img  :src="posterUrl" style='width: 100%'
-               alt=""/>
-
+        <img :src='posterUrl' style='width: 100%'
+             alt='' />
       </div>
     </div>
   </div>
@@ -17,25 +15,25 @@
 
 <script>
 export default {
-  props: ['type','posterUrl'],
-  data(){
-    return{
-      companyTypeList:[],
-      tradeTypeId:'',
-      context:'',
-      isshow:false,
-    }
+  props: ['type', 'posterUrl'],
+  data() {
+    return {
+      companyTypeList: [],
+      tradeTypeId: '',
+      context: '',
+      isshow: false
+    };
   },
   methods: {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
-      this.$emit('handleCloseLoginDialog', value)
+      this.$emit('handleCloseLoginDialog', value);
     }
   }
-}
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .login-window {
   position: fixed;
   background: rgba(0, 0, 0, .4);
@@ -64,6 +62,7 @@ export default {
     width: 100%;
     text-align: center;
     height: 100%;
+
     > .loginView {
       position: absolute;
       width: 55px;
@@ -71,6 +70,7 @@ export default {
       text-align: right;
       right: 0;
       top: 0;
+
       img {
         width: 55px;
         height: 55px;
@@ -78,7 +78,7 @@ export default {
       }
     }
 
-    .loginClass{
+    .loginClass {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -86,7 +86,7 @@ export default {
       margin-top: 8px;
       padding: 0 48px;
 
-      .name{
+      .name {
         margin-top: 100px;
         font-size: 24px;
         color: #2C2C2C;
@@ -101,7 +101,7 @@ export default {
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      margin: 32px 0 ;
+      margin: 32px 0;
     }
 
     .button_info {
@@ -158,24 +158,27 @@ export default {
   .login-window-card {
     width: 300px;
     height: 280px;
+
     > div {
       p {
         font-size: 16px;
         padding: 16px 0;
         margin-bottom: 0 !important;
       }
-      .loginClass{
+
+      .loginClass {
         margin-top: 0px;
         padding: 0 16px;
 
-        .name{
+        .name {
           margin-top: 90px;
           font-size: 16px;
           margin-bottom: 6px;
         }
       }
     }
-    .button_info{
+
+    .button_info {
       width: 200px !important;
     }
   }

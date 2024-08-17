@@ -9,7 +9,6 @@
           </div>
           <div class='info-window_view'>
             <p class='pone'>{{ $t('home.lengua')}}</p>
-
             <div class='languageView'>
               <div @click='handleSelectLang(item)' v-for='(item, index) in languageList' :key='item.value'
                    :class='{ setView: setIndex === item.value }'>
