@@ -11,16 +11,19 @@ export default ({redirect, $axios}) => {
     config.timeout = 1000 * 60
 
     // 不同请求方式不同处理
-    config.data.CLIENT_OS = 'IOS'
+
+    config.data.CLIENT_OS = 'ios'
     config.data.CLIENT_API = 'CUSTOM'
     config.data.LANG = localStorage.getItem('locale')?localStorage.getItem('locale'):'es'
 
-    config.data.TOKEN =  localStorage.getItem('token') || '';
+    // config.data.TOKEN =  localStorage.getItem('token') || '';
+    config.data.TOKEN = '4-KTAF2AAE22DBFC1ACEA947A650BA7F5408'
     config.data.LNG =  localStorage.getItem('LNG') || -3.7160397;
     config.data.LAT =  localStorage.getItem('LAT') || 40.4202472;
     config.data.data = JSON.stringify(config.data.data)
     config.data = objToFormData(config.data)
     config.headers['Access-Control-Allow-Origin'] =  '*';
+    // config.headers['TOKEN'] = '4-KTAF2AAE22DBFC1ACEA947A650BA7F5408'
     config.headers['content-type'] =  'application/x-www-form-urlencoded';
     return config
   }, error => {

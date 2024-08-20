@@ -1,5 +1,5 @@
 <template>
-  <div v-if='type === 2' class='login-window'>
+  <div v-if='type === 3' class='login-window'>
     <div class='login-window-card'>
       <div>
         <div class='loginView'>

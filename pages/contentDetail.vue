@@ -8,8 +8,8 @@
         }}
       </div>
     </div>
-    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
-<!--    <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />-->
+    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'/>
+    <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
     <div id='posterHtml' class='posterHtml' ref='posterHtml'>
       <img :src='topInfo.logo' class='logo'>
@@ -53,7 +53,8 @@ export default {
       goodsArr: [],
       addCartAary: [],
       topInfo: {},
-      posterUrl: ''
+      posterUrl: '',
+      product_info: ''
     };
   },
 
@@ -68,11 +69,17 @@ export default {
       } = e;
       let goodsArr = this.goodsArr;
       let products = goodsArr[index].products[indexs];
+      console.log();
       if (type === 2) {
-        this.$set(this.goodsArr[index].products, indexs, {
-          ...goodsArr[index].products[indexs],
-          num: products.num + 1
-        });
+        if (products.sale_sku > products.num) {
+          this.$set(this.goodsArr[index].products, indexs, {
+            ...goodsArr[index].products[indexs],
+            num: products.num + 1
+          });
+        } else {
+          this.$message.info('商品库存不足');
+        }
+
       } else {
         this.$set(this.goodsArr[index].products, indexs, {
           ...goodsArr[index].products[indexs],
@@ -82,6 +89,26 @@ export default {
 
       this.goodsArr = goodsArr;
       let info = this.goodsArr[index].products[indexs];
+      let infoData = {
+        'is_discount': info.is_discount,
+        'is_must': info.is_must,
+        'oldprice': info.oldprice,
+        'price': info.price,
+        'package': info.package_price,
+        'product_id': info.product_id,
+        'pcate_id': info.cate_id,
+        'sku_id': info.sku_id,
+        'sale_sku': info.sale_sku,
+        'sale_type': info.sale_type,
+        'spec_id': info.spec_id || '',
+        'shoptitle': this.topInfo.title,
+        'shopid': info.shop_id,
+        'str_obj': {},
+        'str_name': {},
+        'title': info.title,
+        'num': info.num
+      };
+      console.log(infoData);
       let ishowAdd = true;
       for (let i in this.addCartAary) {
         if (this.addCartAary[i].product_id === info.product_id && this.addCartAary[i].sku_id === info.sku_id) {
@@ -94,26 +121,110 @@ export default {
         }
       }
       if (ishowAdd) {
-        this.addCartAary.push(info);
+        this.addCartAary.push(infoData);
       }
-      console.log(this.addCartAary)
+      console.log(this.addCartAary);
     },
-    handleAuthor() {
-      window.location.href = '/authorIndex';
-    },
+
     /** 处理登录弹框的关闭操作 */
-    handleCloseLoginDialog(value) {
+    async handleCloseLoginDialog(value) {
       if (value === 2) {
         this.$html2canvas(this.$refs.posterHtml, {}).then((canvas) => {
           let posterUrl = canvas.toDataURL('image/png');
           this.posterUrl = posterUrl;
         });
-      }else  if(value === 1){
-        this.loginType = 2
-        return
+        this.loginType = 3;
+      } else if (value === 1) {
+        if (this.addCartAary.length <= 0) {
+          this.$message.info('请选择');
+          return;
+        }
+
+        if (localStorage.getItem('token')) {
+          this.orderForm().then(res => {
+            this.loginType = 2;
+          });
+
+        } else {
+          this.loginType = 1;
+        }
+        return;
       }
-      console.log(value)
-      this.loginType = value;
+    },
+    handleLoginAdd(addr_id){
+      var params = {
+        "shop_id": this.shop_id,
+        "addr_id": addr_id,
+        "coupon_id": -1,
+        'hongbao_id': -1,
+        "pei_type": 0,
+        "online_pay": 0,
+        "products": this.product_info,
+        "intro": '',
+        "hg_products": '',
+        "peicard_id": '',
+        "pcard_id":'',
+        "is_first": '',
+        "hongbao_package_id": '',
+        "is_pos":0
+      };
+      this.$axios.post('/client/waimai/order/create', params).then(res => {
+       this.$message.success('订单已提交（餐到付款现金）')
+      });
+    },
+    orderForm() {
+      return new Promise((resolve, reject) => {
+        let product_info2 = '';
+        let cart = this.addCartAary;
+        let title = '';
+        for (let i in cart) {
+          title = cart[i].shoptitle;
+          if (cart[i].spec_id) {
+            product_info2 += cart[i].product_id + ':' + cart[i].spec_id + ':' + cart[i].num;
+          } else {
+            product_info2 += cart[i].product_id + ':' + 0 + ':' + cart[i].num;
+          }
+          product_info2 += ',';
+        }
+        this.product_info = product_info2.substring(0, product_info2.length - 1, 1);
+        const params = {
+          data: {
+            'shop_id': this.shop_id,
+            'products': this.product_info,
+            'pei_type': 0,
+            'is_ziti': 0
+          }
+        };
+        this.$axios.post('/client/waimai/order/order', params).then(res => {
+          resolve(res);
+        });
+      });
+    },
+    orderAddr() {
+      const params = {
+        data: {
+          'shop_id': this.shop_id,
+          'page': 1
+        }
+      };
+      this.$axios.post('/client/member/addr/orderAddr', params).then(res => {
+        // this.topInfo = res.detail;
+        // let list = res.detail.items;
+        // this.goodsArr = list;
+        // this.resetData();
+        // that.setData({
+        //   newhuodong,
+        //   topInfo: res.data.detail,
+        //   min_amount: res.data.detail.min_amount,
+        //   shopCoupon: res.data.detail.shop_coupon, //商家优惠券信息；
+        //   shopAdv: res.data.detail.advs, //商家广告；
+        //   tj_items: res.data.detail.tj_items ? res.data.detail.tj_items : '', //商家推荐；
+        //   goodsCate_idx: res.data.detail.items[0] ? res.data.detail.items[0].cate_id : '',
+        //   goodsArr,
+        //   is_must: res.data.detail.have_must,
+        // });
+
+      });
     },
     shopDetail() {
       const params = {
@@ -160,8 +271,6 @@ export default {
         sku_id;
 
       for (let i = 0; i < goodsArr.length; i++) {
-
-
         for (let j = 0; j < goodsArr[i].products.length; j++) {
           if (goodsArr[i].products[j].length != 0) {
             //全部商品；
@@ -200,6 +309,7 @@ export default {
       this.shop_id = this.$route.query.shop_id;
     }
     this.shopDetail();
+    this.orderAddr();
   }
 };
 </script>

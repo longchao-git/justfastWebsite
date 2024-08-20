@@ -1,52 +1,38 @@
 <template>
-  <div v-if="type===2" class="login-window">
-    <div class="login-tan-card"  :class="type===2?'login-class':''">
-        <div>
-          <div class="loginView">
-            <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
-                 alt=""/>
-          </div>
-          <p>{{ $t('loginPopup.name') }}</p>
-          <div class="loginClass">
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromOne') }}</div>
-              <el-select v-model='addr_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
-                         style='flex: 1'>
-                <el-option v-for='(item, index) in companyTypeList' :key='index' :label='item.name'
-                           :value='item.value'></el-option>
-              </el-select>
-            </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromTwo') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromTree') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromFour') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromFive') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
-            <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
-          </div>
+  <div v-if="type===3" class="login-window">
+    <div class="login-tan-card"  :class="type===1?'login-class':''">
+      <div>
+        <div class="loginView">
+          <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
+               alt=""/>
         </div>
+        <p>{{ $t('userPopup.name') }}</p>
+        <div class="loginClass">
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromOne') }}</div>
+            <input
+              v-model="context"
+              :placeholder="$t('loginPopup.ingrese')"
+              class="c-input"/>
+          </div>
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromTwo') }}</div>
+            <input
+              v-model="context"
+              :placeholder="$t('loginPopup.ingrese')"
+              class="c-input"/>
+          </div>
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromTree') }}</div>
+            <input
+              v-model="context"
+              :placeholder="$t('loginPopup.ingrese')"
+              class="c-input"/>
+          </div>
+
+          <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -60,18 +46,12 @@ export default {
       tradeTypeId:'',
       context:'',
       isshow:false,
-      addr_id:'',
     }
   },
   methods: {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
-      if(type === -1){
-        this.$emit('handleCloseLoginDialog', value)
-      }else {
-        this.$emit('handleLoginAdd', this.addr_id)
-      }
-
+      this.$emit('handleCloseLoginDialog', value)
     }
   }
 }
@@ -118,7 +98,7 @@ export default {
 }
 
 .login-class{
-  height: 520px !important;
+  height: 420px !important;
 }
 
 /** 登录卡片样式 */

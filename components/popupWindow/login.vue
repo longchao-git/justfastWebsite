@@ -19,7 +19,7 @@
 
           <div class='login_input p-relative'>
             <div>{{ $t('loginOrRegister.formLabel')[1] }}</div>
-            <input v-model='email' :placeholder="$t('loginOrRegister.placeholder')[0]" class='c-input' />
+            <input v-model='phone' :placeholder="$t('loginOrRegister.placeholder')[0]" class='c-input' />
             <span class='button' style='cursor: pointer' @click='bindSendCode()'>{{
                 isGetCode ? $t('loginOrRegister.btnText')[1] : `${countdown}s${$t('loginOrRegister.btnText')[2]}`
               }}</span>
@@ -85,10 +85,9 @@ export default {
         value: 39
       }],
       tradeTypeId: '',
-      conPhone: '',
+      conPhone: 34,
       isGetCode: true,
       phone: '',
-      email: '',
       countdown: 60,
       code: ''
     };
@@ -119,7 +118,7 @@ export default {
           code: this.code
         };
 
-        this.$axios.get('/login/loginWeb', { params }).then(res => {
+        this.$axios.post('/login/loginWeb', { params }).then(res => {
           localStorage.setItem('token', res.token);
         });
       }
@@ -135,8 +134,13 @@ export default {
           this.$message.error('请输入手机号码');
           return;
         }
-        let params = { phone: this.conPhone + this.phone };
-        this.$axios.get('/smsConfig/sendSmsCode', { params }).then(res => {
+        const params = {
+          data: {
+            mobile: this.conPhone +'-' +  this.phone
+          }
+        };
+
+        this.$axios.post('/magic/sendsms', params).then(res => {
           this.isGetCode = false;
           const interval = setInterval(() => {
             this.countdown--;
