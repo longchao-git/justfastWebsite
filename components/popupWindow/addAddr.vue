@@ -1,6 +1,6 @@
 <template>
-  <div v-if="type===3" class="login-window">
-    <div class="login-tan-card"  :class="type===1?'login-class':''">
+  <div v-if="type===4" class="login-window">
+    <div class="login-tan-card"  :class="type===4?'login-class':''">
       <div>
         <div class="loginView">
           <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"

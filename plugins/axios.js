@@ -16,14 +16,13 @@ export default ({redirect, $axios}) => {
     config.data.CLIENT_API = 'CUSTOM'
     config.data.LANG = localStorage.getItem('locale')?localStorage.getItem('locale'):'es'
 
-    // config.data.TOKEN =  localStorage.getItem('token') || '';
-    config.data.TOKEN = '4-KTAF2AAE22DBFC1ACEA947A650BA7F5408'
+    config.data.TOKEN =  localStorage.getItem('token') || '';
+    // config.data.TOKEN = '2-KT5F50CB82EC23055AC3AD693EA5AD39FD'
     config.data.LNG =  localStorage.getItem('LNG') || -3.7160397;
     config.data.LAT =  localStorage.getItem('LAT') || 40.4202472;
     config.data.data = JSON.stringify(config.data.data)
     config.data = objToFormData(config.data)
     config.headers['Access-Control-Allow-Origin'] =  '*';
-    // config.headers['TOKEN'] = '4-KTAF2AAE22DBFC1ACEA947A650BA7F5408'
     config.headers['content-type'] =  'application/x-www-form-urlencoded';
     return config
   }, error => {

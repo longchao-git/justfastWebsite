@@ -12,38 +12,40 @@
               <div>{{ $t('loginPopup.fromOne') }}</div>
               <el-select v-model='addr_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                          style='flex: 1'>
-                <el-option v-for='(item, index) in companyTypeList' :key='index' :label='item.name'
-                           :value='item.value'></el-option>
+                <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
+                           :value='item.addr_id'></el-option>
               </el-select>
+              <span  @click="handleChangeType(3)" style='cursor: pointer'>添加地址</span>
             </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromTwo') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromTree') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromFour') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
-            <div class="login_input"  >
-              <div>{{ $t('loginPopup.fromFive') }}</div>
-              <input
-                v-model="context"
-                :placeholder="$t('home.ingrese')"
-                class="c-input"/>
-            </div>
+
+<!--            <div class="login_input"  >-->
+<!--              <div>{{ $t('loginPopup.fromTwo') }}</div>-->
+<!--              <input-->
+<!--                v-model="context"-->
+<!--                :placeholder="$t('home.ingrese')"-->
+<!--                class="c-input"/>-->
+<!--            </div>-->
+<!--            <div class="login_input"  >-->
+<!--              <div>{{ $t('loginPopup.fromTree') }}</div>-->
+<!--              <input-->
+<!--                v-model="context"-->
+<!--                :placeholder="$t('home.ingrese')"-->
+<!--                class="c-input"/>-->
+<!--            </div>-->
+<!--            <div class="login_input"  >-->
+<!--              <div>{{ $t('loginPopup.fromFour') }}</div>-->
+<!--              <input-->
+<!--                v-model="context"-->
+<!--                :placeholder="$t('home.ingrese')"-->
+<!--                class="c-input"/>-->
+<!--            </div>-->
+<!--            <div class="login_input"  >-->
+<!--              <div>{{ $t('loginPopup.fromFive') }}</div>-->
+<!--              <input-->
+<!--                v-model="context"-->
+<!--                :placeholder="$t('home.ingrese')"-->
+<!--                class="c-input"/>-->
+<!--            </div>-->
             <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
           </div>
         </div>
@@ -53,7 +55,7 @@
 
 <script>
 export default {
-  props: ['type'],
+  props: ['type','orderAddrList'],
   data(){
     return{
       companyTypeList:[],
@@ -66,7 +68,7 @@ export default {
   methods: {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
-      if(type === -1){
+      if(value === -1||value === 3){
         this.$emit('handleCloseLoginDialog', value)
       }else {
         this.$emit('handleLoginAdd', this.addr_id)

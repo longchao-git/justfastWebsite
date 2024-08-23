@@ -8,9 +8,10 @@
         }}
       </div>
     </div>
-    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'/>
+    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd' :orderAddrList='orderAddrList'/>
     <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
+    <add-addr :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></add-addr>
     <div id='posterHtml' class='posterHtml' ref='posterHtml'>
       <img :src='topInfo.logo' class='logo'>
       <div class='flex' style='align-items: center;padding: 20px 10px;justify-content: space-between;'>
@@ -38,13 +39,14 @@ import salesGoodUtil from '../components/cloudSales/salesGoodUtil';
 import LoginWindow from '../components/popupWindow/loginWindow.vue';
 import loginSucceed from '../components/popupWindow/loginSucceed.vue';
 import login from '../components/popupWindow/login.vue';
-
+import  addAddr from '../components/popupWindow/addAddr.vue'
 export default {
   components: {
     salesGoodUtil,
     LoginWindow,
     loginSucceed,
-    login
+    login,
+    addAddr
   },
   data() {
     return {
@@ -54,7 +56,8 @@ export default {
       addCartAary: [],
       topInfo: {},
       posterUrl: '',
-      product_info: ''
+      product_info: '',
+      orderAddrList:[],
     };
   },
 
@@ -106,7 +109,7 @@ export default {
         'str_obj': {},
         'str_name': {},
         'title': info.title,
-        'num': info.num
+        'num': info.num,
       };
       console.log(infoData);
       let ishowAdd = true;
@@ -149,27 +152,37 @@ export default {
           this.loginType = 1;
         }
         return;
+      }else  if(value === 3){
+        this.loginType = 4;
       }
     },
     handleLoginAdd(addr_id){
       var params = {
-        "shop_id": this.shop_id,
-        "addr_id": addr_id,
-        "coupon_id": -1,
-        'hongbao_id': -1,
-        "pei_type": 0,
-        "online_pay": 0,
-        "products": this.product_info,
-        "intro": '',
-        "hg_products": '',
-        "peicard_id": '',
-        "pcard_id":'',
-        "is_first": '',
-        "hongbao_package_id": '',
-        "is_pos":0
+        data: {
+          "shop_id": this.shop_id,
+          "addr_id": addr_id,
+          "coupon_id": -1,
+          'hongbao_id': -1,
+          "pei_type": 0,
+          "online_pay": 0,
+          "products": this.product_info,
+          "intro": '',
+          "hg_products": '',
+          "peicard_id": '',
+          "pcard_id":'',
+          "is_first": '',
+          "hongbao_package_id": '',
+          "is_pos":0
+        }
       };
       this.$axios.post('/client/waimai/order/create', params).then(res => {
-       this.$message.success('订单已提交（餐到付款现金）')
+        console.log(res)
+        if(res.error == '0'){
+          this.$message.success('订单已提交（餐到付款现金）')
+        }else {
+          this.$message.info(res.message)
+        }
+
       });
     },
     orderForm() {
@@ -208,21 +221,8 @@ export default {
         }
       };
       this.$axios.post('/client/member/addr/orderAddr', params).then(res => {
-        // this.topInfo = res.detail;
-        // let list = res.detail.items;
-        // this.goodsArr = list;
-        // this.resetData();
-        // that.setData({
-        //   newhuodong,
-        //   topInfo: res.data.detail,
-        //   min_amount: res.data.detail.min_amount,
-        //   shopCoupon: res.data.detail.shop_coupon, //商家优惠券信息；
-        //   shopAdv: res.data.detail.advs, //商家广告；
-        //   tj_items: res.data.detail.tj_items ? res.data.detail.tj_items : '', //商家推荐；
-        //   goodsCate_idx: res.data.detail.items[0] ? res.data.detail.items[0].cate_id : '',
-        //   goodsArr,
-        //   is_must: res.data.detail.have_must,
-        // });
+        console.log(res)
+       this.orderAddrList = res.items
 
       });
     },
@@ -305,6 +305,7 @@ export default {
     }
   },
   mounted() {
+    localStorage.setItem('token','2-KT5F50CB82EC23055AC3AD693EA5AD39FD')
     if (this.$route.query.shop_id) {
       this.shop_id = this.$route.query.shop_id;
     }

@@ -12,7 +12,7 @@
     "tasa": "tasa" ,
     "ingrese":"Por favor ingrese",
     "partir": "Envíos a partir de",
-    "Gastos": "Gastos de envío"
+    "Gastos": "Gastos de envío <el-tooltip"
   },
   "index": {
     "oneTitle": "Welcome to Business KUAI-ZI",
