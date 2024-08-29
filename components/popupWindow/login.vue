@@ -25,6 +25,15 @@
               }}</span>
           </div>
 
+          <div class='login_input p-relative'>
+            <div>{{ $t('loginOrRegister.formLabel')[3] }}</div>
+            <input v-model='img_code' :placeholder="$t('loginOrRegister.placeholder')[0]" class='c-input' />
+            <el-image @click='getVerifyCode'
+              style='width: 80px; height: 30px'
+              :src='imgCode'
+            >
+            </el-image>
+          </div>
           <div class='login_input'>
             <div>{{ $t('loginOrRegister.formLabel')[2] }}</div>
             <input v-model='code' :placeholder="$t('loginOrRegister.placeholder')[0]" class='c-input' />
@@ -89,13 +98,32 @@ export default {
       isGetCode: true,
       phone: '',
       countdown: 60,
-      code: ''
+      code: '',
+      imgCode: '',
+      img_code: ''
     };
   },
-  mounted() {
+  watch: {
+    loginType() {
+      this.getVerifyCode();
+    }
+
   },
 
   methods: {
+    getVerifyCode() {
+      const params = {
+
+      };
+      this.$axios.post('/magic/image', params).then(res => {
+        this.imgCode = res.img;
+        // this.imgCode = 'data:image/png;base64,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'
+      }).catch(err => {
+        this.$message.info(err.message);
+      });
+
+    },
+
     handleChangeType(type) {
       if (type === 1) {
         this.$emit('handleCloseLoginDialog', -1);
@@ -113,13 +141,17 @@ export default {
           return;
         }
         let params = {
-          phone: this.phone,
-          conPhone: this.conPhone,
-          code: this.code
+          data: {
+            mobile: this.conPhone + '-' + this.phone,
+            sms_code: this.code
+          }
         };
 
-        this.$axios.post('/login/loginWeb', { params }).then(res => {
+        this.$axios.post('/client/passport/login', params).then(res => {
           localStorage.setItem('token', res.token);
+          this.$emit('handleCloseLoginDialog', -1);
+        }).catch(err => {
+          this.$message.info(err.message);
         });
       }
     },
@@ -134,13 +166,19 @@ export default {
           this.$message.error('请输入手机号码');
           return;
         }
+        if (!this.img_code) {
+          this.$message.error('请输入图形验证码');
+          return;
+        }
+        // this.conPhone + '-' +
         const params = {
           data: {
-            mobile: this.conPhone +'-' +  this.phone
+            mobile:  this.phone,
+            img_code: this.img_code
           }
         };
 
-        this.$axios.post('/magic/sendsms', params).then(res => {
+        this.$axios.post('/magic/sendsms', params, ).then(res => {
           this.isGetCode = false;
           const interval = setInterval(() => {
             this.countdown--;
@@ -150,6 +188,8 @@ export default {
               clearInterval(interval);
             }
           }, 1000);
+        }).catch(err => {
+          this.$message.info(err.message);
         });
       }
     }
@@ -204,7 +244,7 @@ export default {
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
   width: 540px;
-  height: 400px;
+  height: 460px;
   position: relative;
 
   > div {

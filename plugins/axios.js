@@ -1,28 +1,35 @@
 import {objToFormData} from '../utils/utils'
 import config1 from '../config/index'
 // 初始化请求插件
-export default ({redirect, $axios}) => {
+export default ({redirect, $axios,$cookies}) => {
+
   // 请求拦截器
+
   $axios.interceptors.request.use(config => {
+
     // 如果当前配置的客客请求
     config.baseURL = config1.BASE_URL
 
     /* 如果是上传，则设置超时为 1小时， 请求超时10分钟 */
     config.timeout = 1000 * 60
-
     // 不同请求方式不同处理
-
-    config.data.CLIENT_OS = 'ios'
+    config.data.CLIENT_OS = 'ANDROID'
     config.data.CLIENT_API = 'CUSTOM'
     config.data.LANG = localStorage.getItem('locale')?localStorage.getItem('locale'):'es'
+    if(localStorage.getItem('token')){
+      config.data.TOKEN =  localStorage.getItem('token') || '';
+    }
 
-    config.data.TOKEN =  localStorage.getItem('token') || '';
-    // config.data.TOKEN = '2-KT5F50CB82EC23055AC3AD693EA5AD39FD'
     config.data.LNG =  localStorage.getItem('LNG') || -3.7160397;
     config.data.LAT =  localStorage.getItem('LAT') || 40.4202472;
-    config.data.data = JSON.stringify(config.data.data)
+    if(config.data.data){
+      config.data.data = JSON.stringify(config.data.data)
+    }
+
     config.data = objToFormData(config.data)
+
     config.headers['Access-Control-Allow-Origin'] =  '*';
+
     config.headers['content-type'] =  'application/x-www-form-urlencoded';
     return config
   }, error => {
@@ -34,17 +41,15 @@ export default ({redirect, $axios}) => {
 
     if (response.status === 200) {
       // 判断登陆是否过期
-      // if (response.data.code === 1007 || response.data.code === 500) {
-      //     // 清空token
-      //     localStorage.clear();
-      //     location.reload();
-      //     return Promise.reject(response.data);
-      // }
+      if(response.config.url == "/magic/verify"){
+        return Promise.resolve(response);
+        return
+      }
       // 操作成功
       if (response.data.error=='0') {
         return Promise.resolve(response.data.data);
       } else {
-
+        return Promise.reject(response.data);
       }
     } else {
       return Promise.reject(response.data);
@@ -54,17 +59,8 @@ export default ({redirect, $axios}) => {
     return Promise.reject(error)
   })
 
-  /**
-   * @description: 错误处理
-   * @date 2019/5/7  1:20
-   */
-  function errorManage(result) {
-    // 错误码 需要后退到登录页 1001：未登录，1002：别处登录
-    if ([1001, 1002].indexOf(result.errorCode) !== -1) {
-      sessionStorage.clear()
-      redirect('/login')
-    }
-  }
-
   $axios.defaults.withCredentials = true
+
+
+
 }

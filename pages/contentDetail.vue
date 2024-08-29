@@ -3,15 +3,17 @@
     <sales-good-util :list='goodsArr' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
     <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
 			<span class='color-242424 font14 ' v-if='addCartAary.length>0'>{{ $t('contentDetail.title') }}
-				{{ addCartAary.length }}</span>
+				{{ addCartAary.length }} <span style='color: #ee8080'>总金额：€{{min_amount}}</span> </span>
       <div @click='handleCloseLoginDialog(1)' class='button_info' style='margin-left: 32px'>{{ $t('contentDetail.name')
-        }}
+        }}{{topInfo.min_amount}}起送
       </div>
     </div>
-    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd' :orderAddrList='orderAddrList'/>
+    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
+                  :orderAddrList='orderAddrList' />
     <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
-    <add-addr :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></add-addr>
+    <add-addr :type
+                ='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></add-addr>
     <div id='posterHtml' class='posterHtml' ref='posterHtml'>
       <img :src='topInfo.logo' class='logo'>
       <div class='flex' style='align-items: center;padding: 20px 10px;justify-content: space-between;'>
@@ -39,7 +41,8 @@ import salesGoodUtil from '../components/cloudSales/salesGoodUtil';
 import LoginWindow from '../components/popupWindow/loginWindow.vue';
 import loginSucceed from '../components/popupWindow/loginSucceed.vue';
 import login from '../components/popupWindow/login.vue';
-import  addAddr from '../components/popupWindow/addAddr.vue'
+import addAddr from '../components/popupWindow/addAddr.vue';
+
 export default {
   components: {
     salesGoodUtil,
@@ -57,7 +60,8 @@ export default {
       topInfo: {},
       posterUrl: '',
       product_info: '',
-      orderAddrList:[],
+      orderAddrList: [],
+      min_amount:0
     };
   },
 
@@ -109,7 +113,7 @@ export default {
         'str_obj': {},
         'str_name': {},
         'title': info.title,
-        'num': info.num,
+        'num': info.num
       };
       console.log(infoData);
       let ishowAdd = true;
@@ -123,9 +127,15 @@ export default {
           }
         }
       }
+
       if (ishowAdd) {
         this.addCartAary.push(infoData);
       }
+      let min_amount = 0
+      for(let item of this.addCartAary){
+        min_amount+=item.price *item.num
+      }
+      this.min_amount = min_amount
       console.log(this.addCartAary);
     },
 
@@ -143,46 +153,46 @@ export default {
           return;
         }
 
-        if (localStorage.getItem('token')) {
-          this.orderForm().then(res => {
-            this.loginType = 2;
-          });
-
-        } else {
+        // if (localStorage.getItem('token')) {
+        //   this.orderForm().then(res => {
+        //     this.loginType = 2;
+        //   });
+        // } else {
           this.loginType = 1;
-        }
+        // }
         return;
-      }else  if(value === 3){
+      } else if (value === 3) {
         this.loginType = 4;
+      } else if (value === -2) {
+        this.orderAddr();
+        this.loginType = -1;
+      } else {
+        this.loginType = value;
       }
     },
-    handleLoginAdd(addr_id){
+    handleLoginAdd(addr_id) {
       var params = {
         data: {
-          "shop_id": this.shop_id,
-          "addr_id": addr_id,
-          "coupon_id": -1,
+          'shop_id': this.shop_id,
+          'addr_id': addr_id,
+          'coupon_id': -1,
           'hongbao_id': -1,
-          "pei_type": 0,
-          "online_pay": 0,
-          "products": this.product_info,
-          "intro": '',
-          "hg_products": '',
-          "peicard_id": '',
-          "pcard_id":'',
-          "is_first": '',
-          "hongbao_package_id": '',
-          "is_pos":0
+          'pei_type': 0,
+          'online_pay': 0,
+          'products': this.product_info,
+          'intro': '',
+          'hg_products': '',
+          'peicard_id': '',
+          'pcard_id': '',
+          'is_first': '',
+          'hongbao_package_id': '',
+          'is_pos': 0
         }
       };
       this.$axios.post('/client/waimai/order/create', params).then(res => {
-        console.log(res)
-        if(res.error == '0'){
-          this.$message.success('订单已提交（餐到付款现金）')
-        }else {
-          this.$message.info(res.message)
-        }
-
+        this.$message.success('订单已提交（餐到付款现金）');
+      }).catch(err => {
+        this.$message.info(err.message);
       });
     },
     orderForm() {
@@ -210,6 +220,8 @@ export default {
         };
         this.$axios.post('/client/waimai/order/order', params).then(res => {
           resolve(res);
+        }).catch(err => {
+          this.$message.info(err.message);
         });
       });
     },
@@ -221,9 +233,10 @@ export default {
         }
       };
       this.$axios.post('/client/member/addr/orderAddr', params).then(res => {
-        console.log(res)
-       this.orderAddrList = res.items
-
+        console.log(res);
+        this.orderAddrList = res.items;
+      }).catch(err => {
+        this.$message.info(err.message);
       });
     },
     shopDetail() {
@@ -237,18 +250,9 @@ export default {
         let list = res.detail.items;
         this.goodsArr = list;
         this.resetData();
-        // that.setData({
-        //   newhuodong,
-        //   topInfo: res.data.detail,
-        //   min_amount: res.data.detail.min_amount,
-        //   shopCoupon: res.data.detail.shop_coupon, //商家优惠券信息；
-        //   shopAdv: res.data.detail.advs, //商家广告；
-        //   tj_items: res.data.detail.tj_items ? res.data.detail.tj_items : '', //商家推荐；
-        //   goodsCate_idx: res.data.detail.items[0] ? res.data.detail.items[0].cate_id : '',
-        //   goodsArr,
-        //   is_must: res.data.detail.have_must,
-        // });
         this.qrcode();
+      }).catch(err => {
+        this.$message.info(err.message);
       });
     },
     qrcode() {
@@ -305,7 +309,7 @@ export default {
     }
   },
   mounted() {
-    localStorage.setItem('token','2-KT5F50CB82EC23055AC3AD693EA5AD39FD')
+    // localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
     if (this.$route.query.shop_id) {
       this.shop_id = this.$route.query.shop_id;
     }

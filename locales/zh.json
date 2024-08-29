@@ -75,10 +75,10 @@
     },
     "loginPopup": {
       "name": "支付/地址",
-      "fromOne": "街道城市国家",
-      "fromTwo": "房间号",
-      "fromTree": "邮编",
-      "fromFour": "备注",
+      "fromOne": "地址",
+      "fromTwo": "门牌号",
+      "fromTree": "收货人",
+      "fromFour": "手机号",
       "fromFive": "卡号"
     },
   "loginOrRegister": {
@@ -86,7 +86,8 @@
     "formLabel": [
       "国家/地区",
       "手机号码",
-      "手机验证码"
+      "手机验证码",
+      "图形验证"
     ],
     "btnText": [
       "登录或注册",

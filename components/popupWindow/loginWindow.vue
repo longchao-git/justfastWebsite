@@ -120,7 +120,7 @@ export default {
 }
 
 .login-class{
-  height: 520px !important;
+  height: 280px !important;
 }
 
 /** 登录卡片样式 */

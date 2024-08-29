@@ -11,25 +11,31 @@
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromOne') }}</div>
             <input
-              v-model="context"
+              v-model="addr"
               :placeholder="$t('loginPopup.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromTwo') }}</div>
             <input
-              v-model="context"
+              v-model="house"
               :placeholder="$t('loginPopup.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromTree') }}</div>
             <input
-              v-model="context"
+              v-model="contact"
               :placeholder="$t('loginPopup.ingrese')"
               class="c-input"/>
           </div>
-
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromFour') }}</div>
+            <input
+              v-model="mobile"
+              :placeholder="$t('loginPopup.ingrese')"
+              class="c-input"/>
+          </div>
           <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
         </div>
       </div>
@@ -42,16 +48,42 @@ export default {
   props: ['type'],
   data(){
     return{
-      companyTypeList:[],
-      tradeTypeId:'',
-      context:'',
-      isshow:false,
+      contact:'',
+      mobile:'',
+      house:'',
+      addr:'',
     }
   },
   methods: {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
-      this.$emit('handleCloseLoginDialog', value)
+      if(value === 2){
+        if(!this.contact||!this.mobile||!this.house||!this.addr){
+          this.$message.info('请输入')
+          return
+        }
+        const params = {
+          data: {
+            'contact': this.contact,
+            'mobile': this.mobile,
+            'house': this.house,
+            'addr': this.addr,
+            'lng': -3.7160397,
+            'lat': 40.4202472,
+            'page':1,
+            'type':0,
+          }
+        };
+        this.$axios.post('/client/member/addr/create', params).then(res => {
+
+          this.$message.info('保存成功')
+          this.$emit('handleCloseLoginDialog', -2)
+        }).catch(err=>{
+          this.$message.info(err.message)
+        });
+      }else {
+        this.$emit('handleCloseLoginDialog', value)
+      }
     }
   }
 }
@@ -98,7 +130,7 @@ export default {
 }
 
 .login-class{
-  height: 420px !important;
+  height: 460px !important;
 }
 
 /** 登录卡片样式 */
