@@ -3,13 +3,13 @@
     <sales-good-util :list='goodsArr' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
     <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
 			<span class='color-242424 font14 ' v-if='addCartAary.length>0'>{{ $t('contentDetail.title') }}
-				{{ addCartAary.length }} <span style='color: #ee8080'>总金额：€{{min_amount}}</span> </span>
+				{{ addCartAary.length }} <span style='color: #ee8080'>总金额：€{{ min_amount }}</span> </span>
       <div @click='handleCloseLoginDialog(1)' class='button_info' style='margin-left: 32px'>{{ $t('contentDetail.name')
-        }}{{topInfo.min_amount}}起送
+        }}{{ topInfo.min_amount }}起送
       </div>
     </div>
     <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
-                  :orderAddrList='orderAddrList' />
+                  :orderAddrList='orderAddrList' :payitem='payitem' />
     <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
     <add-addr :type
@@ -61,7 +61,8 @@ export default {
       posterUrl: '',
       product_info: '',
       orderAddrList: [],
-      min_amount:0
+      min_amount: 0,
+      payitem: []
     };
   },
 
@@ -131,11 +132,11 @@ export default {
       if (ishowAdd) {
         this.addCartAary.push(infoData);
       }
-      let min_amount = 0
-      for(let item of this.addCartAary){
-        min_amount+=item.price *item.num
+      let min_amount = 0;
+      for (let item of this.addCartAary) {
+        min_amount += item.price * item.num;
       }
-      this.min_amount = min_amount
+      this.min_amount = min_amount;
       console.log(this.addCartAary);
     },
 
@@ -152,14 +153,33 @@ export default {
           this.$message.info('请选择');
           return;
         }
-
-        // if (localStorage.getItem('token')) {
-        //   this.orderForm().then(res => {
-        //     this.loginType = 2;
-        //   });
-        // } else {
+        if (this.min_amount <= this.topInfo.min_amount) {
+          this.$message.info('总金额小于起送价格');
+          return;
+        }
+        if (localStorage.getItem('token')) {
+          this.orderForm().then(res => {
+            console.log(res);
+            let payitem = [];
+            if (res.online_pay == 1) {
+              var arr = { 'title': '在线支付', 'code': 1 };
+              payitem.push(arr);
+            }
+            if (res.is_daofu == 1) {
+              var arr = { 'title': '餐到付款现金', 'code': 2 };
+              payitem.push(arr);
+              if (res.is_pos == 1) {
+                var arr1 = { 'title': '餐到付款刷卡', 'code': 3 };
+                payitem.push(arr1);
+              }
+            }
+            this.payitem = payitem;
+            console.log(payitem);
+            this.loginType = 2;
+          });
+        } else {
           this.loginType = 1;
-        // }
+        }
         return;
       } else if (value === 3) {
         this.loginType = 4;
@@ -170,25 +190,37 @@ export default {
         this.loginType = value;
       }
     },
-    handleLoginAdd(addr_id) {
+    handleLoginAdd(value) {
+      let onlinepay = ''
+      let is_pos = ''
+      if (value.code == 1) {
+        onlinepay = 1;
+      } else if (value.code == 2) {
+        onlinepay = 0;
+        is_pos = 0;
+      } else if (value.code == 3) {
+        onlinepay = 0;
+        is_pos = 1;
+      }
       var params = {
         data: {
           'shop_id': this.shop_id,
-          'addr_id': addr_id,
+          'addr_id': value.addr_id,
           'coupon_id': -1,
           'hongbao_id': -1,
           'pei_type': 0,
-          'online_pay': 0,
+          'online_pay': onlinepay,
           'products': this.product_info,
-          'intro': '',
+          'intro': value.intro,
           'hg_products': '',
           'peicard_id': '',
           'pcard_id': '',
           'is_first': '',
           'hongbao_package_id': '',
-          'is_pos': 0
+          'is_pos': is_pos
         }
       };
+      console.log(params)
       this.$axios.post('/client/waimai/order/create', params).then(res => {
         this.$message.success('订单已提交（餐到付款现金）');
       }).catch(err => {
@@ -309,12 +341,15 @@ export default {
     }
   },
   mounted() {
-    // localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
+    localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
     if (this.$route.query.shop_id) {
       this.shop_id = this.$route.query.shop_id;
     }
     this.shopDetail();
-    this.orderAddr();
+    if (localStorage.getItem('token')) {
+      this.orderAddr();
+    }
+
   }
 };
 </script>

@@ -6,34 +6,34 @@
           <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
                alt=""/>
         </div>
-        <p>{{ $t('userPopup.name') }}</p>
+        <p>{{ $t('addAddr.name') }}</p>
         <div class="loginClass">
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromOne') }}</div>
             <input
               v-model="addr"
-              :placeholder="$t('loginPopup.ingrese')"
+              :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromTwo') }}</div>
             <input
               v-model="house"
-              :placeholder="$t('loginPopup.ingrese')"
+              :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromTree') }}</div>
             <input
               v-model="contact"
-              :placeholder="$t('loginPopup.ingrese')"
+              :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
             <div>{{ $t('loginPopup.fromFour') }}</div>
             <input
               v-model="mobile"
-              :placeholder="$t('loginPopup.ingrese')"
+              :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
           <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>

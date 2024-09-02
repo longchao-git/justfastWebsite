@@ -149,7 +149,7 @@ export default {
 
         this.$axios.post('/client/passport/login', params).then(res => {
           localStorage.setItem('token', res.token);
-          this.$emit('handleCloseLoginDialog', -1);
+          this.$emit('handleCloseLoginDialog', -2);
         }).catch(err => {
           this.$message.info(err.message);
         });

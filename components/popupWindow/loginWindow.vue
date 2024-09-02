@@ -17,35 +17,22 @@
               </el-select>
               <span  @click="handleChangeType(3)" style='cursor: pointer'>添加地址</span>
             </div>
+            <div class="login_input"  >
+              <div>支付方式</div>
+              <el-select v-model='code' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+                         style='flex: 1'>
+                <el-option v-for='(item, index) in payitem' :key='index' :label='item.title'
+                           :value='item.code'></el-option>
+              </el-select>
 
-<!--            <div class="login_input"  >-->
-<!--              <div>{{ $t('loginPopup.fromTwo') }}</div>-->
-<!--              <input-->
-<!--                v-model="context"-->
-<!--                :placeholder="$t('home.ingrese')"-->
-<!--                class="c-input"/>-->
-<!--            </div>-->
-<!--            <div class="login_input"  >-->
-<!--              <div>{{ $t('loginPopup.fromTree') }}</div>-->
-<!--              <input-->
-<!--                v-model="context"-->
-<!--                :placeholder="$t('home.ingrese')"-->
-<!--                class="c-input"/>-->
-<!--            </div>-->
-<!--            <div class="login_input"  >-->
-<!--              <div>{{ $t('loginPopup.fromFour') }}</div>-->
-<!--              <input-->
-<!--                v-model="context"-->
-<!--                :placeholder="$t('home.ingrese')"-->
-<!--                class="c-input"/>-->
-<!--            </div>-->
-<!--            <div class="login_input"  >-->
-<!--              <div>{{ $t('loginPopup.fromFive') }}</div>-->
-<!--              <input-->
-<!--                v-model="context"-->
-<!--                :placeholder="$t('home.ingrese')"-->
-<!--                class="c-input"/>-->
-<!--            </div>-->
+            </div>
+            <div class="login_input"  >
+              <div>买家留言</div>
+              <input
+                v-model="intro"
+                :placeholder="$t('addAddr.ingrese')"
+                class="c-input"/>
+            </div>
             <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
           </div>
         </div>
@@ -55,7 +42,7 @@
 
 <script>
 export default {
-  props: ['type','orderAddrList'],
+  props: ['type','orderAddrList','payitem'],
   data(){
     return{
       companyTypeList:[],
@@ -63,6 +50,8 @@ export default {
       context:'',
       isshow:false,
       addr_id:'',
+      code:'',
+      intro:''
     }
   },
   methods: {
@@ -71,7 +60,14 @@ export default {
       if(value === -1||value === 3){
         this.$emit('handleCloseLoginDialog', value)
       }else {
-        this.$emit('handleLoginAdd', this.addr_id)
+        if(!this.code){
+          this.$message.info('请输入')
+        }
+        this.$emit('handleLoginAdd', {
+          addr_id:this.addr_id,
+          code:this.code,
+          intro:this.intro
+        })
       }
 
     }
@@ -120,7 +116,7 @@ export default {
 }
 
 .login-class{
-  height: 280px !important;
+  height: 380px !important;
 }
 
 /** 登录卡片样式 */
