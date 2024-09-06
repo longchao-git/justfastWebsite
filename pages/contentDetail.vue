@@ -191,8 +191,8 @@ export default {
       }
     },
     handleLoginAdd(value) {
-      let onlinepay = ''
-      let is_pos = ''
+      let onlinepay = "";
+      let is_pos = 0;
       if (value.code == 1) {
         onlinepay = 1;
       } else if (value.code == 2) {
@@ -202,25 +202,30 @@ export default {
         onlinepay = 0;
         is_pos = 1;
       }
+
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+
       var params = {
         data: {
-          'shop_id': this.shop_id,
-          'addr_id': value.addr_id,
-          'coupon_id': -1,
-          'hongbao_id': -1,
-          'pei_type': 0,
-          'online_pay': onlinepay,
-          'products': this.product_info,
-          'intro': value.intro,
-          'hg_products': '',
-          'peicard_id': '',
-          'pcard_id': '',
-          'is_first': '',
-          'hongbao_package_id': '',
-          'is_pos': is_pos
+          shop_id: this.shop_id,
+          addr_id: value.addr_id,
+          hongbao_id: 0,
+          pei_type: 0,
+          online_pay: onlinepay,
+          products: this.product_info,
+          intro: value.intro,
+          hg_products: [],
+          is_first: 0,
+          hongbao_package_id: 0,
+          is_pos: is_pos,
+          pei_time:currentHour + ":" + currentMinute
         }
       };
-      console.log(params)
+
+
+      console.log(params);
       this.$axios.post('/client/waimai/order/create', params).then(res => {
         this.$message.success('订单已提交（餐到付款现金）');
       }).catch(err => {
@@ -257,6 +262,7 @@ export default {
         });
       });
     },
+
     orderAddr() {
       const params = {
         data: {
@@ -264,6 +270,7 @@ export default {
           'page': 1
         }
       };
+      console.log();
       this.$axios.post('/client/member/addr/orderAddr', params).then(res => {
         console.log(res);
         this.orderAddrList = res.items;
