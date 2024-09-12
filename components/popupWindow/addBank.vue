@@ -1,84 +1,89 @@
 <template>
-  <div v-if="type===2||type === 5" class="login-window">
-    <div class="login-tan-card"  :class="type===2||type === 5?'login-class':''">
-        <div>
-          <div class="loginView">
-            <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
-                 alt=""/>
-          </div>
-          <p >{{ type===2?$t('loginPopup.name') :'银行卡'}}</p>
-          <div class="loginClass">
-            <div v-if='type===2' class="login_input"  >
-              <div>{{ $t('loginPopup.fromOne') }}</div>
-              <el-select v-model='addr_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
-                         style='flex: 1'>
-                <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
-                           :value='item.addr_id'></el-option>
-              </el-select>
-              <span  @click="handleChangeType(3)" style='cursor: pointer'>添加地址</span>
-            </div>
-            <div v-if='type===2' class="login_input"  >
-              <div>支付方式</div>
-              <el-select v-model='code' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
-                         style='flex: 1'>
-                <el-option v-for='(item, index) in payitem' :key='index' :label='item.title'
-                           :value='item.code'></el-option>
-              </el-select>
-
-            </div>
-            <div v-if='type===2' class="login_input"  >
-              <div>买家留言</div>
-              <input
-                v-model="intro"
-                :placeholder="$t('addAddr.ingrese')"
-                class="c-input"/>
-            </div>
-            <div v-if='type===5' class="login_input"  >
-              <div>银行卡</div>
-              <el-select v-model='addr_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
-                         style='flex: 1'>
-                <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
-                           :value='item.addr_id'></el-option>
-              </el-select>
-              <span  @click="handleChangeType(9)" style='cursor: pointer'>添加银行卡</span>
-            </div>
-            <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
-          </div>
+  <div v-if="type===9" class="login-window">
+    <div class="login-tan-card"  :class="type===9?'login-class':''">
+      <div>
+        <div class="loginView">
+          <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
+               alt=""/>
         </div>
+        <p>{{ $t('addAddr.name') }}</p>
+        <div class="loginClass">
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromOne') }}</div>
+            <input
+              v-model="addr"
+              :placeholder="$t('addAddr.ingrese')"
+              class="c-input"/>
+          </div>
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromTwo') }}</div>
+            <input
+              v-model="house"
+              :placeholder="$t('addAddr.ingrese')"
+              class="c-input"/>
+          </div>
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromTree') }}</div>
+            <input
+              v-model="contact"
+              :placeholder="$t('addAddr.ingrese')"
+              class="c-input"/>
+          </div>
+          <div class="login_input"  >
+            <div>{{ $t('loginPopup.fromFour') }}</div>
+            <input
+              v-model="mobile"
+              :placeholder="$t('addAddr.ingrese')"
+              class="c-input"/>
+          </div>
+          <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['type','orderAddrList','payitem'],
+  props: ['type'],
   data(){
     return{
-      companyTypeList:[],
-      tradeTypeId:'',
-      context:'',
-      isshow:false,
-      addr_id:'',
-      code:'',
-      intro:''
+      contact:'',
+      mobile:'',
+      house:'',
+      addr:'',
     }
   },
   methods: {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
-      if(value === -1||value === 3||value === 9){
-        this.$emit('handleCloseLoginDialog', value)
-      }else {
-        if(!this.code){
+      if(value === 2){
+        if(!this.contact||!this.mobile||!this.house||!this.addr){
           this.$message.info('请输入')
+          return
         }
-        this.$emit('handleLoginAdd', {
-          addr_id:this.addr_id,
-          code:this.code,
-          intro:this.intro
-        })
-      }
+        const params = {
+          data: {
+            'contact': this.contact,
+            'mobile': this.mobile,
+            'house': this.house,
+            'addr': this.addr,
+            'lng': -3.7160397,
+            'lat': 40.4202472,
+            'page':1,
+            'type':0,
+          }
+        };
+        this.$axios.post('/client/member/addr/create', params).then(res => {
 
+          this.$message.info('保存成功')
+          this.$emit('handleCloseLoginDialog', -2)
+        }).catch(err=>{
+          this.$message.info(err.message)
+        });
+      }else {
+        this.$emit('handleCloseLoginDialog', value)
+      }
     }
   }
 }
@@ -125,7 +130,7 @@ export default {
 }
 
 .login-class{
-  height: 380px !important;
+  height: 460px !important;
 }
 
 /** 登录卡片样式 */

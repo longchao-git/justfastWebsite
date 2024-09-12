@@ -14,6 +14,8 @@
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
     <add-addr :type
                 ='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></add-addr>
+    <add-bank :type
+                ='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></add-bank>
     <div id='posterHtml' class='posterHtml' ref='posterHtml'>
       <img :src='topInfo.logo' class='logo'>
       <div class='flex' style='align-items: center;padding: 20px 10px;justify-content: space-between;'>
@@ -42,14 +44,15 @@ import LoginWindow from '../components/popupWindow/loginWindow.vue';
 import loginSucceed from '../components/popupWindow/loginSucceed.vue';
 import login from '../components/popupWindow/login.vue';
 import addAddr from '../components/popupWindow/addAddr.vue';
-
+import addBank from '../components/popupWindow/addBank.vue';
 export default {
   components: {
     salesGoodUtil,
     LoginWindow,
     loginSucceed,
     login,
-    addAddr
+    addAddr,
+    addBank
   },
   data() {
     return {
@@ -128,7 +131,6 @@ export default {
           }
         }
       }
-
       if (ishowAdd) {
         this.addCartAary.push(infoData);
       }
@@ -137,7 +139,7 @@ export default {
         min_amount += item.price * item.num;
       }
       this.min_amount = min_amount;
-      console.log(this.addCartAary);
+
     },
 
     /** 处理登录弹框的关闭操作 */
@@ -186,12 +188,14 @@ export default {
       } else if (value === -2) {
         this.orderAddr();
         this.loginType = -1;
+      } else if (value === 9) {
+        this.loginType = 9
       } else {
         this.loginType = value;
       }
     },
     handleLoginAdd(value) {
-      let onlinepay = "";
+      let onlinepay = '';
       let is_pos = 0;
       if (value.code == 1) {
         onlinepay = 1;
@@ -220,14 +224,26 @@ export default {
           is_first: 0,
           hongbao_package_id: 0,
           is_pos: is_pos,
-          pei_time:currentHour + ":" + currentMinute
+          pei_time: currentHour + ':' + currentMinute
         }
       };
 
 
       console.log(params);
       this.$axios.post('/client/waimai/order/create', params).then(res => {
-        this.$message.success('订单已提交（餐到付款现金）');
+        this.$message.success('订单已提交');
+        this.memberCardIndex()
+      }).catch(err => {
+        this.$message.info(err.message);
+      });
+    },
+    memberCardIndex(){
+      let params = {
+        data:{}
+      }
+      this.$axios.post('/client/member/card/index', params).then(res => {
+        // this.$message.success('获取1');
+        this.loginType = 5
       }).catch(err => {
         this.$message.info(err.message);
       });
