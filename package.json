@@ -21,6 +21,7 @@
     "html2canvas": "^1.4.1",
     "lodash.clonedeep": "^4.5.0",
     "nuxt": "^2.14.12",
+    "nuxt-stripe-module": "^3.2.0",
     "qrcodejs2": "0.0.2",
     "swiper": "^6.5.0",
     "vue-awesome-swiper": "^4.1.1",

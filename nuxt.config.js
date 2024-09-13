@@ -71,6 +71,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // { src:  '~/plugins/stripe.js', ssr: false },
     { src: '~/plugins/qrcode.js', ssr: false },
     { src: '~/plugins/html2canvas.js', ssr: false },
     { src: '~/plugins/LocalStorage.js' },
@@ -120,7 +121,11 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios',
+    '@nuxtjs/axios', // 可选配置项可以根据需求调整
+    ['nuxt-stripe-module', {
+      publishableKey: 'pk_test_51MTtOaCIqD5Zs0Lm24lGXoFkEmGipBxdSRub2ukEPEJ7RjBk1kNfh68O1SH8nPJ1g08Tv4aDfu28MVyJV60PS75p00QcMP1SYU',
+
+    }],
     ['vue-scrollto/nuxt', {
       duration: 0,
       cancelable: false,

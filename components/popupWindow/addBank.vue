@@ -6,33 +6,58 @@
           <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
                alt=""/>
         </div>
-        <p>{{ $t('addAddr.name') }}</p>
+        <p>请绑定银行卡</p>
         <div class="loginClass">
           <div class="login_input"  >
-            <div>{{ $t('loginPopup.fromOne') }}</div>
+            <div>卡类型</div>
+            <div class='' style='display: flex;align-items: center'>
+              <img @click="setcard_type(1)" v-if='card_type == 1' src="../../assets/images/icon_get1.jpg" style="width: 40px; height: 22px;"
+                   alt=""/>
+              <img @click="setcard_type(1)" v-if='card_type != 1' src="../../assets/images/icon_set1.jpg" style="width: 40px; height: 22px;"
+                   alt=""/>
+              <img @click="setcard_type(2)"   v-if='card_type == 2' src="../../assets/images/icon_get2.jpg" style="width: 40px; height: 22px;margin-left: 10px"
+                   alt=""/>
+              <img @click="setcard_type(2)" v-if='card_type != 2' src="../../assets/images/icon_set2.jpg" style="width: 40px; height: 22px;margin-left: 10px"
+                   alt=""/>
+              <img @click="setcard_type(3)"  v-if='card_type == 3' src="../../assets/images/icon_get3.jpg" style="width: 40px; height: 22px;margin-left: 10px"
+                   alt=""/>
+              <img @click="setcard_type(3)" v-if='card_type != 3' src="../../assets/images/icon_set3.jpg" style="width: 40px; height: 22px;margin-left: 10px"
+                   alt=""/>
+            </div>
+          </div>
+          <div class="login_input"  >
+            <div>卡名称</div>
             <input
-              v-model="addr"
+              v-model="card_name"
+              :placeholder="$t('addAddr.ingrese')"
+              class="c-input"/>
+          </div>
+
+          <div class="login_input"  >
+            <div>卡号</div>
+            <input
+              v-model="card_number"
               :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
-            <div>{{ $t('loginPopup.fromTwo') }}</div>
+            <div>年份</div>
             <input
-              v-model="house"
+              v-model="year"
               :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
-            <div>{{ $t('loginPopup.fromTree') }}</div>
+            <div>月</div>
             <input
-              v-model="contact"
+              v-model="month"
               :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
           <div class="login_input"  >
-            <div>{{ $t('loginPopup.fromFour') }}</div>
+            <div>安全码</div>
             <input
-              v-model="mobile"
+              v-model="cvc"
               :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
@@ -40,6 +65,8 @@
         </div>
       </div>
     </div>
+
+
   </div>
 </template>
 
@@ -48,42 +75,74 @@ export default {
   props: ['type'],
   data(){
     return{
-      contact:'',
-      mobile:'',
-      house:'',
-      addr:'',
+
+      card_name:'',
+      cvc:'',
+      card_number:'',
+      year:'',
+      month:'',
+      card_type:2,
+
     }
   },
   methods: {
+    setcard_type(type){
+      this.card_type =  type
+    },
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
       if(value === 2){
-        if(!this.contact||!this.mobile||!this.house||!this.addr){
-          this.$message.info('请输入')
-          return
-        }
+        // if(!this.card_name||!this.cvc||!this.card_number||!this.year||!this.month){
+        //   this.$message.info('请输入')
+        //   return
+        // }
         const params = {
           data: {
-            'contact': this.contact,
-            'mobile': this.mobile,
-            'house': this.house,
-            'addr': this.addr,
-            'lng': -3.7160397,
-            'lat': 40.4202472,
-            'page':1,
-            'type':0,
+            'card_name': this.card_name,
+            'cvc': this.cvc,
+            'card_number': this.card_number,
+            'year': this.year,
+            'month':this.month,
+            'card_type':this.card_type
           }
         };
-        this.$axios.post('/client/member/addr/create', params).then(res => {
+        this.$axios.post('/client/member/card/setup_intent', params).then(async res => {
 
-          this.$message.info('保存成功')
-          this.$emit('handleCloseLoginDialog', -2)
+          const response = await this.$stripe.confirmSetup({
+            clientSecret: res.client_secret,
+            redirect: 'if_required'
+          });
+          console.log(response)
+          if (response.setupIntent&&response.setupIntent.status == 'succeeded') {
+
+            response.setupIntent.id
+            this.cardBind(response.setupIntent.id,params.data)
+          }
+          return
+
         }).catch(err=>{
           this.$message.info(err.message)
         });
       }else {
         this.$emit('handleCloseLoginDialog', value)
       }
+    },
+    cardBind(id,data){
+      const params = {
+        data: {
+          ...data,
+          payment_method_id:id
+        }
+      };
+      this.$axios.post('/client/member/card/bind', params).then(async res => {
+        this.$emit('handleCloseLoginDialog', -9)
+      }).catch(err=>{
+        this.$message.info(err.message)
+      });
+    },
+    parentFunction(e){
+      console.log(e)
+      console.log(123123123123123)
     }
   }
 }
@@ -130,7 +189,7 @@ export default {
 }
 
 .login-class{
-  height: 460px !important;
+  height: 540px !important;
 }
 
 /** 登录卡片样式 */

@@ -35,10 +35,10 @@
             </div>
             <div v-if='type===5' class="login_input"  >
               <div>银行卡</div>
-              <el-select v-model='addr_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+              <el-select v-model='card_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                          style='flex: 1'>
-                <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
-                           :value='item.addr_id'></el-option>
+                <el-option v-for='(item, index) in cardList' :key='index' :label='item.card_name'
+                           :value='item.card_id'></el-option>
               </el-select>
               <span  @click="handleChangeType(9)" style='cursor: pointer'>添加银行卡</span>
             </div>
@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  props: ['type','orderAddrList','payitem'],
+  props: ['type','orderAddrList','payitem','cardList'],
   data(){
     return{
       companyTypeList:[],
@@ -60,7 +60,8 @@ export default {
       isshow:false,
       addr_id:'',
       code:'',
-      intro:''
+      intro:'',
+      card_id:''
     }
   },
   methods: {
@@ -69,6 +70,14 @@ export default {
       if(value === -1||value === 3||value === 9){
         this.$emit('handleCloseLoginDialog', value)
       }else {
+        if(this.type == 5){
+          this.$emit('paymentOrder', {
+            card_id:this.card_id,
+            code:'money',
+
+          })
+          return
+        }
         if(!this.code){
           this.$message.info('请输入')
         }

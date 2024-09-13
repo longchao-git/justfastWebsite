@@ -8,8 +8,8 @@
         }}{{ topInfo.min_amount }}起送
       </div>
     </div>
-    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
-                  :orderAddrList='orderAddrList' :payitem='payitem' />
+    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd' @paymentOrder='paymentOrder'
+                  :orderAddrList='orderAddrList' :cardList='cardList' :payitem='payitem' />
     <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
     <add-addr :type
@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      loginType: -1,
+      loginType: 9,
       shop_id: '',
       goodsArr: [],
       addCartAary: [],
@@ -64,8 +64,10 @@ export default {
       posterUrl: '',
       product_info: '',
       orderAddrList: [],
+      cardList:[],
       min_amount: 0,
-      payitem: []
+      payitem: [],
+      order_id:''
     };
   },
 
@@ -188,11 +190,28 @@ export default {
       } else if (value === -2) {
         this.orderAddr();
         this.loginType = -1;
-      } else if (value === 9) {
+      } else if (value === -9) {
+        this.memberCardIndex();
+        this.loginType = -1;
+      }else if (value === 9) {
         this.loginType = 9
       } else {
         this.loginType = value;
       }
+    },
+    paymentOrder(value){
+      var params = {
+        data: {
+          ...value,
+          order_id:this.order_id
+        }
+      };
+      this.$axios.post('}/client/payment/order', params).then(async res => {
+        this.$message.success('下单成功')
+        this.handleCloseLoginDialog(-1)
+      }).catch(err=>{
+        this.$message.info(err.message)
+      });
     },
     handleLoginAdd(value) {
       let onlinepay = '';
@@ -232,6 +251,7 @@ export default {
       console.log(params);
       this.$axios.post('/client/waimai/order/create', params).then(res => {
         this.$message.success('订单已提交');
+        this.order_id = res.order_id
         this.memberCardIndex()
       }).catch(err => {
         this.$message.info(err.message);
@@ -243,6 +263,7 @@ export default {
       }
       this.$axios.post('/client/member/card/index', params).then(res => {
         // this.$message.success('获取1');
+        this.cardList = res.items
         this.loginType = 5
       }).catch(err => {
         this.$message.info(err.message);
