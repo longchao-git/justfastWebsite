@@ -3,12 +3,13 @@
     <sales-good-util :list='goodsArr' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
     <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
 			<span class='color-242424 font14 ' v-if='addCartAary.length>0'>{{ $t('contentDetail.title') }}
-				{{ addCartAary.length }} <span style='color: #ee8080'>总金额：€{{ min_amount }}</span> </span>
+				{{ addCartAary.length }} <span style='color: #ee8080'>{{ $t(`importetotal`) }}：€{{ min_amount }}</span> </span>
       <div @click='handleCloseLoginDialog(1)' class='button_info' style='margin-left: 32px'>{{ $t('contentDetail.name')
-        }}{{ topInfo.min_amount }}起送
+        }}{{ topInfo.min_amount }}{{ $t(`partir`) }}
       </div>
     </div>
-    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd' @paymentOrder='paymentOrder'
+    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
+                  @paymentOrder='paymentOrder'
                   :orderAddrList='orderAddrList' :cardList='cardList' :payitem='payitem' />
     <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
@@ -45,6 +46,7 @@ import loginSucceed from '../components/popupWindow/loginSucceed.vue';
 import login from '../components/popupWindow/login.vue';
 import addAddr from '../components/popupWindow/addAddr.vue';
 import addBank from '../components/popupWindow/addBank.vue';
+
 export default {
   components: {
     salesGoodUtil,
@@ -56,7 +58,7 @@ export default {
   },
   data() {
     return {
-      loginType: 9,
+      loginType: -1,
       shop_id: '',
       goodsArr: [],
       addCartAary: [],
@@ -64,10 +66,10 @@ export default {
       posterUrl: '',
       product_info: '',
       orderAddrList: [],
-      cardList:[],
+      cardList: [],
       min_amount: 0,
       payitem: [],
-      order_id:''
+      order_id: ''
     };
   },
 
@@ -82,7 +84,6 @@ export default {
       } = e;
       let goodsArr = this.goodsArr;
       let products = goodsArr[index].products[indexs];
-      console.log();
       if (type === 2) {
         if (products.sale_sku > products.num) {
           this.$set(this.goodsArr[index].products, indexs, {
@@ -90,7 +91,7 @@ export default {
             num: products.num + 1
           });
         } else {
-          this.$message.info('商品库存不足');
+          this.$message.info(this.$t(`productos`));
         }
 
       } else {
@@ -154,11 +155,11 @@ export default {
         this.loginType = 3;
       } else if (value === 1) {
         if (this.addCartAary.length <= 0) {
-          this.$message.info('请选择');
+          this.$message.info(this.$t(`loginOrRegister.placeholder`)[1]);
           return;
         }
         if (this.min_amount <= this.topInfo.min_amount) {
-          this.$message.info('总金额小于起送价格');
+          this.$message.info(this.$t(`salida`));
           return;
         }
         if (localStorage.getItem('token')) {
@@ -166,14 +167,14 @@ export default {
             console.log(res);
             let payitem = [];
             if (res.online_pay == 1) {
-              var arr = { 'title': '在线支付', 'code': 1 };
+              var arr = { 'title': this.$t(`online_pay`), 'code': 1 };
               payitem.push(arr);
             }
             if (res.is_daofu == 1) {
-              var arr = { 'title': '餐到付款现金', 'code': 2 };
+              var arr = { 'title': this.$t(`is_daofu`), 'code': 2 };
               payitem.push(arr);
               if (res.is_pos == 1) {
-                var arr1 = { 'title': '餐到付款刷卡', 'code': 3 };
+                var arr1 = { 'title': this.$t(`is_pos`), 'code': 3 };
                 payitem.push(arr1);
               }
             }
@@ -193,24 +194,24 @@ export default {
       } else if (value === -9) {
         this.memberCardIndex();
         this.loginType = -1;
-      }else if (value === 9) {
-        this.loginType = 9
+      } else if (value === 9) {
+        this.loginType = 9;
       } else {
         this.loginType = value;
       }
     },
-    paymentOrder(value){
+    paymentOrder(value) {
       var params = {
         data: {
           ...value,
-          order_id:this.order_id
+          order_id: this.order_id
         }
       };
       this.$axios.post('}/client/payment/order', params).then(async res => {
-        this.$message.success('下单成功')
-        this.handleCloseLoginDialog(-1)
-      }).catch(err=>{
-        this.$message.info(err.message)
+        this.$message.success(this.$t(`addView`));
+        this.handleCloseLoginDialog(-1);
+      }).catch(err => {
+        this.$message.info(err.message);
       });
     },
     handleLoginAdd(value) {
@@ -250,21 +251,21 @@ export default {
 
       console.log(params);
       this.$axios.post('/client/waimai/order/create', params).then(res => {
-        this.$message.success('订单已提交');
-        this.order_id = res.order_id
-        this.memberCardIndex()
+        this.$message.success(this.$t(`enviado`));
+        this.order_id = res.order_id;
+        this.memberCardIndex();
       }).catch(err => {
         this.$message.info(err.message);
       });
     },
-    memberCardIndex(){
+    memberCardIndex() {
       let params = {
-        data:{}
-      }
+        data: {}
+      };
       this.$axios.post('/client/member/card/index', params).then(res => {
         // this.$message.success('获取1');
-        this.cardList = res.items
-        this.loginType = 5
+        this.cardList = res.items;
+        this.loginType = 5;
       }).catch(err => {
         this.$message.info(err.message);
       });
@@ -344,7 +345,7 @@ export default {
       let that = this,
         goodsArr = that.goodsArr,
         arr = {
-          title: '全部',
+          title: this.$t(`all`),
           cate_id: 'all',
           products: []
         },

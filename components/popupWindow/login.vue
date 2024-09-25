@@ -129,15 +129,15 @@ export default {
         this.$emit('handleCloseLoginDialog', -1);
       } else if (type === 2) {
         if (!this.conPhone) {
-          this.$message.error('请选择国家地区');
+          this.$message.error(this.$t(`loginOrRegister.placeholder`)[1]);
           return;
         }
         if (!this.phone) {
-          this.$message.error('请输入手机号码');
+          this.$message.error(this.$t(`loginOrRegister.placeholder`)[0]);
           return;
         }
         if (!this.code) {
-          this.$message.error('请输入验证码');
+          this.$message.error(this.$t(`loginOrRegister.placeholder`)[0]);
           return;
         }
         let params = {
@@ -159,15 +159,15 @@ export default {
     bindSendCode(type) {
       if (this.isGetCode) {
         if (!this.conPhone) {
-          this.$message.error('请选择国家地区');
+          this.$message.error(this.$t(`loginOrRegister.placeholder`)[1]);
           return;
         }
         if (!this.phone) {
-          this.$message.error('请输入手机号码');
+          this.$message.error(this.$t(`loginOrRegister.placeholder`)[0]);
           return;
         }
         if (!this.img_code) {
-          this.$message.error('请输入图形验证码');
+          this.$message.error(this.$t(`loginOrRegister.placeholder`)[0]);
           return;
         }
         // this.conPhone + '-' +

@@ -6,7 +6,7 @@
             <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
                  alt=""/>
           </div>
-          <p >{{ type===2?$t('loginPopup.name') :'银行卡'}}</p>
+          <p >{{ type===2?$t('loginPopup.name') :$t(`bank.bank`) }}</p>
           <div class="loginClass">
             <div v-if='type===2' class="login_input"  >
               <div>{{ $t('loginPopup.fromOne') }}</div>
@@ -15,10 +15,10 @@
                 <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
                            :value='item.addr_id'></el-option>
               </el-select>
-              <span  @click="handleChangeType(3)" style='cursor: pointer'>添加地址</span>
+              <span  @click="handleChangeType(3)" style='cursor: pointer'> {{$t(`addAddr.name`)}}</span>
             </div>
             <div v-if='type===2' class="login_input"  >
-              <div>支付方式</div>
+              <div>{{ $t(`depago`) }}</div>
               <el-select v-model='code' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                          style='flex: 1'>
                 <el-option v-for='(item, index) in payitem' :key='index' :label='item.title'
@@ -27,22 +27,22 @@
 
             </div>
             <div v-if='type===2' class="login_input"  >
-              <div>买家留言</div>
+              <div>{{ $t(`comprador`) }}</div>
               <input
                 v-model="intro"
                 :placeholder="$t('addAddr.ingrese')"
                 class="c-input"/>
             </div>
             <div v-if='type===5' class="login_input"  >
-              <div>银行卡</div>
+              <div>{{ $t(`bank.bank`) }}</div>
               <el-select v-model='card_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                          style='flex: 1'>
                 <el-option v-for='(item, index) in cardList' :key='index' :label='item.card_name'
                            :value='item.card_id'></el-option>
               </el-select>
-              <span  @click="handleChangeType(9)" style='cursor: pointer'>添加银行卡</span>
+              <span  @click="handleChangeType(9)" style='cursor: pointer'>{{$t(`bank.name`)}}</span>
             </div>
-            <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
+            <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">{{ $t(`asentar`) }}</v-btn>
           </div>
         </div>
     </div>
@@ -79,7 +79,7 @@ export default {
           return
         }
         if(!this.code){
-          this.$message.info('请输入')
+          this.$message.info(this.$(`home.ingrese`))
         }
         this.$emit('handleLoginAdd', {
           addr_id:this.addr_id,
@@ -134,7 +134,7 @@ export default {
 }
 
 .login-class{
-  height: 380px !important;
+  height: 420px !important;
 }
 
 /** 登录卡片样式 */

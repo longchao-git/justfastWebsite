@@ -45,7 +45,7 @@
           </div>
         </div>
         <div class="flex_center">
-          <div @click="handleConfirmSubbit" class="button_info">确定</div>
+          <div @click="handleConfirmSubbit" class="button_info">{{ $t(`asentar`) }}</div>
         </div>
       </div>
     </div>

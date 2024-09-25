@@ -18,12 +18,10 @@
 
             <div class='text_freight'>
               <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
-              <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}配送费{{ item.reduceEd_freight }}</span>
+              <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee') }}{{ item.reduceEd_freight }}</span>
               <span v-else>{{ $t('home.Gastos') }}€{{ item.freight }}</span>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

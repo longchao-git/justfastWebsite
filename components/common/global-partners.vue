@@ -27,79 +27,8 @@ export default {
         text: {
           color: '#133ba0'
         },
-        lines: [
-          {
-            source: '英国',
-            target: '英国'
-          }
-        ],
-        points: [
-          {
-            name: '马来西亚11',
-            text: {
-              show: true
-            },
-            coordinate: [0.76, 0.63]
-          },
-          {
-            name: '英国',
-            text: {
-              show: true
-            },
-            coordinate: [0.46, 0.30]
-          },
-          {
-            name: '四川',
-            coordinate: [0.75, 0.4]
-          },
-          {
-            name: '四川',
-            coordinate: [0.71, 0.42]
-          },
-          {
-            name: '四川',
-            coordinate: [0.74, 0.43]
-          },
-          {
-            name: '四川',
-            coordinate: [0.75, 0.4],
-            halo: {
-              color: '#133ba0'
-            }
-          },
-          {
-            name: '北京',
-            coordinate: [0.82, 0.3]
-          },
-          {
-            name: '南京',
-            coordinate: [0.75, 0.45]
-          },
-          {
-            name: '南京',
-            coordinate: [0.72, 0.47]
-          },
-          {
-            name: '南京',
-            coordinate: [0.73, 0.46]
-          },
-          {
-            name: '北京',
-            coordinate: [0.75, 0.42]
-          },
-          {
-            name: '北京',
-            coordinate: [0.7, 0.40]
-          },
-          {
-            name: '北京',
-            coordinate: [0.78, 0.38]
-          },
-          {
-            name: '南京',
-            coordinate: [0.73, 0.35]
-          }
-        ]
+
+
       },
     }
   },

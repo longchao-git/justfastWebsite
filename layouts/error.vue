@@ -6,8 +6,8 @@
       <a href="/" class="disflex al-center">
         <div class="goIndex"><span style="font-size: 25px">←</span>回首页</div>
       </a>
-      <p class="errorPhone">客服电话:{{ciHotline}}</p>
-      <p class="errorEmail">联系邮箱:{{ciEmail}}</p>
+<!--      <p class="errorPhone">客服电话:{{ciHotline}}</p>-->
+<!--      <p class="errorEmail">联系邮箱:{{ciEmail}}</p>-->
     </div>
   </div>
 </template>

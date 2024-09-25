@@ -36,7 +36,7 @@
               :placeholder="$t('addAddr.ingrese')"
               class="c-input"/>
           </div>
-          <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">确定</v-btn>
+          <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">{{ $t(`asentar`) }}</v-btn>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@ export default {
     handleChangeType(value) {
       if(value === 2){
         if(!this.contact||!this.mobile||!this.house||!this.addr){
-          this.$message.info('请输入')
+          this.$message.info(this.$t(`home.ingrese`))
           return
         }
         const params = {
@@ -76,7 +76,7 @@ export default {
         };
         this.$axios.post('/client/member/addr/create', params).then(res => {
 
-          this.$message.info('保存成功')
+          this.$message.info(this.$t(`Guardar`))
           this.$emit('handleCloseLoginDialog', -2)
         }).catch(err=>{
           this.$message.info(err.message)

@@ -60,6 +60,9 @@ export default {
         rel: 'preload',
         href: '//cdn.jsdelivr.net/npm/font-awesome@4.x/fonts/fontawesome-webfont.woff2?v=4.7.0'
       }
+    ],
+    script: [
+      { src: 'https://js.stripe.com/v3/', ssr: false }
     ]
   },
 
@@ -122,10 +125,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios', // 可选配置项可以根据需求调整
-    ['nuxt-stripe-module', {
-      publishableKey: 'pk_test_51MTtOaCIqD5Zs0Lm24lGXoFkEmGipBxdSRub2ukEPEJ7RjBk1kNfh68O1SH8nPJ1g08Tv4aDfu28MVyJV60PS75p00QcMP1SYU',
 
-    }],
     ['vue-scrollto/nuxt', {
       duration: 0,
       cancelable: false,
