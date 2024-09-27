@@ -244,10 +244,10 @@ export default {
           is_first: 0,
           hongbao_package_id: 0,
           is_pos: is_pos,
-          pei_time: currentHour + ':' + currentMinute
+          pei_time: 0
         }
       };
-
+      // currentHour + ':' + currentMinute
 
       console.log(params);
       this.$axios.post('/client/waimai/order/create', params).then(res => {
