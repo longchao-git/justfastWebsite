@@ -244,7 +244,7 @@ export default {
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
   width: 540px;
-  height: 460px;
+  height: 500px;
   position: relative;
 
   > div {
