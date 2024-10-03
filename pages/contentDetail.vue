@@ -122,7 +122,7 @@ export default {
         'title': info.title,
         'num': info.num
       };
-      console.log(infoData);
+
       let ishowAdd = true;
       for (let i in this.addCartAary) {
         if (this.addCartAary[i].product_id === info.product_id && this.addCartAary[i].sku_id === info.sku_id) {
@@ -164,7 +164,7 @@ export default {
         }
         if (localStorage.getItem('token')) {
           this.orderForm().then(res => {
-            console.log(res);
+
             let payitem = [];
             if (res.online_pay == 1) {
               var arr = { 'title': this.$t(`online_pay`), 'code': 1 };
@@ -179,7 +179,6 @@ export default {
               }
             }
             this.payitem = payitem;
-            console.log(payitem);
             this.loginType = 2;
           });
         } else {
@@ -249,7 +248,7 @@ export default {
       };
       // currentHour + ':' + currentMinute
 
-      console.log(params);
+
       this.$axios.post('/client/waimai/order/create', params).then(res => {
         this.$message.success(this.$t(`enviado`));
         this.order_id = res.order_id;
@@ -308,9 +307,9 @@ export default {
           'page': 1
         }
       };
-      console.log();
+;
       this.$axios.post('/client/member/addr/orderAddr', params).then(res => {
-        console.log(res);
+
         this.orderAddrList = res.items;
       }).catch(err => {
         this.$message.info(err.message);
@@ -381,7 +380,7 @@ export default {
           }
         }
       }
-      console.log(goodsArr);
+
       that.goodsArr = goodsArr;
     }
   },

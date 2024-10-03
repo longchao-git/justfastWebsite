@@ -102,19 +102,21 @@ export default {
   },
   watch: {
     type(newVal, oldVal) {
-      console.log(newVal);
+
       if (newVal === 9) {
         this.elements();
-
       }
     }
   },
   methods: {
     elements() {
       // console.log(this.$stripe);
+      // pk_live_51N6ZB2EXrtl05xVO2ptAxLtE5Thx8MAh4lLpui3dLNVEwG8amXBjq8AYCk48hMHBqVezIrlc1YwZANnDgXgwB1sm00MJrBfzOp
       // 'pk_test_51PVxWA06p8YFjQGEBY1lSTLMLj9athO3o1g6LqvaOWEVijF7lFhq0nPioNLL3lGdIMJ1oV3Q69ZqpqdoUvFwvlyT00hrwtg84O'
+
+
       this.stripe = Stripe(
-        'pk_live_51N6ZB2EXrtl05xVO2ptAxLtE5Thx8MAh4lLpui3dLNVEwG8amXBjq8AYCk48hMHBqVezIrlc1YwZANnDgXgwB1sm00MJrBfzOp'
+        'pk_test_51PVxWA06p8YFjQGEBY1lSTLMLj9athO3o1g6LqvaOWEVijF7lFhq0nPioNLL3lGdIMJ1oV3Q69ZqpqdoUvFwvlyT00hrwtg84O'
       );
       this.stripe.elements({
         style: {
@@ -157,19 +159,33 @@ export default {
           'payment_method_id':id
         }
       };
+      this.$axios.post('/client/member/card/setup_intent',params).then( res => {
+        console.log(res.client_secret)
+        params.data.payment_method_id = res.client_secret
+        // this.$message.success('保存成功')
+        // this.handleChangeType(-9)
+        this.$axios.post('/client/member/card/bind', params).then(async res => {
 
-      this.$axios.post('/client/member/card/bind', params).then(async res => {
-
-        this.$message.success('保存成功')
-        this.handleChangeType(-9)
+          this.$message.success('保存成功')
+          this.handleChangeType(-9)
+        }).catch(err => {
+          this.$message.info(err.message);
+        });
       }).catch(err => {
         this.$message.info(err.message);
       });
+      // this.$axios.post('/client/member/card/bind', params).then(async res => {
+      //
+      //   this.$message.success('保存成功')
+      //   this.handleChangeType(-9)
+      // }).catch(err => {
+      //   this.$message.info(err.message);
+      // });
     },
     async createPaymentMethod() {
-      console.log(this.$refs.cardRefNumber);
-      console.log( this.cardElement)
-      console.log( this.stripe)
+      // console.log(this.$refs.cardRefNumber);
+      // console.log( this.cardElement)
+      // console.log( this.stripe)
       let that = this
       if(!this.card_name||!this.cvc||!this.card_number||!this.year||!this.month){
         this.$message.info('请输入')
@@ -177,26 +193,27 @@ export default {
       }
       // try {
 
-        this.stripe.createPaymentMethod({
-          type: 'card',
-          card: this.cardElement,
-          billing_details: {
-            name: 'Jenny Rosen',
-          },
-        })
-          .then(function(result) {
-            console.log(JSON.stringify(result))
-            console.log(result.paymentMethod.id)
-            if (result && result.paymentMethod && result.paymentMethod.id) {
-              console.log(231123123123)
-              that.setup_intent(result.paymentMethod.id)
-            } else {
-
-            }
-          })
-          .catch(result => {
-
-          });;
+        // this.stripe.createPaymentMethod({
+        //   type: 'card',
+        //   card: this.cardElement,
+        //   billing_details: {
+        //     name: 'Jenny Rosen',
+        //   },
+        // })
+        //   .then(function(result) {
+        //     // console.log(JSON.stringify(result))
+        //     // console.log(result.paymentMethod.id)
+        //     if (result && result.paymentMethod && result.paymentMethod.id) {
+        //       // console.log(231123123123)
+      // result.paymentMethod.id)
+              that.setup_intent()
+          //   } else {
+          //
+          //   }
+          // })
+          // .catch(result => {
+          //
+          // });;
       // } catch (error) {
       //   console.log('PaymentMethod creation error:', error.message);
       // }
@@ -216,10 +233,7 @@ export default {
         this.$message.info(err.message);
       });
     },
-    parentFunction(e) {
-      console.log(e);
-      console.log(123123123123123);
-    }
+
   }
 };
 </script>
