@@ -39,7 +39,9 @@ export default {
         // "LANG":localStorage.getItem('locale')
         data: {'page': this.page, "type":"shops","title":this.keywords, }
       };
-      this.$axios.post('/client/waimai/shop/search', params).then(res => {
+
+      console.log()
+      this.$axios.post('/client/waimai/shop/search', params,).then(res => {
 
         if(this.page == 1 ){
           this.lists = res.items

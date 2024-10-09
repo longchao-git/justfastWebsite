@@ -3,7 +3,7 @@
     <sales-good-util :list='goodsArr' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
     <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
 			<span class='color-242424 font14 ' v-if='addCartAary.length>0'>{{ $t('contentDetail.title') }}
-				{{ addCartAary.length }} <span style='color: #ee8080'>{{ $t(`importetotal`) }}：€{{ min_amount }}</span> </span>
+				{{ addCartAary.length }} <span style='color: #ee8080'>{{ $t(`importetotal`) }}：€{{ (min_amount).toFixed(2) }}</span> </span>
       <div @click='handleCloseLoginDialog(1)' class='button_info' style='margin-left: 32px'>{{ $t('contentDetail.name')
         }}{{ topInfo.min_amount }}{{ $t(`partir`) }}
       </div>
@@ -147,6 +147,7 @@ export default {
 
     /** 处理登录弹框的关闭操作 */
     async handleCloseLoginDialog(value) {
+
       if (value === 2) {
         this.$html2canvas(this.$refs.posterHtml, {}).then((canvas) => {
           let posterUrl = canvas.toDataURL('image/png');
@@ -206,7 +207,7 @@ export default {
           order_id: this.order_id
         }
       };
-      this.$axios.post('}/client/payment/order', params).then(async res => {
+      this.$axios.post('/client/payment/order', params).then(async res => {
         this.$message.success(this.$t(`addView`));
         this.handleCloseLoginDialog(-1);
       }).catch(err => {
@@ -263,7 +264,8 @@ export default {
       };
       this.$axios.post('/client/member/card/index', params).then(res => {
         // this.$message.success('获取1');
-        this.cardList = res.items;
+        console.log(res)
+        this.cardList = res;
         this.loginType = 5;
       }).catch(err => {
         this.$message.info(err.message);
@@ -307,7 +309,7 @@ export default {
           'page': 1
         }
       };
-;
+      ;
       this.$axios.post('/client/member/addr/orderAddr', params).then(res => {
 
         this.orderAddrList = res.items;
@@ -385,7 +387,7 @@ export default {
     }
   },
   mounted() {
-    // localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
+    localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
     if (this.$route.query.shop_id) {
       this.shop_id = this.$route.query.shop_id;
     }
