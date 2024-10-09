@@ -387,7 +387,7 @@ export default {
     }
   },
   mounted() {
-    // localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
+    localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
     if (this.$route.query.shop_id) {
       this.shop_id = this.$route.query.shop_id;
     }
