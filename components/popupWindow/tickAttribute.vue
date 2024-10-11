@@ -7,46 +7,60 @@
                alt=""/>
         </div>
         <div class="loginClass">
-          <img class='card_img fit-cover' :src="productInfo.photo" />
-          <div class='ml1'>
-            <div>{{ productInfo.title }}</div>
-            <span class='color-4B4B4B font14 line22'>
+
+          <div class=' '>
+            <div class='font20 beyond' style='width: 200px;text-align: left'>{{ productInfo.title }}</div>
+            <div class='color-4B4B4B font14 line22' style='text-align: left'>
               <span class=' line22 classNameView' style='color: #ee8080;'>
                 	<span>€</span>
-								{{productInfo.price}}
+                {{specs.length>0?specs[specsIndex].price:productInfo.price}}
 								<span>/ {{productInfo.unit}}</span>
-								<span class='del ml5'v-if="productInfo.is_discount == '1'">
-								{{productInfo.oldprice}}/{{productInfo.unit}}
-								</span>
               </span>
-            </span>
+            </div>
           </div>
+
+          <div class='flex flex-j-end' v-if='specs.length>0'>
+            <div class='buttonView' @click='addCart(3)' style='cursor: pointer' v-if="specs[specsIndex].num">-</div>
+            <div class="num mr1" v-if="specs[specsIndex].num">
+              {{specs[specsIndex].num}}
+            </div>
+            <div class='buttonView' @click='addCart(4)' style='cursor: pointer' >+</div>
+          </div>
+
+          <div class='flex flex-j-end' v-if='specs.length<=0'>
+            <div class='buttonView' @click='addCart(5)' style='cursor: pointer' v-if="priceDatass[isValueNumber].num">-</div>
+            <div class="num mr1" v-if="priceDatass[isValueNumber].num">
+              {{priceDatass[isValueNumber].num}}
+            </div>
+            <div class='buttonView' @click='addCart(6)' style='cursor: pointer'>+</div>
+          </div>
+
         </div>
-        <div v-for='(item,index) in specification'>
+        <div v-for='(item,index) in specification' v-if='specification.length>0'>
           <h3 class='module_title'>{{ item.key}}</h3>
           <div class='mxTick'>
-            <div v-for='(items,indexs) in item.val'>
-              <div class='font14'>{{ items.spec_name }}</div>
-              <img v-if='items.show' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
+            <div v-for='(items,indexs) in item.val' @click='addCilck(index,indexs)'>
+              <div class='font14'>{{ items }}</div>
+              <img v-if='item.spk === indexs' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
                    alt=""/>
               <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
                    alt=""/>
             </div>
           </div>
         </div>
-        <h3 class='module_title'>{{ $t('home.tasa')}}</h3>
-        <div  class='mxTick'>
-          <div v-for='(item,index) in specs'>
+        <h3 class='module_title' v-if='specs.length>0'>{{ $t('home.tasa')}}</h3>
+        <div  class='mxTick' v-if='specs.length>0'>
+          <div v-for='(item,index) in specs' @click='bindspecsIndex(index)'>
             <div class='font14'>{{ item.spec_name }}</div>
-            <img v-if='item.show' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
+            <img v-if='specsIndex === index' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
                  alt=""/>
             <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
                  alt=""/>
           </div>
         </div>
-        <div class="flex_center">
-          <div @click="handleConfirmSubbit" class="button_info">{{ $t(`asentar`) }}</div>
-        </div>
+<!--        <div class="flex_center">-->
+<!--          <div @click="handleConfirmSubbit" class="button_info">{{ $t(`asentar`) }}</div>-->
+<!--        </div>-->
       </div>
     </div>
   </div>
@@ -72,10 +86,22 @@ export default {
       type: Object,
       default: {}
     },
+    specsIndex:{
+      type: Number,
+      default: -1
+    },
+    isValueNumber:{
+      type: Number,
+      default: -1
+    },
+    priceDatass:{
+      type: Array,
+      default: []
+    },
   },
   data(){
     return{
-      companyTypeList:[],
+
       tradeTypeId:'',
       context:'',
       isshow:false,
@@ -90,6 +116,18 @@ export default {
     },
     handleConfirmSubbit(){
       this.$emit('handleCloseLoginDialog', -1)
+    },
+    bindspecsIndex(index){
+      this.$emit('bindspNewecsIndex',index)
+    },
+    addCart(type){
+      this.$emit('addCart',type)
+    },
+    addCilck(index,indexs){
+      this.$emit('addspkCilck', {
+        index,
+        indexs
+      })
     }
   }
 }
@@ -108,7 +146,19 @@ export default {
   display: flex;
 }
 
+.buttonView {
+  width: 20px;
+  height: 20px;
+  background: #ee8080;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 6px;
+  line-height: 20px;
 
+}
 /** 登录卡片样式 */
 .login-window-card {
   border-radius: 8px;
@@ -143,6 +193,7 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
       margin-top: 48px;
       padding: 0 48px 24px;
       border-bottom: 1px solid #999999;

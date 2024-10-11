@@ -3,14 +3,16 @@
     <sales-good-util :list='goodsArr' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
     <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
 			<span class='color-242424 font14 ' v-if='addCartAary.length>0'>{{ $t('contentDetail.title') }}
-				{{ addCartAary.length }} <span style='color: #ee8080'>{{ $t(`importetotal`) }}：€{{ (min_amount).toFixed(2) }}</span> </span>
+				{{ addCartAary.length }} <span style='color: #ee8080'>{{ $t(`importetotal`) }}：€{{ (min_amount).toFixed(2)
+          }}</span> </span>
       <div @click='handleCloseLoginDialog(1)' class='button_info' style='margin-left: 32px'>{{ $t('contentDetail.name')
         }}{{ topInfo.min_amount }}{{ $t(`partir`) }}
       </div>
     </div>
     <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
                   @paymentOrder='paymentOrder'
-                  :orderAddrList='orderAddrList' :cardList='cardList' :payitem='payitem' />
+                  :orderAddrList='orderAddrList' :cardList='cardList' :payitem='payitem' :orderInfo='orderInfo'
+                  :amount='min_amount' />
     <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
     <login :loginType='loginType' @handleCloseLoginDialog='handleCloseLoginDialog'></login>
     <add-addr :type
@@ -69,7 +71,8 @@ export default {
       cardList: [],
       min_amount: 0,
       payitem: [],
-      order_id: ''
+      order_id: '',
+      orderInfo: {}
     };
   },
 
@@ -77,10 +80,12 @@ export default {
   },
   methods: {
     addCilck(e) {
+      console.log(e)
       let {
         type,
         index,
-        indexs
+        indexs,
+        specsIndex
       } = e;
       let goodsArr = this.goodsArr;
       let products = goodsArr[index].products[indexs];
@@ -93,14 +98,60 @@ export default {
         } else {
           this.$message.info(this.$t(`productos`));
         }
-
-      } else {
+      } else if (type === 1) {
         this.$set(this.goodsArr[index].products, indexs, {
           ...goodsArr[index].products[indexs],
           num: products.num - 1
         });
-      }
+      } else if (type === 4) {
+        if (products.sale_sku > products.num) {
+          this.$set(this.goodsArr[index].products, indexs, {
+            ...goodsArr[index].products[indexs],
+            num: products.num + 1
+          });
+          this.$set(this.goodsArr[index].products[indexs].specs, specsIndex, {
+            ...goodsArr[index].products[indexs].specs[specsIndex],
+            num: goodsArr[index].products[indexs].specs[specsIndex].num + 1
+          });
+        } else {
+          this.$message.info(this.$t(`productos`));
+        }
+      } else if (type === 3) {
 
+        this.$set(this.goodsArr[index].products, indexs, {
+          ...goodsArr[index].products[indexs],
+          num: products.num - 1
+        });
+        this.$set(this.goodsArr[index].products[indexs].specs, specsIndex, {
+          ...goodsArr[index].products[indexs].specs[specsIndex],
+          num: goodsArr[index].products[indexs].specs[specsIndex].num - 1
+        });
+
+      } else if (type === 6) {
+        if (products.sale_sku > products.num) {
+          this.$set(this.goodsArr[index].products, indexs, {
+            ...goodsArr[index].products[indexs],
+            num: products.num + 1
+          });
+          this.$set(this.goodsArr[index].products[indexs].priceDatass, specsIndex, {
+            ...goodsArr[index].products[indexs].priceDatass[specsIndex],
+            num: goodsArr[index].products[indexs].priceDatass[specsIndex].num + 1
+          });
+          console.log(this.goodsArr[index].products[indexs])
+        } else {
+          this.$message.info(this.$t(`productos`));
+        }
+      } else if (type === 5) {
+
+        this.$set(this.goodsArr[index].products, indexs, {
+          ...goodsArr[index].products[indexs],
+          num: products.num - 1
+        });
+        this.$set(this.goodsArr[index].products[indexs].priceDatass, specsIndex, {
+          ...goodsArr[index].products[indexs].priceDatass[specsIndex],
+          num: goodsArr[index].products[indexs].priceDatass[specsIndex].num - 1
+        });
+      }
       this.goodsArr = goodsArr;
       let info = this.goodsArr[index].products[indexs];
       let infoData = {
@@ -111,24 +162,39 @@ export default {
         'package': info.package_price,
         'product_id': info.product_id,
         'pcate_id': info.cate_id,
-        'sku_id': info.sku_id,
         'sale_sku': info.sale_sku,
         'sale_type': info.sale_type,
-        'spec_id': info.spec_id || '',
         'shoptitle': this.topInfo.title,
         'shopid': info.shop_id,
         'str_obj': {},
-        'str_name': {},
+        'str_name': '',
         'title': info.title,
+        'sku_id': info.sku_id,
+        'spec_id': '',
         'num': info.num
       };
-
+      if (type === 4 || type === 3) {
+        infoData.sku_id = info.specs[specsIndex].sku_id;
+        infoData.spec_id = info.specs[specsIndex].spec_id;
+        infoData.num = info.specs[specsIndex].num;
+        infoData.price = info.specs[specsIndex].price;
+      }
+      if (type === 5 || type === 6) {
+        infoData.num = info.priceDatass[specsIndex].num;
+        infoData.str_name = '&'
+        let str_name = []
+        for(let i in info.specification){
+          str_name.push(info.specification[i].key + '_' + info.specification[i].val[info.specification[i].spk])
+        }
+        infoData.str_name = str_name.join('-')
+      }
       let ishowAdd = true;
       for (let i in this.addCartAary) {
-        if (this.addCartAary[i].product_id === info.product_id && this.addCartAary[i].sku_id === info.sku_id) {
+        if (this.addCartAary[i].product_id === infoData.product_id && this.addCartAary[i].sku_id === infoData.sku_id&&this.addCartAary[i].str_name === infoData.str_name) {
+          console.log(1212);
           ishowAdd = false;
-          if (info.num) {
-            this.addCartAary[i] = info;
+          if (infoData.num) {
+            this.addCartAary[i] = infoData;
           } else {
             this.addCartAary.splice(i, 1);
           }
@@ -137,6 +203,7 @@ export default {
       if (ishowAdd) {
         this.addCartAary.push(infoData);
       }
+      console.log(this.addCartAary);
       let min_amount = 0;
       for (let item of this.addCartAary) {
         min_amount += item.price * item.num;
@@ -179,6 +246,7 @@ export default {
                 payitem.push(arr1);
               }
             }
+            this.orderInfo = res;
             this.payitem = payitem;
             this.loginType = 2;
           });
@@ -264,7 +332,7 @@ export default {
       };
       this.$axios.post('/client/member/card/index', params).then(res => {
         // this.$message.success('获取1');
-        console.log(res)
+        console.log(res);
         this.cardList = res;
         this.loginType = 5;
       }).catch(err => {
@@ -280,7 +348,9 @@ export default {
           title = cart[i].shoptitle;
           if (cart[i].spec_id) {
             product_info2 += cart[i].product_id + ':' + cart[i].spec_id + ':' + cart[i].num;
-          } else {
+          } else if(cart[i].str_name){
+            product_info2 += cart[i].product_id + ':' + 0 + ':' + cart[i].num + '&'+  cart[i].str_name;
+          }else{
             product_info2 += cart[i].product_id + ':' + 0 + ':' + cart[i].num;
           }
           product_info2 += ',';
@@ -359,8 +429,11 @@ export default {
             if (!isNaN(parseInt(goodsArr[i].cate_id))) {
               arr.products.push(goodsArr[i].products[j]);
             }
+            goodsArr[i].products[j].specsIndex = -1;
             //定义商品规格及sku_id；
             if (goodsArr[i].products[j].specs && goodsArr[i].products[j].specs.length > 0) {
+              goodsArr[i].products[j].specsIndex = 0;
+              goodsArr[i].products[j].num = 0;
               for (let h = 0; h < goodsArr[i].products[j].specs.length; h++) {
                 sku_id = goodsArr[i].products[j].product_id + '_' + goodsArr[i].products[j].specs[h]
                   .spec_id;
@@ -374,6 +447,12 @@ export default {
               sku_id = goodsArr[i].products[j].product_id + '_0';
               goodsArr[i].products[j].sku_id = sku_id;
               goodsArr[i].products[j].num = 0;
+              let arr = []
+              for (let w in goodsArr[i].products[j].specification) {
+                goodsArr[i].products[j].specification[w].spk = 0;
+                arr.push(goodsArr[i].products[j].specification[w].val)
+              }
+              goodsArr[i].products[j].priceDatass = this.combination(arr)
             } else {
               sku_id = goodsArr[i].products[j].product_id + '_0';
               goodsArr[i].products[j].sku_id = sku_id;
@@ -382,8 +461,32 @@ export default {
           }
         }
       }
-
+      console.log(goodsArr);
       that.goodsArr = goodsArr;
+    },
+    combination(arr) {
+      console.log(arr);
+      let result = [
+        []
+      ];
+      arr.map(x => {
+        var res = [];
+        result.map(y => {
+          x.map(z => {
+            res.push([...y, z]);
+          });
+        });
+        result = res;
+      });
+      let priceDatass = [];
+      for (let i in result) {
+        priceDatass.push({
+          attrJson: result[i].join(','),
+          num:0
+        });
+      }
+      return priceDatass
+
     }
   },
   mounted() {

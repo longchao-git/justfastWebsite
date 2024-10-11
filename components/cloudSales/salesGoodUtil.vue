@@ -6,7 +6,8 @@
     <div  v-for="(item,index) in list" :key='index' >
       <div style='color: #ee8080;margin-bottom: 12px' class=' font14'>{{item.title}}</div>
       <div class='card_container'>
-        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'  v-if="items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0">
+<!--        v-if="items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0"-->
+        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs' >
           <div class='card_img_container'>
             <img class='card_img fit-cover' :src="item.photo" />
           </div>
@@ -22,17 +23,16 @@
 								</span>
               </span>
               <div class='flex flex-j-end' v-if="items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0">
-                <div class='buttonView' @click='addCart(1,index,indexs)' v-if="items.num">-</div>
+                <div class='buttonView' @click='addCart(1,index,indexs)' style='cursor: pointer' v-if="items.num">-</div>
                 <div class="num mr1" v-if="items.num">
                   {{items.num}}
                 </div>
-                <div class='buttonView' @click='addCart(2,index,indexs)' >+</div>
+                <div class='buttonView' @click='addCart(2,index,indexs)' style='cursor: pointer' >+</div>
               </div>
-
               <div class='spec serg_btnss' v-else-if="items.sale_sku<=0">{{  $t('creation.Agotado') }}</div>
-              <div class='spec serg_btn'  @click='loginbindTap(items.product_id,items)'  v-else>
+              <div class='spec serg_btn'  @click='loginbindTap(items,index,indexs)' v-else>
                 {{  $t('creation.disponibles') }}
-                <span class='num' v-if="items.num > 0">{{ items.num }}</span>
+                <span class='num viewNUm' v-if="items.num > 0">{{ items.num }}</span>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <tick-attribute :type='loginType' :specification='specification' :specs='specs' :productInfo='productInfo' @handleCloseLoginDialog='handleCloseLoginDialog'></tick-attribute>
+    <tick-attribute @addCart='addNewCart' :priceDatass='priceDatass' :isValueNumber='isValueNumber' :type='loginType' @addspkCilck='addspkCilck' @bindspNewecsIndex='bindspNewecsIndex' :specsIndex='specsIndex' :specification='specification' :specs='specs' :productInfo='productInfo' @handleCloseLoginDialog='handleCloseLoginDialog'></tick-attribute>
   </div>
 </template>
 
@@ -76,22 +76,80 @@ export default {
       ecartList:[],
       specification:[],
       productInfo:{},
+      specsIndex:-1,
+      addIndex:{},
+      isValueNumber:0,
+      priceDatass:[],
     };
   },
   methods: {
     handleChangeTabs(tab) {
       this.active = tab;
     },
+    addspkCilck(value){
+      let {index,indexs} = value
+      this.$set(this.specification,index,{
+        ...this.specification[index],
+        spk:indexs
+      })
+      let valueName = []
+      for(let i in this.specification){
+        valueName.push(this.specification[i].val[this.specification[i].spk])
+      }
+      let name = valueName.join(',')
+      for(let i in this.priceDatass){
+        if(this.priceDatass[i].attrJson === name){
+          this.isValueNumber = parseInt(i)
+        }
+      }
+      console.log(this.isValueNumber)
+    },
+    bindspNewecsIndex(index){
+      this.specsIndex = index
+    },
     /** 处理登录弹框的关闭操作 */
     handleCloseLoginDialog(value) {
-      console.log(value)
       this.loginType = value;
     },
-    loginbindTap(product_id,item){
+    loginbindTap(item,index,indexs){
+      console.log(item)
       this.loginType = 2;
       this.productInfo = item
-      this.specs = item.specs
       this.specification = item.specification
+      let valueName = []
+      for(let i in item.specification){
+        valueName.push(item.specification[i].val[item.specification[i].spk])
+      }
+     let name = valueName.join(',')
+      for(let i in item.priceDatass){
+        if(item.priceDatass[i].attrJson === name){
+          this.isValueNumber = parseInt(i)
+        }
+      }
+      this.priceDatass = item.priceDatass
+      this.specsIndex = item.specsIndex
+      this.specs = item.specs
+
+      this.addIndex = {
+        index,
+        indexs
+      }
+    },
+    addNewCart(type){
+      if(type===3||type===4){
+        this.$emit('addCilck', {
+          type,
+          ...this.addIndex,
+          specsIndex:this.specsIndex
+        })
+      }else {
+        this.$emit('addCilck', {
+          type,
+          ...this.addIndex,
+          specsIndex:this.isValueNumber
+        })
+      }
+
     },
     //加入购物车
     addCart(type,index,indexs) {
@@ -141,6 +199,18 @@ export default {
     height: 16px !important;
     padding: 0 7px !important;
     color: #fff !important;
+    position: relative;
+    cursor: pointer;
+    .viewNUm{
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      text-align: center;
+      border-radius: 50px;
+      background: #ff9900;
+    }
   }
   .serg_btnss{
     background: #ffffff !important;
