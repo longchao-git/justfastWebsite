@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import config from '../config';
+
 import {
   mapMutations
 } from 'vuex';
@@ -76,11 +76,8 @@ export default {
     };
   },
 
-  async fetch() {
-  },
   methods: {
     addCilck(e) {
-      console.log(e)
       let {
         type,
         index,
@@ -137,7 +134,7 @@ export default {
             ...goodsArr[index].products[indexs].priceDatass[specsIndex],
             num: goodsArr[index].products[indexs].priceDatass[specsIndex].num + 1
           });
-          console.log(this.goodsArr[index].products[indexs])
+
         } else {
           this.$message.info(this.$t(`productos`));
         }
@@ -181,17 +178,17 @@ export default {
       }
       if (type === 5 || type === 6) {
         infoData.num = info.priceDatass[specsIndex].num;
-        infoData.str_name = '&'
-        let str_name = []
-        for(let i in info.specification){
-          str_name.push(info.specification[i].key + '_' + info.specification[i].val[info.specification[i].spk])
+        infoData.str_name = '&';
+        let str_name = [];
+        for (let i in info.specification) {
+          str_name.push(info.specification[i].key + '_' + info.specification[i].val[info.specification[i].spk]);
         }
-        infoData.str_name = str_name.join('-')
+        infoData.str_name = str_name.join('-');
       }
       let ishowAdd = true;
       for (let i in this.addCartAary) {
-        if (this.addCartAary[i].product_id === infoData.product_id && this.addCartAary[i].sku_id === infoData.sku_id&&this.addCartAary[i].str_name === infoData.str_name) {
-          console.log(1212);
+        if (this.addCartAary[i].product_id === infoData.product_id && this.addCartAary[i].sku_id === infoData.sku_id && this.addCartAary[i].str_name === infoData.str_name) {
+
           ishowAdd = false;
           if (infoData.num) {
             this.addCartAary[i] = infoData;
@@ -203,7 +200,7 @@ export default {
       if (ishowAdd) {
         this.addCartAary.push(infoData);
       }
-      console.log(this.addCartAary);
+
       let min_amount = 0;
       for (let item of this.addCartAary) {
         min_amount += item.price * item.num;
@@ -278,6 +275,7 @@ export default {
       this.$axios.post('/client/payment/order', params).then(async res => {
         this.$message.success(this.$t(`addView`));
         this.handleCloseLoginDialog(-1);
+        window.location.href = '/';
       }).catch(err => {
         this.$message.info(err.message);
       });
@@ -295,10 +293,6 @@ export default {
         is_pos = 1;
       }
 
-      const now = new Date();
-      const currentHour = now.getHours();
-      const currentMinute = now.getMinutes();
-
       var params = {
         data: {
           shop_id: this.shop_id,
@@ -315,8 +309,6 @@ export default {
           pei_time: 0
         }
       };
-      // currentHour + ':' + currentMinute
-
 
       this.$axios.post('/client/waimai/order/create', params).then(res => {
         this.$message.success(this.$t(`enviado`));
@@ -331,8 +323,6 @@ export default {
         data: {}
       };
       this.$axios.post('/client/member/card/index', params).then(res => {
-        // this.$message.success('获取1');
-        console.log(res);
         this.cardList = res;
         this.loginType = 5;
       }).catch(err => {
@@ -348,9 +338,9 @@ export default {
           title = cart[i].shoptitle;
           if (cart[i].spec_id) {
             product_info2 += cart[i].product_id + ':' + cart[i].spec_id + ':' + cart[i].num;
-          } else if(cart[i].str_name){
-            product_info2 += cart[i].product_id + ':' + 0 + ':' + cart[i].num + '&'+  cart[i].str_name;
-          }else{
+          } else if (cart[i].str_name) {
+            product_info2 += cart[i].product_id + ':' + 0 + ':' + cart[i].num + '&' + cart[i].str_name;
+          } else {
             product_info2 += cart[i].product_id + ':' + 0 + ':' + cart[i].num;
           }
           product_info2 += ',';
@@ -381,7 +371,6 @@ export default {
       };
       ;
       this.$axios.post('/client/member/addr/orderAddr', params).then(res => {
-
         this.orderAddrList = res.items;
       }).catch(err => {
         this.$message.info(err.message);
@@ -398,18 +387,18 @@ export default {
         let list = res.detail.items;
         this.goodsArr = list;
         this.resetData();
-        this.qrcode();
+        // this.qrcode();
       }).catch(err => {
         this.$message.info(err.message);
       });
     },
-    qrcode() {
-      let qrcode = new this.$RCode('qrcodeImg', {
-        width: 80, // 设置宽度，单位像素
-        height: 80, // 设置高度，单位像素
-        text: 'https://cuai-zi.net/web/app_share.html' // 设置二维码内容或跳转地址
-      });
-    },
+    // qrcode() {
+    //   let qrcode = new this.$RCode('qrcodeImg', {
+    //     width: 80, // 设置宽度，单位像素
+    //     height: 80, // 设置高度，单位像素
+    //     text: 'https://cuai-zi.net/web/app_share.html' // 设置二维码内容或跳转地址
+    //   });
+    // },
 
     //渲染数据
     resetData() {
@@ -447,12 +436,12 @@ export default {
               sku_id = goodsArr[i].products[j].product_id + '_0';
               goodsArr[i].products[j].sku_id = sku_id;
               goodsArr[i].products[j].num = 0;
-              let arr = []
+              let arr = [];
               for (let w in goodsArr[i].products[j].specification) {
                 goodsArr[i].products[j].specification[w].spk = 0;
-                arr.push(goodsArr[i].products[j].specification[w].val)
+                arr.push(goodsArr[i].products[j].specification[w].val);
               }
-              goodsArr[i].products[j].priceDatass = this.combination(arr)
+              goodsArr[i].products[j].priceDatass = this.combination(arr);
             } else {
               sku_id = goodsArr[i].products[j].product_id + '_0';
               goodsArr[i].products[j].sku_id = sku_id;
@@ -461,11 +450,9 @@ export default {
           }
         }
       }
-      console.log(goodsArr);
       that.goodsArr = goodsArr;
     },
     combination(arr) {
-      console.log(arr);
       let result = [
         []
       ];
@@ -482,10 +469,10 @@ export default {
       for (let i in result) {
         priceDatass.push({
           attrJson: result[i].join(','),
-          num:0
+          num: 0
         });
       }
-      return priceDatass
+      return priceDatass;
 
     }
   },

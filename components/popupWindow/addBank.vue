@@ -75,8 +75,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -95,16 +93,13 @@ export default {
       cardElement: null,
       stripe: null,
       payment_method_id: '',
-      client_secret: ''
+
     };
   },
   mounted() {
-
-
   },
   watch: {
     type(newVal, oldVal) {
-
       if (newVal === 9) {
         this.elements();
       }
@@ -112,7 +107,6 @@ export default {
   },
   methods: {
     elements() {
-      // console.log(this.$stripe);
       // pk_live_51N6ZB2EXrtl05xVO2ptAxLtE5Thx8MAh4lLpui3dLNVEwG8amXBjq8AYCk48hMHBqVezIrlc1YwZANnDgXgwB1sm00MJrBfzOp
       // 'pk_test_51N6ZB2EXrtl05xVOkEOmanXteVdNjaN6zdjcyzCKuEUbkMkRob6O1GRZ75xSKMEnTGJvnrPCkmeAUziBLybNxeAR00IyIhtQES'
       this.stripe = Stripe(
@@ -146,7 +140,12 @@ export default {
     handleChangeType(value) {
       this.$emit('handleCloseLoginDialog', value);
     },
-    setup_intent(id) {
+
+    async createPaymentMethod() {
+      if (!this.card_name || !this.cvc || !this.card_number || !this.year || !this.month) {
+        this.$message.info('请输入');
+        return;
+      }
       const params = {
         data: {
           'card_name': this.card_name,
@@ -154,13 +153,10 @@ export default {
           'card_number': this.card_number,
           'year': this.year,
           'month': this.month,
-          'card_type': this.card_type,
-
+          'card_type': this.card_type
         }
       };
       this.$axios.post('/client/member/card/setup_intent', params).then(res => {
-        this.client_secret = res.client_secret;
-        //
         this.stripe.confirmCardSetup(res.client_secret, {
           payment_method: {
             card: this.cardElement,
@@ -170,9 +166,9 @@ export default {
           }
 
         }).then(result => {
-          console.log(result)
-          if (result.setupIntent&&result.setupIntent.payment_method) {
-            params.data.payment_method_id = result.setupIntent.payment_method
+          console.log(result);
+          if (result.setupIntent && result.setupIntent.payment_method) {
+            params.data.payment_method_id = result.setupIntent.payment_method;
             this.$axios.post('/client/member/card/bind', params).then(async res => {
               this.$message.success('保存成功');
               this.handleChangeType(-9);
@@ -180,39 +176,15 @@ export default {
               this.$message.info(err.message);
             });
           } else {
-
+            this.$message.info('添加失败');
           }
         }).catch(err => {
-          console.log(err);
+          this.$message.info(err.message);
         });
       }).catch(err => {
         this.$message.info(err.message);
       });
-    },
-    async createPaymentMethod() {
-
-      let that = this;
-      if(!this.card_name||!this.cvc||!this.card_number||!this.year||!this.month){
-        this.$message.info('请输入')
-        return
-      }
-      // try {
-
-      // this.stripe.createPaymentMethod({
-      //   type: 'card',
-      //   card: this.cardElement,
-      //   billing_details: {
-      //     name: 'Jenny Rosen'
-      //   }
-      // }).then(function(result) {
-      //   if (result && result.paymentMethod && result.paymentMethod.id) {
-      //     that.payment_method_id = result.paymentMethod.id;
-          that.setup_intent();
-      //   }
-      // });
     }
-
-
   }
 };
 </script>

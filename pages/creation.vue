@@ -2,7 +2,7 @@
   <div class="detail_container">
     <expansion-market :lists='lists'/>
     <div class="flex flex-a-c flex-j-c mt3" style="cursor: pointer" @click='bindTapCilck'>
-      <span class="color-242424 font14">{{ $t('creation.title') }}</span>
+      <span class="color-242424 font14">{{morehidden? $t('creation.title') : $t('creation.oneTitle')}}</span>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
       page:1,
       lists:[],
       keywords:'',
+      morehidden:true
     };
   },
 
@@ -35,20 +36,24 @@ export default {
       this.shopSearch()
     },
     shopSearch(){
+      this.morehidden = true
       const params = {
-        // "LANG":localStorage.getItem('locale')
         data: {'page': this.page, "type":"shops","title":this.keywords, }
       };
 
-      console.log()
       this.$axios.post('/client/waimai/shop/search', params,).then(res => {
-
+        if(res.items.length==0){
+          this.morehidden = false
+        }else {
+          this.morehidden = true
+        }
         if(this.page == 1 ){
           this.lists = res.items
         }else {
           this.lists = this.lists.concat(res.items)
         }
-
+      }).catch(err => {
+        this.$message.info(err.message);
       });
     }
   },
