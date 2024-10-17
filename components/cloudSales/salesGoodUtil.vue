@@ -8,7 +8,7 @@
     <div v-for='(item,index) in list' :key='index'>
       <div style='color: #ee8080;margin-bottom: 12px' class=' font14'>{{ item.title }}</div>
       <div class='card_container'>
-        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'>
+        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'  >
           <div class='card_img_container'>
             <img class='card_img fit-cover' :src='item.photo' />
           </div>
@@ -110,13 +110,30 @@ export default {
       }
     },
     bindspNewecsIndex(index) {
+      this.loginType = 2;
       this.specsIndex = index;
+
     },
     /** 处理登录弹框的关闭操作 */
     handleCloseLoginDialog(value) {
       this.loginType = value;
     },
+    childMethod(item,index, indexs,specsIndex,isValueNumber){
+
+
+      this.loginType = 2;
+      this.productInfo = item;
+      this.specification = item.specification;
+      this.specsIndex = specsIndex;
+      this.isValueNumber = isValueNumber
+      this.specs = item.specs;
+      this.addIndex = {
+        index,
+        indexs
+      };
+    },
     loginbindTap(item, index, indexs) {
+
       this.loginType = 2;
       this.productInfo = item;
       this.specification = item.specification;
@@ -146,11 +163,18 @@ export default {
           ...this.addIndex,
           specsIndex: this.specsIndex
         });
-      } else {
+      } else  if (type === 5 || type === 6){
         this.$emit('addCilck', {
           type,
           ...this.addIndex,
           specsIndex: this.isValueNumber
+        });
+      }else  if (type === 7 || type === 8){
+        this.$emit('addCilck', {
+          type,
+          ...this.addIndex,
+          specsIndex: this.specsIndex,
+          isValueNumber:this.isValueNumber
         });
       }
     },

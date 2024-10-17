@@ -19,7 +19,7 @@
             </div>
           </div>
 
-          <div class='flex flex-j-end' v-if='specs.length>0'>
+          <div class='flex flex-j-end' v-if='specs.length>0&&specification.length<=0'>
             <div class='buttonView' @click='addCart(3)' style='cursor: pointer' v-if="specs[specsIndex].num">-</div>
             <div class="num mr1" v-if="specs[specsIndex].num">
               {{specs[specsIndex].num}}
@@ -27,7 +27,7 @@
             <div class='buttonView' @click='addCart(4)' style='cursor: pointer' >+</div>
           </div>
 
-          <div class='flex flex-j-end' v-if='specs.length<=0'>
+          <div class='flex flex-j-end' v-if='specs.length<=0&&specification.length>0'>
             <div class='buttonView' @click='addCart(5)' style='cursor: pointer' v-if="priceDatass[isValueNumber].num">-</div>
             <div class="num mr1" v-if="priceDatass[isValueNumber].num">
               {{priceDatass[isValueNumber].num}}
@@ -35,7 +35,15 @@
             <div class='buttonView' @click='addCart(6)' style='cursor: pointer'>+</div>
           </div>
 
+          <div class='flex flex-j-end' v-if='specs.length>0&&specification.length>0'>
+            <div class='buttonView' @click='addCart(7)' style='cursor: pointer' v-if="specs[specsIndex].pricenewDatass[isValueNumber].num">-</div>
+            <div class="num mr1" v-if="specs[specsIndex].pricenewDatass[isValueNumber].num">
+              {{specs[specsIndex].pricenewDatass[isValueNumber].num}}
+            </div>
+            <div class='buttonView' @click='addCart(8)' style='cursor: pointer'>+</div>
+          </div>
         </div>
+
         <div v-for='(item,index) in specification' v-if='specification.length>0'>
           <h3 class='module_title'>{{ item.key}}</h3>
           <div class='mxTick'>

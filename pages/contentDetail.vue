@@ -1,6 +1,6 @@
 <template>
   <div class='detail_container'>
-    <sales-good-util :list='goodsArr' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
+    <sales-good-util :list='goodsArr' ref='child' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
     <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
 			<span class='color-242424 font14 ' v-if='addCartAary.length>0'>{{ $t('contentDetail.title') }}
 				{{ addCartAary.length }} <span style='color: #ee8080'>{{ $t(`importetotal`) }}：€{{ (min_amount).toFixed(2)
@@ -82,8 +82,11 @@ export default {
         type,
         index,
         indexs,
-        specsIndex
+        specsIndex,
+        isValueNumber
       } = e;
+
+
       let goodsArr = this.goodsArr;
       let products = goodsArr[index].products[indexs];
       if (type === 2) {
@@ -139,7 +142,6 @@ export default {
           this.$message.info(this.$t(`productos`));
         }
       } else if (type === 5) {
-
         this.$set(this.goodsArr[index].products, indexs, {
           ...goodsArr[index].products[indexs],
           num: products.num - 1
@@ -148,8 +150,29 @@ export default {
           ...goodsArr[index].products[indexs].priceDatass[specsIndex],
           num: goodsArr[index].products[indexs].priceDatass[specsIndex].num - 1
         });
+      } else if (type === 8) {
+        if (products.sale_sku > products.num) {
+          this.$set(this.goodsArr[index].products, indexs, {
+            ...goodsArr[index].products[indexs],
+            num: products.num + 1
+          });
+          this.goodsArr[index].products[indexs].specs[specsIndex].pricenewDatass[isValueNumber].num = this.goodsArr[index].products[indexs].specs[specsIndex].pricenewDatass[isValueNumber].num + 1;
+          this.$refs.child.childMethod(this.goodsArr[index].products[indexs], index, indexs, specsIndex, isValueNumber);
+        } else {
+          this.$message.info(this.$t(`productos`));
+        }
+      } else if (type === 7) {
+        this.$set(this.goodsArr[index].products, indexs, {
+          ...goodsArr[index].products[indexs],
+          num: products.num - 1
+        });
+        this.goodsArr[index].products[indexs].specs[specsIndex].pricenewDatass[isValueNumber].num = this.goodsArr[index].products[indexs].specs[specsIndex].pricenewDatass[isValueNumber].num - 1;
+        this.$refs.child.childMethod(this.goodsArr[index].products[indexs], index, indexs, specsIndex, isValueNumber);
       }
+
+
       this.goodsArr = goodsArr;
+      // return
       let info = this.goodsArr[index].products[indexs];
       let infoData = {
         'is_discount': info.is_discount,
@@ -178,17 +201,29 @@ export default {
       }
       if (type === 5 || type === 6) {
         infoData.num = info.priceDatass[specsIndex].num;
-        infoData.str_name = '&';
+
         let str_name = [];
         for (let i in info.specification) {
           str_name.push(info.specification[i].key + '_' + info.specification[i].val[info.specification[i].spk]);
         }
         infoData.str_name = str_name.join('-');
       }
+      if (type === 7 || type === 8) {
+        infoData.sku_id = info.specs[specsIndex].sku_id;
+        infoData.spec_id = info.specs[specsIndex].spec_id;
+        infoData.num = info.specs[specsIndex].pricenewDatass[isValueNumber].num;
+        infoData.price = info.specs[specsIndex].price;
+
+        let str_name = [];
+        for (let i in info.specification) {
+          str_name.push(info.specification[i].key + '_' + info.specification[i].val[info.specification[i].spk]);
+        }
+        infoData.str_name = str_name.join('-');
+      }
+      console.log(infoData);
       let ishowAdd = true;
       for (let i in this.addCartAary) {
         if (this.addCartAary[i].product_id === infoData.product_id && this.addCartAary[i].sku_id === infoData.sku_id && this.addCartAary[i].str_name === infoData.str_name) {
-
           ishowAdd = false;
           if (infoData.num) {
             this.addCartAary[i] = infoData;
@@ -334,10 +369,14 @@ export default {
         let product_info2 = '';
         let cart = this.addCartAary;
         let title = '';
+        console.log(cart)
         for (let i in cart) {
           title = cart[i].shoptitle;
           if (cart[i].spec_id) {
             product_info2 += cart[i].product_id + ':' + cart[i].spec_id + ':' + cart[i].num;
+            if(cart[i].str_name){
+              product_info2 += '&' + cart[i].str_name;
+            }
           } else if (cart[i].str_name) {
             product_info2 += cart[i].product_id + ':' + 0 + ':' + cart[i].num + '&' + cart[i].str_name;
           } else {
@@ -423,16 +462,34 @@ export default {
             if (goodsArr[i].products[j].specs && goodsArr[i].products[j].specs.length > 0) {
               goodsArr[i].products[j].specsIndex = 0;
               goodsArr[i].products[j].num = 0;
+              let pricenewDatass = [];
+              if (goodsArr[i].products[j].specification.length > 0) {
+                let arr = [];
+                for (let w in goodsArr[i].products[j].specification) {
+                  goodsArr[i].products[j].specification[w].spk = 0;
+                  arr.push(goodsArr[i].products[j].specification[w].val);
+                }
+                pricenewDatass = this.combination(arr);
+              }
               for (let h = 0; h < goodsArr[i].products[j].specs.length; h++) {
                 sku_id = goodsArr[i].products[j].product_id + '_' + goodsArr[i].products[j].specs[h]
                   .spec_id;
                 goodsArr[i].products[j].specs[h].sku_id = sku_id;
+                if (pricenewDatass.length > 0) {
+                  goodsArr[i].products[j].specs[h].pricenewDatass = JSON.parse(JSON.stringify(pricenewDatass));
+                }
+
                 goodsArr[i].products[j].specs[h].title = goodsArr[i].products[j].title + '(' +
                   goodsArr[i].products[j].specs[h].spec_name + ')';
                 goodsArr[i].products[j].specs[h].is_must = goodsArr[i].products[j].is_must;
                 goodsArr[i].products[j].specs[h].num = 0;
               }
-            } else if (goodsArr[i].products[j].specification.length > 0) {
+            } else {
+              sku_id = goodsArr[i].products[j].product_id + '_0';
+              goodsArr[i].products[j].sku_id = sku_id;
+              goodsArr[i].products[j].num = 0;
+            }
+            if (goodsArr[i].products[j].specification.length > 0) {
               sku_id = goodsArr[i].products[j].product_id + '_0';
               goodsArr[i].products[j].sku_id = sku_id;
               goodsArr[i].products[j].num = 0;
@@ -442,10 +499,6 @@ export default {
                 arr.push(goodsArr[i].products[j].specification[w].val);
               }
               goodsArr[i].products[j].priceDatass = this.combination(arr);
-            } else {
-              sku_id = goodsArr[i].products[j].product_id + '_0';
-              goodsArr[i].products[j].sku_id = sku_id;
-              goodsArr[i].products[j].num = 0;
             }
           }
         }

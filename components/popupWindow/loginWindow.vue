@@ -37,7 +37,7 @@
             <div class='' style='width: 120px;text-align: right'>
               商品金额
             </div>
-            <div>€{{ amount }}</div>
+            <div>€{{ amount.toFixed(2) }}</div>
           </div>
           <div v-if='type===2' class='line22 mt1' style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 120px;text-align: right'>

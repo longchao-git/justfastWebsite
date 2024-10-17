@@ -13,7 +13,7 @@
           <span class='font18 fontb beyond'>{{ item.title }}</span>
           <div class='flex' style='align-items: center'>
             <div class='text_amount'>
-              {{ $t('home.partir') }}€{{ item.min_amount }}
+              {{ $t('home.partir') }}€{{ item.min_amount.toFixed(2) }}
             </div>
 
             <div class='text_freight'>
