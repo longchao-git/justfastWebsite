@@ -55,12 +55,15 @@
           </div>
           <div v-if='type===5' class='login_input'>
             <div>{{ $t(`bank.bank`) }}</div>
-            <el-select v-model='card_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+            <el-select clearable v-model='card_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in cardList' :key='index' :label='item.card_name'
                          :value='item.card_id'></el-option>
             </el-select>
-            <span @click='handleChangeType(9)' style='cursor: pointer'>{{ $t(`bank.name`) }}</span>
+
+            <el-button type="primary" @click='handleChangeType(9)' v-if='!card_id'>{{ $t(`bank.name`) }}</el-button>
+            <el-button @click='handleChangeType(19)' v-if='card_id'>删除此卡</el-button>
+
           </div>
           <v-btn width='100%' height='48px' class='try-out-bt mt3' @click='handleChangeType(2)'>{{ $t(`asentar`) }}
           </v-btn>
@@ -72,7 +75,7 @@
 
 <script>
 export default {
-  props: ['type', 'orderAddrList', 'payitem', 'cardList', 'orderInfo', 'amount'],
+  props: ['type', 'orderAddrList', 'payitem', 'cardList', 'orderInfo', 'amount','card_id'],
   data() {
     return {
       companyTypeList: [],
@@ -82,7 +85,6 @@ export default {
       addr_id: '',
       code: '',
       intro: '',
-      card_id: ''
     };
   },
   methods: {
@@ -90,7 +92,9 @@ export default {
     handleChangeType(value) {
       if (value === -1 || value === 3 || value === 9) {
         this.$emit('handleCloseLoginDialog', value);
-      } else {
+      }else if(value === 19) {
+        this.$emit('handledeteleLoginDialog',this.card_id);
+      }else {
         if (this.type == 5) {
           this.$emit('paymentOrder', {
             card_id: this.card_id,

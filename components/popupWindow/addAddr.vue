@@ -1,42 +1,54 @@
 <template>
-  <div v-if="type===4" class="login-window">
-    <div class="login-tan-card"  :class="type===4?'login-class':''">
+  <div v-if='type===4' class='login-window'>
+    <div class='login-tan-card' :class="type===4?'login-class':''">
       <div>
-        <div class="loginView">
-          <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
-               alt=""/>
+        <div class='loginView'>
+          <img @click='handleChangeType(-1)' src='../../assets/images/cloudSales/popupWindow/icon_delet.png'
+               alt='' />
         </div>
         <p>{{ $t('addAddr.name') }}</p>
-        <div class="loginClass">
-          <div class="login_input"  >
-            <div>{{ $t('loginPopup.fromOne') }}</div>
+        <div class='loginClass'>
+          <div class='login_input'>
+            <div>搜索地址</div>
             <input
-              v-model="addr"
+              v-model='addr'
               :placeholder="$t('addAddr.ingrese')"
-              class="c-input"/>
+              class='c-input' />
+            <el-button type="primary" @click='handClickSerch()' >搜索</el-button>
           </div>
-          <div class="login_input"  >
+          <div class='mapContainer' ref='mapContainer'></div>
+          <div class='login_input'>
+            <div>{{ $t('loginPopup.fromOne') }}</div>
+            <el-select clearable v-model='nameId' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+                       style='flex: 1'>
+              <el-option v-for='(item, index) in list' :key='index' :label='item.name'
+                         :value='item.id'></el-option>
+            </el-select>
+
+          </div>
+          <div class='login_input'>
             <div>{{ $t('loginPopup.fromTwo') }}</div>
             <input
-              v-model="house"
+              v-model='house'
               :placeholder="$t('addAddr.ingrese')"
-              class="c-input"/>
+              class='c-input' />
           </div>
-          <div class="login_input"  >
+          <div class='login_input'>
             <div>{{ $t('loginPopup.fromTree') }}</div>
             <input
-              v-model="contact"
+              v-model='contact'
               :placeholder="$t('addAddr.ingrese')"
-              class="c-input"/>
+              class='c-input' />
           </div>
-          <div class="login_input"  >
+          <div class='login_input'>
             <div>{{ $t('loginPopup.fromFour') }}</div>
             <input
-              v-model="mobile"
+              v-model='mobile'
               :placeholder="$t('addAddr.ingrese')"
-              class="c-input"/>
+              class='c-input' />
           </div>
-          <v-btn width="100%" height="48px" class="try-out-bt mt3" @click="handleChangeType(2)">{{ $t(`asentar`) }}</v-btn>
+          <v-btn width='100%' height='48px' class='try-out-bt mt3' @click='handleChangeType(2)'>{{ $t(`asentar`) }}
+          </v-btn>
         </div>
       </div>
     </div>
@@ -46,75 +58,143 @@
 <script>
 export default {
   props: ['type'],
-  data(){
-    return{
-      contact:'',
-      mobile:'',
-      house:'',
-      addr:'',
+  data() {
+    return {
+      contact: '',
+      mobile: '',
+      house: '',
+      addr: '',
+      googleMap:null,
+      service:'',
+      list:'',
+      nameId:''
+    };
+  },
+  watch: {
+    type(newVal, oldVal) {
+      if (newVal === 4) {
+        this.elements();
+      }
     }
   },
   methods: {
+    elements() {
+      const location = { lat: 40.4202472, lng: -3.7160397 }
+        this.$nextTick(() => {
+        this.googleMap = new window.google.maps.Map(this.$refs.mapContainer, {
+          center: location,
+          zoom: 10
+        });
+          this.service = new window.google.maps.places.PlacesService(this.googleMap);
+      });
+
+    },
+    handClickSerch() {
+      let that = this
+      let request = {}
+     let pyrmont = new google.maps.LatLng(40.4202472, -3.7160397);
+      // if (that.acceptValue) {
+      request = {
+        query: this.addr,
+        location: pyrmont,
+        radius: '500',
+      };
+      this.service.textSearch(request, function(results, status) {
+
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          console.log(results)
+          that.setIndex = 0
+          let list = []
+          for (let i in results) {
+            list.push({
+              id: 'id'+i,
+              name: results[i].name,
+              lat: results[i].geometry.location.lat(),
+              log: results[i].geometry.location.lng(),
+            })
+          }
+          that.nameId = ''
+          that.list = list
+        }
+      });
+
+
+    },
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
-      if(value === 2){
-        if(!this.contact||!this.mobile||!this.house||!this.addr){
-          this.$message.info(this.$t(`home.ingrese`))
-          return
+      if (value === 2) {
+        if (!this.contact || !this.mobile || !this.house ||!this.nameId) {
+          this.$message.info(this.$t(`home.ingrese`));
+          return;
         }
         const params = {
           data: {
             'contact': this.contact,
             'mobile': this.mobile,
             'house': this.house,
-            'addr': this.addr,
-            'lng': -3.7160397,
-            'lat': 40.4202472,
-            'page':1,
-            'type':0,
+            'addr': '',
+            'lng': '',
+            'lat':'',
+            'page': 1,
+            'type': 0
           }
         };
+        for(let i in this.list){
+          console.log(this.list[i].id)
+          console.log(this.nameId)
+          if(this.list[i].id == this.nameId){
+            params.data.addr = this.list[i].name
+            params.data.lat = this.list[i].lat
+            params.data.lng = this.list[i].log
+          }
+        }
         this.$axios.post('/client/member/addr/create', params).then(res => {
-          this.$message.info(this.$t(`Guardar`))
-          this.$emit('handleCloseLoginDialog', -2)
-        }).catch(err=>{
-          this.$message.info(err.message)
+          this.$message.info(this.$t(`Guardar`));
+          this.$emit('handleCloseLoginDialog', -2);
+        }).catch(err => {
+          this.$message.info(err.message);
         });
-      }else {
-        this.$emit('handleCloseLoginDialog', value)
+      } else {
+        this.$emit('handleCloseLoginDialog', value);
       }
     }
   }
-}
+};
 </script>
-<style lang="scss">
-.loginClass{
-  .login_input{
+<style lang='scss'>
+.mapContainer{
+  width: 340px;
+  height: 200px;
+}
+.loginClass {
+  .login_input {
 
-    .v-input__slot{
+    .v-input__slot {
       border-radius: 6px;
-      border: 1px solid  #DCDCDC !important;
+      border: 1px solid #DCDCDC !important;
       height: 48px;
 
       margin-bottom: 0;
     }
-    .c-input{
+
+    .c-input {
       border-radius: 6px;
-      border: 1px solid  #DCDCDC !important;
+      border: 1px solid #DCDCDC !important;
       height: 48px;
       margin-bottom: 0;
       flex: 1;
       padding-left: 12px;
       margin-right: 12px;
     }
-    .v-text-field__details{
+
+    .v-text-field__details {
       display: none;
     }
   }
 }
 
 </style>
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .login-window {
   position: fixed;
   background: rgba(0, 0, 0, .4);
@@ -128,8 +208,8 @@ export default {
   display: flex;
 }
 
-.login-class{
-  height: 460px !important;
+.login-class {
+  height: 700px !important;
 }
 
 /** 登录卡片样式 */
@@ -147,6 +227,7 @@ export default {
     width: 100%;
     text-align: center;
     height: 100%;
+
     > .loginView {
       position: absolute;
       width: 55px;
@@ -154,71 +235,83 @@ export default {
       text-align: right;
       right: 0;
       top: 0;
+
       img {
         width: 55px;
         height: 55px;
         cursor: pointer;
       }
     }
+
     p {
       font-size: 24px;
       padding: 24px 0;
     }
-    .loginClass{
+
+    .loginClass {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       margin-top: 8px;
       padding: 0 48px;
-      .logoCard{
+
+      .logoCard {
         width: 72px;
         height: 72px;
       }
-      .name{
+
+      .name {
         margin-top: 12px;
         font-size: 24px;
         color: #2C2C2C;
         font-weight: 500;
         margin-bottom: 12px;
       }
-      .login_input{
+
+      .login_input {
         width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
         margin-top: 12px;
-        .button{
+
+        .button {
           color: #ee8080;
           font-size: 14px;
           position: absolute;
           right: 24px;
         }
-        .v-input__slot{
+
+        .v-input__slot {
           border-radius: 6px;
-          border: 1px solid  #DCDCDC;
+          border: 1px solid #DCDCDC;
           height: 48px;
         }
-        >div{
+
+        > div {
           width: 120px;
           flex-shrink: 0;
           text-align: right;
           color: #2C2C2C;
-          font-size:16px ;
+          font-size: 16px;
           padding-right: 12px;
           padding-top: 8px;
         }
       }
-      .viewSetTion{
+
+      .viewSetTion {
         margin-top: 16px;
         display: flex;
         flex-direction: row;
-        >img{
+
+        > img {
           margin: 5px;
           height: 24px;
           width: 24px;
         }
-        >div{
+
+        > div {
           line-height: 22px;
           font-size: 14px;
           color: #1D2129;
@@ -227,24 +320,28 @@ export default {
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           width: 100%;
-          >span{
+
+          > span {
             color: #ee8080;
           }
         }
       }
-      .viewXian{
+
+      .viewXian {
         padding: 16px 0;
         width: 100%;
         display: flex;
         align-items: center;
-        >div{
+
+        > div {
           flex: 1;
-          border-top: 1px #C5C5C5 dashed ;
+          border-top: 1px #C5C5C5 dashed;
         }
-        span{
+
+        span {
           color: #4B4B4B;
           flex-shrink: 0;
-          padding:  0 8px;
+          padding: 0 8px;
         }
       }
     }
@@ -287,13 +384,14 @@ export default {
 
 /** 手机屏幕 */
 @media screen and (max-width: $phone-max-width) {
-  .login-class{
+  .login-class {
     height: 560px !important;
   }
   /** 登录卡片样式 */
   .login-tan-card {
     width: 300px;
     height: 540px !important;
+
     > div {
 
       p {
@@ -301,65 +399,78 @@ export default {
         padding: 16px 0;
         margin-bottom: 0 !important;
       }
-      .loginClass{
+
+      .loginClass {
         margin-top: 0px;
         padding: 0 16px;
-        .logoCard{
+
+        .logoCard {
           width: 48px;
           height: 48px;
         }
-        .name{
+
+        .name {
           font-size: 16px;
           margin-bottom: 6px;
         }
-        .login_input{
+
+        .login_input {
           margin-top: 6px;
-          .v-input__slot{
+
+          .v-input__slot {
             border-radius: 6px;
-            border: 1px solid  #DCDCDC;
+            border: 1px solid #DCDCDC;
             height: 48px;
           }
-          >div{
+
+          > div {
             width: 72px;
             text-align: right;
             color: #2C2C2C;
-            font-size:12px ;
+            font-size: 12px;
             padding-right: 12px;
             padding-top: 8px;
           }
         }
-        .viewSetTion{
+
+        .viewSetTion {
           margin-top: 16px;
           display: flex;
           flex-direction: row;
-          >img{
+
+          > img {
             margin: 2px;
             height: 18px;
             width: 18px;
           }
-          >div{
+
+          > div {
             line-height: 16px;
             font-size: 12px;
             color: #1D2129;
-            >span{
+
+            > span {
               font-size: 12px;
               color: #ee8080;
             }
           }
         }
-        .viewXian{
+
+        .viewXian {
           padding: 4px 0;
           width: 100%;
           display: flex;
           align-items: center;
-          >div{
+
+          > div {
             flex: 1;
-            border-top: 1px #C5C5C5 dashed ;
+            border-top: 1px #C5C5C5 dashed;
           }
-          span{
+
+          span {
             color: #4B4B4B;
             flex-shrink: 0;
-            padding:  0 8px;
+            padding: 0 8px;
           }
         }
       }

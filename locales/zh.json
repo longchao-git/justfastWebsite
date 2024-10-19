@@ -109,7 +109,7 @@
   "save": "保存",
   "bank": {
    "bank": "银行卡",
-    "name": "请绑定银行卡",
+    "name": "绑定银行卡",
     "type": "卡类型",
     "bankName": "卡名称",
     "cardNumber": "卡号",

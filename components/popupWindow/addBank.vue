@@ -3,7 +3,7 @@
     <div class='login-tan-card' :class="type===9?'login-class':''">
       <div>
         <div class='loginView'>
-          <img @click='handleChangeType(-1)' src='../../assets/images/cloudSales/popupWindow/icon_delet.png'
+          <img @click='handleChangeType(5)' src='../../assets/images/cloudSales/popupWindow/icon_delet.png'
                alt='' />
         </div>
         <p>{{ $t(`bank.name`) }}</p>
@@ -39,36 +39,50 @@
               class='c-input' />
           </div>
 
-          <div class='login_input'>
-            <div>{{ $t(`bank.cardNumber`) }}</div>
-            <input
-              v-model='card_number'
-              :placeholder="$t('addAddr.ingrese')"
-              class='c-input' />
-          </div>
-          <div class='login_input'>
-            <div>{{ $t(`bank.year`) }}</div>
-            <input
-              v-model='year'
-              :placeholder="$t('addAddr.ingrese')"
-              class='c-input' />
-          </div>
-          <div class='login_input'>
-            <div>{{ $t(`bank.month`) }}</div>
-            <input
-              v-model='month'
-              :placeholder="$t('addAddr.ingrese')"
-              class='c-input' />
-          </div>
-          <div class='login_input'>
-            <div>{{ $t(`bank.cvc`) }}</div>
-            <input
-              v-model='cvc'
-              :placeholder="$t('addAddr.ingrese')"
-              class='c-input' />
-          </div>
-          <div id='card'>
-            <div class='card-input gotham' ref='cardRefNumber'></div>
+<!--          <div class='login_input'>-->
+<!--            <div>{{ $t(`bank.cardNumber`) }}</div>-->
+<!--            <input-->
+<!--              v-model='card_number'-->
+<!--              :placeholder="$t('addAddr.ingrese')"-->
+<!--              class='c-input' />-->
+<!--          </div>-->
+<!--          <div class='login_input'>-->
+<!--            <div>{{ $t(`bank.year`) }}</div>-->
+<!--            <input-->
+<!--              v-model='year'-->
+<!--              :placeholder="$t('addAddr.ingrese')"-->
+<!--              class='c-input' />-->
+<!--          </div>-->
+<!--          <div class='login_input'>-->
+<!--            <div>{{ $t(`bank.month`) }}</div>-->
+<!--            <input-->
+<!--              v-model='month'-->
+<!--              :placeholder="$t('addAddr.ingrese')"-->
+<!--              class='c-input' />-->
+<!--          </div>-->
+<!--          <div class='login_input'>-->
+<!--            <div>{{ $t(`bank.cvc`) }}</div>-->
+<!--            <input-->
+<!--              v-model='cvc'-->
+<!--              :placeholder="$t('addAddr.ingrese')"-->
+<!--              class='c-input' />-->
+<!--          </div>-->
+          <div id='card' class=''>
+<!--            <div class='card-input gotham' ref='cardRefNumber'>卡信息</div>-->
+            <div class='login_input'>
+              <div>{{ $t(`bank.cardNumber`) }}</div>
+              <div class="card-input gotham" id="card-number-element"></div>
+            </div>
+            <div class='login_input'>
+              <div>{{ $t(`bank.month`) }}/{{$t(`bank.year`)}}</div>
+              <div class="card-input gotham" id="card-expiry-element"></div>
+            </div>
+            <div class='login_input'>
+              <div>{{ $t(`bank.cvc`) }}</div>
+              <div class="card-input gotham" id="card-cvc-element"></div>
+            </div>
+
+<!--            <div class="card-input gotham" id="card-cvc-element"></div>-->
           </div>
           <v-btn width='100%' height='48px' class='try-out-bt mt3' @click='createPaymentMethod()'>{{ $t(`bank.but`) }}
           </v-btn>
@@ -127,11 +141,50 @@ export default {
           }
         }
       });
-      const cardElement = this.stripe.elements().create('card');
-      this.$nextTick(() => {
-        cardElement.mount(this.$refs.cardRefNumber);
-        this.cardElement = cardElement;
+
+      // this.cardElement = this.stripe.elements().create('card');
+
+      let  elements  = this.stripe.elements()
+      let style = {}
+      //
+      const element = elements.create('cardNumber', {
+        style: style,
+        showIcon: true,
+        placeholder: '请输入卡号'
       });
+      // element.mount('#card-number-element');
+      //
+      const cardExpiryElement = elements.create("cardExpiry", {
+        style: style,
+        showIcon: true,
+        placeholder: '请输入有效期如01/24'
+      })
+      // cardExpiryElement.mount("#card-expiry-element")
+      //
+      // // 创建cardCvc并实例化
+      const cardCvcElement = elements.create("cardCvc", {
+        style: style,
+        showIcon: true,
+        placeholder: '请输入安全码'
+      })
+      // cardCvcElement.mount("#card-cvc-element")
+      //
+      this.$nextTick(() => {
+        element.mount('#card-number-element');
+        cardExpiryElement.mount('#card-expiry-element');
+        cardCvcElement.mount("#card-cvc-element")
+        this.cardElement = element
+        // this.cardElement.mount(this.$refs.cardRefNumber);
+        element.on("change", this.setValidationError)
+        cardExpiryElement.on("change", this.setValidationError)
+        cardCvcElement.on("change", this.setValidationError)
+
+
+      });
+
+    },
+    setValidationError(e){
+      console.log(e)
     },
     setcard_type(type) {
       this.card_type = type;
@@ -142,29 +195,34 @@ export default {
     },
 
     async createPaymentMethod() {
-      if (!this.card_name || !this.cvc || !this.card_number || !this.year || !this.month) {
+
+      // if (!this.card_name || !this.cvc || !this.card_number || !this.year || !this.month) {
+      //   this.$message.info('请输入');
+      //   return;
+      // }
+      if (!this.card_name ) {
         this.$message.info('请输入');
         return;
       }
       const params = {
         data: {
           'card_name': this.card_name,
-          'cvc': this.cvc,
-          'card_number': this.card_number,
-          'year': this.year,
-          'month': this.month,
-          'card_type': this.card_type
+          // 'cvc': this.cvc,
+          // 'card_number': this.card_number,
+          // 'year': this.year,
+          // 'month': this.month,
+          'card_type': this.card_type,
+          'cvc': '****',
+          'card_number': '**********',
+          'year': '****',
+          'month': '**',
         }
       };
       this.$axios.post('/client/member/card/setup_intent', params).then(res => {
         this.stripe.confirmCardSetup(res.client_secret, {
           payment_method: {
             card: this.cardElement,
-            billing_details: {
-              name: 'Jenny Rosen'
-            }
           }
-
         }).then(result => {
           console.log(result);
           if (result.setupIntent && result.setupIntent.payment_method) {
@@ -173,10 +231,17 @@ export default {
               this.$message.success('保存成功');
               this.handleChangeType(-9);
             }).catch(err => {
-              this.$message.info(err.message);
+              console.log(err)
+              if(err.error == 210){
+                this.$message.info('已绑定银行卡了 如还需绑定请删除之前银行卡');
+              }else {
+                this.$message.info(err.message);
+              }
+
             });
           } else {
-            this.$message.info('添加失败');
+
+            this.$message.info(result.error&&result.error.message?result.error.message:'添加失败');
           }
         }).catch(err => {
           this.$message.info(err.message);
@@ -190,9 +255,11 @@ export default {
 </script>
 <style lang='scss'>
 .card-input {
-  border-bottom: 1px solid #eee;
-  padding: 16px 12px;
-  width: 300px;
+  border: 1px solid #eee !important;
+  padding: 16px 12px !important ;
+  width: 312px !important;
+  border-radius: 8px !important;
+  //margin-top: 10px !important;
 }
 
 .loginClass {
@@ -238,7 +305,7 @@ export default {
 }
 
 .login-class {
-  height: 700px !important;
+  height: 480px !important;
 }
 
 /** 登录卡片样式 */

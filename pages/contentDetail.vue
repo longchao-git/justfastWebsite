@@ -9,8 +9,8 @@
         }}{{ topInfo.min_amount }}{{ $t(`partir`) }}
       </div>
     </div>
-    <login-window :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
-                  @paymentOrder='paymentOrder'
+    <login-window :type='loginType' :card_id='card_id' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
+                  @paymentOrder='paymentOrder' @handledeteleLoginDialog='handledeteleLoginDialog'
                   :orderAddrList='orderAddrList' :cardList='cardList' :payitem='payitem' :orderInfo='orderInfo'
                   :amount='min_amount' />
     <login-succeed :posterUrl='posterUrl' :type='loginType' @handleCloseLoginDialog='handleCloseLoginDialog' />
@@ -72,11 +72,13 @@ export default {
       min_amount: 0,
       payitem: [],
       order_id: '',
-      orderInfo: {}
+      orderInfo: {},
+      card_id:''
     };
   },
 
   methods: {
+    //添加购物车
     addCilck(e) {
       let {
         type,
@@ -246,7 +248,9 @@ export default {
 
     /** 处理登录弹框的关闭操作 */
     async handleCloseLoginDialog(value) {
-
+      // this.loginType = 4;
+      // this.memberCardIndex();
+      // return
       if (value === 2) {
         this.$html2canvas(this.$refs.posterHtml, {}).then((canvas) => {
           let posterUrl = canvas.toDataURL('image/png');
@@ -258,7 +262,7 @@ export default {
           this.$message.info(this.$t(`loginOrRegister.placeholder`)[1]);
           return;
         }
-        if (this.min_amount <= this.topInfo.min_amount) {
+        if (this.min_amount < this.topInfo.min_amount) {
           this.$message.info(this.$t(`salida`));
           return;
         }
@@ -300,6 +304,22 @@ export default {
         this.loginType = value;
       }
     },
+    //删除银行卡
+    handledeteleLoginDialog(card_id) {
+      var params = {
+        data: {
+          card_id: card_id
+        }
+      };
+      this.$axios.post('/client/member/card/unbind', params).then(async res => {
+        this.$message.success('删除成功');
+        this.card_id = '';
+        this.memberCardIndex();
+
+      }).catch(err => {
+        this.$message.info(err.message);
+      });
+    },
     paymentOrder(value) {
       var params = {
         data: {
@@ -310,7 +330,10 @@ export default {
       this.$axios.post('/client/payment/order', params).then(async res => {
         this.$message.success(this.$t(`addView`));
         this.handleCloseLoginDialog(-1);
-        window.location.href = '/';
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+
       }).catch(err => {
         this.$message.info(err.message);
       });
@@ -369,12 +392,12 @@ export default {
         let product_info2 = '';
         let cart = this.addCartAary;
         let title = '';
-        console.log(cart)
+        console.log(cart);
         for (let i in cart) {
           title = cart[i].shoptitle;
           if (cart[i].spec_id) {
             product_info2 += cart[i].product_id + ':' + cart[i].spec_id + ':' + cart[i].num;
-            if(cart[i].str_name){
+            if (cart[i].str_name) {
               product_info2 += '&' + cart[i].str_name;
             }
           } else if (cart[i].str_name) {

@@ -8,7 +8,7 @@
     <div v-for='(item,index) in list' :key='index'>
       <div style='color: #ee8080;margin-bottom: 12px' class=' font14'>{{ item.title }}</div>
       <div class='card_container'>
-        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'  >
+        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs' @click='loginbindTap(items,index,indexs)' >
           <div class='card_img_container'>
             <img class='card_img fit-cover' :src='item.photo' />
           </div>
@@ -25,15 +25,15 @@
               </span>
               <div class='flex flex-j-end'
                    v-if='items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0'>
-                <div class='buttonView' @click='addCart(1,index,indexs)' style='cursor: pointer' v-if='items.num'>-
+                <div class='buttonView' @click.stop='addCart(1,index,indexs)' style='cursor: pointer' v-if='items.num'>-
                 </div>
                 <div class='num mr1' v-if='items.num'>
                   {{ items.num }}
                 </div>
-                <div class='buttonView' @click='addCart(2,index,indexs)' style='cursor: pointer'>+</div>
+                <div class='buttonView' @click.stop='addCart(2,index,indexs)' style='cursor: pointer'>+</div>
               </div>
               <div class='spec serg_btnss' v-else-if='items.sale_sku<=0'>{{ $t('creation.Agotado') }}</div>
-              <div class='spec serg_btn' @click='loginbindTap(items,index,indexs)' v-else>
+              <div class='spec serg_btn' @click.stop='loginbindTap(items,index,indexs)' v-else>
                 {{ $t('creation.disponibles') }}
                 <span class='num viewNUm' v-if='items.num > 0'>{{ items.num }}</span>
               </div>
@@ -133,28 +133,31 @@ export default {
       };
     },
     loginbindTap(item, index, indexs) {
-
-      this.loginType = 2;
-      this.productInfo = item;
-      this.specification = item.specification;
-      let valueName = [];
-      for (let i in item.specification) {
-        valueName.push(item.specification[i].val[item.specification[i].spk]);
-      }
-      let name = valueName.join(',');
-      for (let i in item.priceDatass) {
-        if (item.priceDatass[i].attrJson === name) {
-          this.isValueNumber = parseInt(i);
+      if(( item.specs.length > 0 ||item.specification.length > 0)&&item.sale_sku>0){
+        this.loginType = 2;
+        this.productInfo = item;
+        this.specification = item.specification;
+        let valueName = [];
+        for (let i in item.specification) {
+          valueName.push(item.specification[i].val[item.specification[i].spk]);
         }
-      }
-      this.priceDatass = item.priceDatass;
-      this.specsIndex = item.specsIndex;
-      this.specs = item.specs;
+        let name = valueName.join(',');
+        for (let i in item.priceDatass) {
+          if (item.priceDatass[i].attrJson === name) {
+            this.isValueNumber = parseInt(i);
+          }
+        }
+        this.priceDatass = item.priceDatass;
+        this.specsIndex = item.specsIndex;
+        this.specs = item.specs;
 
-      this.addIndex = {
-        index,
-        indexs
-      };
+        this.addIndex = {
+          index,
+          indexs
+        };
+      }
+
+
     },
     addNewCart(type) {
       if (type === 3 || type === 4) {

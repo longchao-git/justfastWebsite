@@ -15,7 +15,7 @@
 						alt="" />
 					<v-spacer />
 					<div class='login-input' v-if='getActiveMenuInx>0'>
-						<el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input'
+						<el-input @keyup.enter.native="handleClick(2)" v-model='context' :placeholder="$t('header.placeholder')" class='c-input'
 							style='color: #FFFFFF' />
 						<!--          el-icon-search-->
 						<i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>
@@ -43,7 +43,7 @@
 
 				<!-- 登录样式 -->
 				<div class='login-input' v-if='getActiveMenuInx>0'>
-					<el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input'
+					<el-input v-model='context' @keyup.enter.native="handleClick(2)" :placeholder="$t('header.placeholder')" class='c-input'
 						style='color: #FFFFFF' />
 					<!--          el-icon-search-->
 					<i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>

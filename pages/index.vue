@@ -9,25 +9,23 @@
             <div class='Business'>{{ $t('index.oneTitle') }}</div>
             <div class='Services'>{{ $t('index.oneName') }}</div>
             <div class='login-input' >
-              <el-input v-model='context' :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
+              <el-input v-model='context'  @keyup.enter.native="handleClick(3)" :placeholder="$t('header.placeholder')" class='c-input' style='color: #FFFFFF' />
               <!--          el-icon-search-->
               <i class="el-icon-search " @click='handleClick(3)' style='font-size: 24px'></i>
               <!--          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>-->
             </div>
             <div class='Potential'>{{ $t('index.oneContent') }}</div>
             <div class='button-view' style='display: flex; width: 100%'>
-<!--              <v-btn @click='handleClick(1)' height='50px' class='try-out-bt'-->
-<!--                     style='margin-right: 20px;margin-bottom: 20px'>-->
-                <img  src="../assets/images/ios.svg" @click='handleClick(1)'  style='margin-right: 20px;cursor: pointer'
-                      alt=""/>
-<!--                {{ $t('index.oneButtonLeft') }}-->
-<!--              </v-btn>-->
-<!--              <v-btn @click='handleClick(2)' height='50px' class='try-out-bt' style='margin-bottom: 20px;'>-->
 
-                <img  src="../assets/images/playIcon.svg" @click='handleClick(2)'   style='margin-right: 20px;cursor: pointer'
+                <div class='' style='position: relative;width: 210px;height: 70px;margin-right: 20px;cursor: pointer;border-radius: 70px;z-index: 2' >
+                  <img  src="../assets/images/ios.svg" @click='handleClick(1)'  style='z-index: -1; width: 210px;height: 70px;position: absolute;border-radius: 70px;top: 0px;left: 0px'
+                        alt=""/>
+                  <div class='' style='position: relative;width: 212px;height: 72px;border: 5px solid #fff;border-radius: 70px;z-index: 2;top: 0px;left: 0px' ></div>
+                </div>
+
+                <img  src="../assets/images/playIcon.svg" @click='handleClick(2)'   style='margin-right: 20px;cursor: pointer;border-radius: 70px'
                       alt=""/>
-<!--                {{ $t('index.oneButtonRight') }}-->
-<!--              </v-btn>-->
+
             </div>
           </div>
           <div class='_right'>
