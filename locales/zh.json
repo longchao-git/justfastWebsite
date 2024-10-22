@@ -129,5 +129,21 @@
   "enviado": "订单已提交",
   "all": "全部",
   "depago": "支付方式",
-  "comprador": "买家留言"
+  "comprador": "买家留言",
+  "searchaddress": "搜索地址",
+  "search": "搜索",
+  "PleaseSearchFirst": "请先搜索",
+  "PleaseNumber":"请输入卡号",
+  "Thebankcard":"已绑定银行卡了 如还需绑定请删除之前银行卡",
+  "failtoadd": "添加失败",
+  "Commodityamount": "商品金额",
+  "postagefee": "配送费",
+  "packingexpense": "包装费",
+  "Deletethiscard": "删除此卡",
+  "confirm": {
+    "one": "确认删除吗, 是否继续",
+    "two": "提示",
+    "tree": "取消",
+    "five": "删除成功"
+  }
 }

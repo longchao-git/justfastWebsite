@@ -35,13 +35,14 @@
           </div>
           <div v-if='type===2' class='line22 mt1' style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 120px;text-align: right'>
-              商品金额
+
+              {{$t(`Commodityamount`)}}
             </div>
             <div>€{{ amount.toFixed(2) }}</div>
           </div>
           <div v-if='type===2' class='line22 mt1' style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 120px;text-align: right'>
-              配送费
+              {{$t(`postagefee`)}}
             </div>
             <div>
               €{{ orderInfo.freight_stage - (orderInfo.is_bad_weather && orderInfo.is_bad_weather != 0 ? orderInfo.weather_extra_fee : 0) }}
@@ -49,7 +50,7 @@
           </div>
           <div v-if='type===2' class='line22 mt1' style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 120px;text-align: right'>
-              包装费
+              {{$t(`packingexpense`)}}
             </div>
             <div>€{{ orderInfo.package_price }}</div>
           </div>
@@ -62,7 +63,7 @@
             </el-select>
 
             <el-button type="primary" @click='handleChangeType(9)' v-if='!card_id'>{{ $t(`bank.name`) }}</el-button>
-            <el-button @click='handleChangeType(19)' v-if='card_id'>删除此卡</el-button>
+            <el-button type="primary" @click='handleChangeType(19)' v-if='card_id'>{{ $t(`Deletethiscard`) }}</el-button>
 
           </div>
           <v-btn width='100%' height='48px' class='try-out-bt mt3' @click='handleChangeType(2)'>{{ $t(`asentar`) }}

@@ -25,7 +25,6 @@
 
                 <img  src="../assets/images/playIcon.svg" @click='handleClick(2)'   style='margin-right: 20px;cursor: pointer;border-radius: 70px'
                       alt=""/>
-
             </div>
           </div>
           <div class='_right'>

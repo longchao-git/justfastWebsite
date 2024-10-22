@@ -9,18 +9,18 @@
         <p>{{ $t('addAddr.name') }}</p>
         <div class='loginClass'>
           <div class='login_input'>
-            <div>搜索地址</div>
+            <div>{{ $t('searchaddress') }}</div>
             <input
               v-model='addr'
               :placeholder="$t('addAddr.ingrese')"
               class='c-input' />
-            <el-button type="primary" @click='handClickSerch()' >搜索</el-button>
+            <el-button type='primary' @click='handClickSerch()'>{{$t('search')}}</el-button>
           </div>
           <div class='mapContainer' ref='mapContainer'></div>
           <div class='login_input'>
             <div>{{ $t('loginPopup.fromOne') }}</div>
-            <el-select clearable v-model='nameId' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
-                       style='flex: 1'>
+            <el-select clearable v-model='nameId' filterable :placeholder="list.length<=0?$t('PleaseSearchFirst'): $t('loginOrRegister.placeholder')[1] "
+                       style='flex: 1' @change='bindtapChange'>
               <el-option v-for='(item, index) in list' :key='index' :label='item.name'
                          :value='item.id'></el-option>
             </el-select>
@@ -64,10 +64,11 @@ export default {
       mobile: '',
       house: '',
       addr: '',
-      googleMap:null,
-      service:'',
-      list:'',
-      nameId:''
+      googleMap: null,
+      service: '',
+      list: '',
+      nameId: '',
+      marker:null
     };
   },
   watch: {
@@ -79,51 +80,71 @@ export default {
   },
   methods: {
     elements() {
-      const location = { lat: 40.4202472, lng: -3.7160397 }
-        this.$nextTick(() => {
+      const location = { lat: 40.4202472, lng: -3.7160397 };
+      this.$nextTick(() => {
         this.googleMap = new window.google.maps.Map(this.$refs.mapContainer, {
           center: location,
-          zoom: 10
+          zoom: 16
         });
-          this.service = new window.google.maps.places.PlacesService(this.googleMap);
+        let warehouseGpsPosition = new window.google.maps.LatLng(40.4202472, -3.7160397);
+
+        // 在地图上生成仓库的标记，仓库图标自定义
+        this.marker = new window.google.maps.Marker({
+          position: warehouseGpsPosition,
+          title: '标记'
+        });
+        this.service = new window.google.maps.places.PlacesService(this.googleMap);
       });
 
     },
     handClickSerch() {
-      let that = this
-      let request = {}
-     let pyrmont = new google.maps.LatLng(40.4202472, -3.7160397);
+      let that = this;
+      let request = {};
+      let pyrmont = new google.maps.LatLng(40.4202472, -3.7160397);
       // if (that.acceptValue) {
       request = {
         query: this.addr,
         location: pyrmont,
-        radius: '500',
+        radius: '500'
       };
       this.service.textSearch(request, function(results, status) {
 
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log(results)
-          that.setIndex = 0
-          let list = []
+          console.log(results);
+          that.setIndex = 0;
+          let list = [];
           for (let i in results) {
             list.push({
-              id: 'id'+i,
+              id: 'id' + i,
               name: results[i].name,
               lat: results[i].geometry.location.lat(),
-              log: results[i].geometry.location.lng(),
-            })
+              log: results[i].geometry.location.lng()
+            });
           }
-          that.nameId = ''
-          that.list = list
+          that.nameId = '';
+          that.list = list;
         }
       });
+    },
+    bindtapChange(){
+      for (let i in this.list) {
 
+        if (this.list[i].id == this.nameId) {
+          let warehouseGpsPosition = new window.google.maps.LatLng(this.list[i].lat,this.list[i].log);
 
+          // 在地图上生成仓库的标记，仓库图标自定义
+          this.marker = new window.google.maps.Marker({
+            position: warehouseGpsPosition,
+            title: '标记'
+          });
+
+        }
+      }
     },
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
       if (value === 2) {
-        if (!this.contact || !this.mobile || !this.house ||!this.nameId) {
+        if (!this.contact || !this.mobile || !this.house || !this.nameId) {
           this.$message.info(this.$t(`home.ingrese`));
           return;
         }
@@ -134,18 +155,18 @@ export default {
             'house': this.house,
             'addr': '',
             'lng': '',
-            'lat':'',
+            'lat': '',
             'page': 1,
             'type': 0
           }
         };
-        for(let i in this.list){
-          console.log(this.list[i].id)
-          console.log(this.nameId)
-          if(this.list[i].id == this.nameId){
-            params.data.addr = this.list[i].name
-            params.data.lat = this.list[i].lat
-            params.data.lng = this.list[i].log
+        for (let i in this.list) {
+          console.log(this.list[i].id);
+          console.log(this.nameId);
+          if (this.list[i].id == this.nameId) {
+            params.data.addr = this.list[i].name;
+            params.data.lat = this.list[i].lat;
+            params.data.lng = this.list[i].log;
           }
         }
         this.$axios.post('/client/member/addr/create', params).then(res => {
@@ -162,10 +183,12 @@ export default {
 };
 </script>
 <style lang='scss'>
-.mapContainer{
-  width: 340px;
+.mapContainer {
+  width: 400px;
   height: 200px;
+  margin-left: 45px;
 }
+
 .loginClass {
   .login_input {
 

@@ -129,5 +129,21 @@
   "enviado": "El pedido ha sido enviado",
   "all": "cuan,cuanto/ta,totalidad",
   "depago": "La forma de pago",
-  "comprador": "Mensaje del comprador"
+  "comprador": "Mensaje del comprador",
+  "searchaddress": "Buscar una dirección",
+  "search": "batida",
+  "PleaseSearchFirst": "Por favor busque primero",
+  "PleaseNumber":"Por favor ingrese el número de tarjeta",
+  "Thebankcard":"Tarjeta bancaria vinculada si aún lo necesita, elimine la tarjeta anterior",
+  "failtoadd": "Error al agregar",
+  "Commodityamount": "Cantidad de bienes",
+  "postagefee": "Gastos de entrega",
+  "packingexpense": "packing expense",
+  "Deletethiscard": "Eliminar esta tarjeta",
+  "confirm": {
+    "one": "Confirmar la eliminación? Sí no continuar",
+    "two": "recordatorio,soplar",
+    "tree": "La cancelación de la elección",
+    "five": "Eliminado con éxito"
+  }
 }

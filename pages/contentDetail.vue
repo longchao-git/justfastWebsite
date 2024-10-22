@@ -6,7 +6,7 @@
 				{{ addCartAary.length }} <span style='color: #ee8080'>{{ $t(`importetotal`) }}：€{{ (min_amount).toFixed(2)
           }}</span> </span>
       <div @click='handleCloseLoginDialog(1)' class='button_info' style='margin-left: 32px'>{{ $t('contentDetail.name')
-        }}{{ topInfo.min_amount }}{{ $t(`partir`) }}
+        }}€{{ topInfo.min_amount }}{{ $t(`partir`) }}
       </div>
     </div>
     <login-window :type='loginType' :card_id='card_id' @handleCloseLoginDialog='handleCloseLoginDialog' @handleLoginAdd='handleLoginAdd'
@@ -311,14 +311,21 @@ export default {
           card_id: card_id
         }
       };
-      this.$axios.post('/client/member/card/unbind', params).then(async res => {
-        this.$message.success('删除成功');
-        this.card_id = '';
-        this.memberCardIndex();
+      this.$confirm(this.$t(`confirm.one`) + '?', this.$t(`confirm.two`), {
+        confirmButtonText: this.$t(`asentar`),
+        cancelButtonText: this.$t(`confirm.tree`) ,
+        type: 'warning'
+      }).then(() => {
+        this.$axios.post('/client/member/card/unbind', params).then(async res => {
+          this.$message.success(this.$t(`confirm.five`) );
+          this.card_id = '';
+          this.memberCardIndex();
 
-      }).catch(err => {
-        this.$message.info(err.message);
-      });
+        }).catch(err => {
+          this.$message.info(err.message);
+        });
+      })
+
     },
     paymentOrder(value) {
       var params = {
