@@ -27,6 +27,15 @@
 
           </div>
           <div class='login_input'>
+            <div>{{$t(`city`)}}</div>
+            <el-select clearable v-model='city_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+                       style='flex: 1' >
+              <el-option v-for='(item, index) in cityList' :key='index' :label='item.city_name'
+                         :value='item.city_id'></el-option>
+            </el-select>
+
+          </div>
+          <div class='login_input'>
             <div>{{ $t('loginPopup.fromTwo') }}</div>
             <input
               v-model='house'
@@ -68,13 +77,16 @@ export default {
       service: '',
       list: '',
       nameId: '',
-      marker:null
+      marker:null,
+      cityList:[],
+      city_id:''
     };
   },
   watch: {
     type(newVal, oldVal) {
       if (newVal === 4) {
         this.elements();
+        this.waimaiIndex()
       }
     }
   },
@@ -91,11 +103,25 @@ export default {
         // 在地图上生成仓库的标记，仓库图标自定义
         this.marker = new window.google.maps.Marker({
           position: warehouseGpsPosition,
-          title: '标记'
+          // title: '标记'
         });
         this.service = new window.google.maps.places.PlacesService(this.googleMap);
       });
 
+    },
+    waimaiIndex() {
+
+      const params = {
+        data: {
+
+        }
+      };
+
+      this.$axios.post('/client/data/all_cities', params).then(res => {
+        this.cityList = res.items
+      }).catch(err => {
+        this.$message.info(err.message);
+      });
     },
     handClickSerch() {
       let that = this;
@@ -135,7 +161,7 @@ export default {
           // 在地图上生成仓库的标记，仓库图标自定义
           this.marker = new window.google.maps.Marker({
             position: warehouseGpsPosition,
-            title: '标记'
+            // title: '标记'
           });
 
         }
@@ -144,7 +170,7 @@ export default {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
       if (value === 2) {
-        if (!this.contact || !this.mobile || !this.house || !this.nameId) {
+        if (!this.contact || !this.mobile || !this.house || !this.nameId||!this.city_id) {
           this.$message.info(this.$t(`home.ingrese`));
           return;
         }
@@ -153,6 +179,7 @@ export default {
             'contact': this.contact,
             'mobile': this.mobile,
             'house': this.house,
+            'city_id':this.city_id,
             'addr': '',
             'lng': '',
             'lat': '',
