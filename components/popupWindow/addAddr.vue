@@ -197,7 +197,7 @@ export default {
           }
         }
         this.$axios.post('/client/member/addr/create', params).then(res => {
-          this.$message.info(this.$t(`Guardar`));
+          this.$message.success(this.$t(`Guardar`));
           this.$emit('handleCloseLoginDialog', -2);
         }).catch(err => {
           this.$message.info(err.message);
@@ -259,7 +259,7 @@ export default {
 }
 
 .login-class {
-  height: 700px !important;
+  height: 760px !important;
 }
 
 /** 登录卡片样式 */

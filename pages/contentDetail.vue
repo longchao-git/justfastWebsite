@@ -248,9 +248,9 @@ export default {
 
     /** 处理登录弹框的关闭操作 */
     async handleCloseLoginDialog(value) {
-      // this.loginType = 4;
+      this.loginType = 9;
       // this.memberCardIndex();
-      // return
+      return
       if (value === 2) {
         this.$html2canvas(this.$refs.posterHtml, {}).then((canvas) => {
           let posterUrl = canvas.toDataURL('image/png');
