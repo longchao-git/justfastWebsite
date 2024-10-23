@@ -52,7 +52,7 @@
           <div class='login_input'>
             <div>{{ $t('loginPopup.fromFour') }}</div>
             <input
-              v-model='mobile'
+              v-model='mobile' type='number'
               :placeholder="$t('addAddr.ingrese')"
               class='c-input' />
           </div>
@@ -126,31 +126,52 @@ export default {
     handClickSerch() {
       let that = this;
       let request = {};
-      let pyrmont = new google.maps.LatLng(40.4202472, -3.7160397);
+      let pyrmont = new window.google.maps.LatLng(40.4202472, -3.7160397);
       // if (that.acceptValue) {
       request = {
         query: this.addr,
         location: pyrmont,
         radius: '500'
       };
-      this.service.textSearch(request, function(results, status) {
-
+      this.service.textSearch(request, async (results, status)=> {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log(results);
           that.setIndex = 0;
           let list = [];
           for (let i in results) {
-            list.push({
-              id: 'id' + i,
-              name: results[i].name,
-              lat: results[i].geometry.location.lat(),
-              log: results[i].geometry.location.lng()
-            });
+            let code = await this.nnewsa(results[i].geometry.location)
+            if(code){
+              list.push({
+                id: 'id' + i,
+                name: results[i].name +' ' +code,
+                lat: results[i].geometry.location.lat(),
+                log: results[i].geometry.location.lng(),
+
+              });
+            }
           }
           that.nameId = '';
           that.list = list;
+
         }
       });
+    },
+
+    nnewsa(data) {
+      let gcode = new window.google.maps.Geocoder()
+      return new Promise((resove, reject) => {
+        gcode.geocode({
+          'latLng': data
+        }, function(results, status) {
+          console.log(results)
+          if (results && results.length > 0 && results[0]
+              .address_components.length >= 8 &&
+            results[0].address_components[7].long_name) {
+            resove(results[0].address_components[7].long_name)
+          } else {
+            resove('')
+          }
+        });
+      })
     },
     bindtapChange(){
       for (let i in this.list) {
@@ -170,8 +191,24 @@ export default {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
       if (value === 2) {
-        if (!this.contact || !this.mobile || !this.house || !this.nameId||!this.city_id) {
-          this.$message.info(this.$t(`home.ingrese`));
+        if (!this.contact ) {
+          this.$message.info(this.$t(`home.ingrese`) +this.$t(`loginPopup.fromTree`));
+          return;
+        }
+        if ( !this.mobile) {
+          this.$message.info(this.$t(`home.ingrese`)+this.$t(`loginPopup.fromFour`));
+          return;
+        }
+        if (!this.house ) {
+          this.$message.info(this.$t(`home.ingrese`)+this.$t(`loginPopup.fromTwo`));
+          return;
+        }
+        if (!this.nameId) {
+          this.$message.info(this.$t('loginOrRegister.placeholder')[1]+this.$t(`loginPopup.fromOne`));
+          return;
+        }
+        if (!this.city_id) {
+          this.$message.info(this.$t('loginOrRegister.placeholder')[1]+this.$t(`city`));
           return;
         }
         const params = {
