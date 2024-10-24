@@ -19,7 +19,10 @@
 
           <div class='login_input p-relative'>
             <div>{{ $t('loginOrRegister.formLabel')[1] }}</div>
-            <input v-model='phone' :placeholder="$t('loginOrRegister.placeholder')[0]" class='c-input' />
+
+            <el-input  :placeholder="$t('loginOrRegister.placeholder')[0]" @mousewheel.native.prevent type='number' style='width: 350px;height: 40px' v-model="phone">
+              <template slot="prepend">+34</template>
+            </el-input>
             <span class='button' style='cursor: pointer' @click='bindSendCode()'>{{
                 isGetCode ? $t('loginOrRegister.btnText')[1] : `${countdown}s${$t('loginOrRegister.btnText')[2]}`
               }}</span>

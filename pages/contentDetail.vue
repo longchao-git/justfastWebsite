@@ -376,9 +376,18 @@ export default {
       };
 
       this.$axios.post('/client/waimai/order/create', params).then(res => {
-        this.$message.success(this.$t(`enviado`));
-        this.order_id = res.order_id;
-        this.memberCardIndex();
+        if(value.code == 1){
+          this.$message.success(this.$t(`enviado`));
+          this.order_id = res.order_id;
+          this.memberCardIndex();
+        }else {
+          this.$message.success(this.$t(`addView`));
+          this.handleCloseLoginDialog(-1);
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1000);
+        }
+
       }).catch(err => {
         this.$message.info(err.message);
       });

@@ -51,10 +51,11 @@
           </div>
           <div class='login_input'>
             <div>{{ $t('loginPopup.fromFour') }}</div>
-            <input
-              v-model='mobile' type='number'
+            <el-input @mousewheel.native.prevent
+              v-model='mobile' type='number' style='width: 330px'
               :placeholder="$t('addAddr.ingrese')"
-              class='c-input' />
+             >
+            </el-input>
           </div>
           <v-btn width='100%' height='48px' class='try-out-bt mt3' @click='handleChangeType(2)'>{{ $t(`asentar`) }}
           </v-btn>
@@ -472,7 +473,7 @@ export default {
 /** 手机屏幕 */
 @media screen and (max-width: $phone-max-width) {
   .login-class {
-    height: 560px !important;
+    height: 590px !important;
   }
   /** 登录卡片样式 */
   .login-tan-card {

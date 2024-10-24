@@ -162,7 +162,7 @@ export default {
 }
 
 .login-class {
-  height: 480px !important;
+  height: 520px !important;
 }
 
 .class_div {
