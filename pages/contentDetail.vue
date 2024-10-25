@@ -294,7 +294,8 @@ export default {
         this.loginType = 4;
       } else if (value === -2) {
         this.orderAddr();
-        this.loginType = 2
+        this.handleCloseLoginDialog(1)
+        this.loginType = -1
       } else if (value === -9) {
         this.memberCardIndex();
         this.loginType = -1;
@@ -570,7 +571,7 @@ export default {
   },
 
   mounted() {
-    // localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
+    localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
     if (this.$route.query.shop_id) {
       this.shop_id = this.$route.query.shop_id;
     }
@@ -586,6 +587,16 @@ export default {
 <style>
 .main-content {
   background-color: #f5f5f5;
+}
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 对于非Webkit浏览器，设置为隐藏 */
+input {
+  -moz-appearance: textfield;
 }
 </style>
 <style scoped lang='scss'>

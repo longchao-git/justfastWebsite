@@ -313,6 +313,7 @@ export default {
           font-size: 14px;
           position: absolute;
           right: 24px;
+         line-height: 48px;
         }
 
         .v-input__slot {
