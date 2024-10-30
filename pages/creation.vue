@@ -2,7 +2,7 @@
   <div class="detail_container">
     <expansion-market :lists='lists'/>
     <div class="flex flex-a-c flex-j-c mt3" style="cursor: pointer" @click='bindTapCilck'>
-      <span class="color-242424 font14">{{morehidden? $t('creation.title') : $t('creation.oneTitle')}}</span>
+      <span class=" font18 " style='font-weight: 500;color: #ee8080'>{{morehidden? $t('creation.title') : $t('creation.oneTitle')}}</span>
     </div>
   </div>
 </template>

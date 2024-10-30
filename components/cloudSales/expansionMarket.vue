@@ -68,7 +68,7 @@ export default {
   .text_amount {
     min-width: 44px;
     padding: 0 6px;
-    background: #2D2D2D;
+    background: #ee8080;
     box-shadow: 0px 0px 20px 0px rgba(163, 163, 164, 0.1);
     border-radius: 4px;
     font-size: 12px;
@@ -110,8 +110,8 @@ export default {
       margin-bottom: 16px;
 
       .card_img {
-        width: 100%;
-        height: 216px;
+        width: 240px;
+        height: 240px;
         border-radius: 8px;
       }
 
