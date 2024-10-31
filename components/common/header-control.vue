@@ -16,9 +16,9 @@
 					<v-spacer />
 					<div class='login-input' v-if='getActiveMenuInx>0'>
 						<el-input @keyup.enter.native="handleClick(2)" v-model='context' :placeholder="$t('header.placeholder')" class='c-input'
-							style='color: #FFFFFF' />
+							style='color: #ee8080' />
 						<!--          el-icon-search-->
-						<i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>
+						<i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px;color: #ee8080'></i>
 						<!--          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>-->
 					</div>
 					<div style='display: flex'>
@@ -44,9 +44,9 @@
 				<!-- 登录样式 -->
 				<div class='login-input' v-if='getActiveMenuInx>0'>
 					<el-input v-model='context' @keyup.enter.native="handleClick(2)" :placeholder="$t('header.placeholder')" class='c-input'
-						style='color: #FFFFFF' />
+						style='color: #ee8080' />
 					<!--          el-icon-search-->
-					<i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px'></i>
+					<i class="el-icon-search " @click='handleClick(2)' style='font-size: 24px;color: #ee8080'></i>
 					<!--          <img style='width: 32px; height: 32px' src='~/assets/images/cloudSales/icon_sousuo.png' alt='' @click='handleClick(2)'/>-->
 				</div>
 				<div style='display: flex'>
@@ -233,8 +233,9 @@
 				height: 52px;
 				margin: 0 126px 0 166px;
 				border-radius: 60px;
-				background: #ee8080;
+				background: white;
 				display: flex;
+        border:1px solid #ee8080;
 				justify-content: space-between;
 				align-items: center;
 				padding: 0 28px;
@@ -243,11 +244,11 @@
 				.el-input__inner {
 					background: transparent;
 					border: none;
-					color: #FFFFFF;
+					color: #ee8080;
 				}
 
 				.el-input__inner::-webkit-input-placeholder {
-					color: #FFFFFF;
+					color: #ee8080;
 				}
 			}
 

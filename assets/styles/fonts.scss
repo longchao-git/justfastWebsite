@@ -1,7 +1,16 @@
 @font-face {
-  font-family: 'Great Vibes';
+  font-family: 'baloo2';
   font-display: swap;
   src: url("../fonts/baloo2.ttf");
+}
+body {
+  font-family: 'baloo2' !important;
+}
+.v-application{
+  font-family: 'baloo2' !important;
+}
+.v-application .title{
+  font-family: 'baloo2' !important;
 }
 //local("Great Vibes")
 //,

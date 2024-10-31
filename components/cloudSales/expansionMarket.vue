@@ -62,7 +62,7 @@ export default {
     font-size: 36px;
     color: #13161b;
     font-weight: 500;
-    font-family: 'Source Han Sans CN';
+    //font-family: 'Source Han Sans CN';
   }
 
   .text_amount {
@@ -87,7 +87,7 @@ export default {
     border-radius: 32px;
     border: 1.5px solid #09236c;
     color: #09236c;
-    font-family: 'Source Han Sans CN';
+    //font-family: 'Source Han Sans CN';
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
@@ -102,7 +102,7 @@ export default {
 
   .card_item {
 
-    width: calc((100% - 180px) / 5);
+    width: calc((100% - 180px) / 3);
     margin-bottom: 16px;
 
     .card_img_container {
@@ -110,8 +110,8 @@ export default {
       margin-bottom: 16px;
 
       .card_img {
-        width: 240px;
-        height: 240px;
+        width: 400px;
+        height: 220px;
         border-radius: 8px;
       }
 
