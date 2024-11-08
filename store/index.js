@@ -5,6 +5,7 @@ export const state = () => ({
   locale: 'es',
   userInfo: {},
   searchKeywords: '',
+  cityId:''
 });
 
 export const getters = {
@@ -14,7 +15,10 @@ export const getters = {
   },
   getUserInfo: state => {
     return state.userInfo;
-  }
+  },
+  cityId: state => {
+    return state.cityId;
+  },
 };
 
 export const mutations = {
@@ -26,6 +30,9 @@ export const mutations = {
   SET_KEYWORDS(state, keywords) {
     console.log(keywords)
     state.searchKeywords = keywords;
+  },
+  SET_cityId(state, cityId) {
+    state.cityId = cityId;
   },
   SET_USERINFO(state, userInfo) {
     state.userInfo = userInfo

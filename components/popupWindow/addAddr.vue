@@ -111,13 +111,11 @@ export default {
 
     },
     waimaiIndex() {
-
       const params = {
         data: {
 
         }
       };
-
       this.$axios.post('/client/data/all_cities', params).then(res => {
         this.cityList = res.items
       }).catch(err => {

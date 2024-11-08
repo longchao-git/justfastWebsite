@@ -7,5 +7,8 @@ export default function ({ store }) {
     if (localStorage.getItem('locale')) {
       store.commit('SET_LANG', localStorage.getItem('locale'))
     }
+    if (localStorage.getItem('city_id')) {
+      store.commit('SET_cityId', localStorage.getItem('city_id'))
+    }
   }
 }

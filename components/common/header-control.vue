@@ -36,9 +36,21 @@
 				<!--        <div @click="handleHome" style='cursor: pointer'>-->
 				<!--          <embed :src="require('~/assets/images/cloudSales/header2-logo.svg')"  style='margin-right: 14px;' width='8%'-->
 				<!--                 type='image/svg+xml' />-->
-				<img @click="handleHome" :src="require('~/assets/images/cloudSales/header2-logo.svg')"
-					style="width: 8%; max-height: 100px; margin-right: 14px; cursor: pointer; object-fit: cover"
-					alt="" />
+        <div class='disflex' style='align-items: center'>
+          <img @click="handleHome" :src="require('~/assets/images/cloudSales/header2-logo.svg')"
+               style="width: 100px; height: 33px; margin-right: 14px; cursor: pointer; object-fit: cover"
+               alt="" />
+          <div class='disflex' style='align-items: center'>
+            <div style='color: #ee8080 ;font-size: 14px;flex-shrink: 0'>{{$t(`city`)}}</div>
+            <el-select clearable @change='bindTapCityId' v-model='city_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+                       style='width: 100px;margin-left: 16px' >
+              <el-option v-for='(item, index) in cityList' :key='index' :label='item.city_name'
+                         :value='item.city_id'></el-option>
+            </el-select>
+          </div>
+        </div>
+
+
 				<!--        </div>-->
 
 				<!-- 登录样式 -->
@@ -116,7 +128,9 @@
 				isShowPhoneMenu: false, // 是否展示手机端菜单
 				// 登录的选项类型
 				loginType: -1,
+        cityList:[],
 				context: '',
+        city_id:2,
 				// 是否显示联系方式弹框
 				isShowContactInfoDialog: false
 			};
@@ -127,14 +141,16 @@
 			},
 			searchKeywords() {
 				this.context = this.searchKeywords;
-			}
+			},
+
 		},
 		created() {
-			console.log(this.searchKeywords)
+      this.city_id = this.cityId;
 			this.context = this.searchKeywords;
+			this.waimaiIndex()
 		},
 		computed: {
-			...mapState(['searchKeywords']),
+			...mapState(['searchKeywords','cityId']),
 			// 获取url 路径
 			getUrlPath() {
 				return this.$route.path;
@@ -172,6 +188,27 @@
 			}
 		},
 		methods: {
+      waimaiIndex() {
+        const params = {
+          data: {
+
+          }
+        };
+        this.$axios.post('/client/data/all_cities', params).then(res => {
+          this.cityList = res.items
+          if(!this.city_id){
+            this.city_id = res.items[0].city_id
+            this.$store.commit('SET_cityId', this.city_id); // set store
+            localStorage.setItem('city_id', this.city_id);
+          }
+        }).catch(err => {
+          this.$message.info(err.message);
+        });
+      },
+      bindTapCityId(){
+        this.$store.commit('SET_cityId', this.city_id); // set store
+        localStorage.setItem('city_id', this.city_id);
+      },
 			handleHome() {
 				window.location.href = '/';
 			},

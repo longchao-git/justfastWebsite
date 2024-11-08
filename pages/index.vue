@@ -39,7 +39,7 @@
             <!--            </div>-->
             <!--            <img class='oneTree' :src="require('~/assets/images/cloudSales/home/header2-img3.png')" alt='' />-->
             <el-carousel :interval='4000' height='230px' style='width: 600px;border-radius: 16px;'>
-              <el-carousel-item v-for='item in contentData' :key='item'>
+              <el-carousel-item v-for='(item,index) in contentData' :key='index'>
                 <!--                <h3 class="medium">{{ item.photo }}</h3>-->
                 <!--                <el-image :src='item.photo' ></el-image>-->
                 <el-image class='oneTwo' :src='item.photo' fit='cover' alt=''></el-image>
