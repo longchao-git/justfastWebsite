@@ -1,99 +1,99 @@
 {
   "header": {
-    "lang": "Cambiar idioma",
-    "information": "Download",
-    "placeholder": "Por favor ingrese para ver los comerciantes de pedidos",
+    "lang": "Cambio de idioma",
+    "information": "Descargar la app",
+    "placeholder": "Por favor ingrese para ver el comerciante de pedido",
     "login": "Iniciar sesión",
     "register": "Registrarse"
   },
   "userPopup": {
-    "name": "Login"
+    "name": "Iniciar sesión"
   },
   "home": {
     "moduleTitle": "Todos los restaurantes",
-    "lengua": "lengua",
-    "tasa": "tasa",
+    "lengua": "Idioma",
+    "tasa": "Especificaciones",
     "ingrese": "Por favor ingrese",
-    "partir": "Envíos a partir de",
-    "Gastos": "Gastos de envío ",
-    "postageandpackingfee": "postage and packing fee"
+    "partir": "Entrega mínima",
+    "Gastos": "Entrega",
+    "postageandpackingfee": "Tarifa de entrega"
   },
   "index": {
-    "oneTitle": "Welcome to Business KUAI-ZI",
-    "oneName": "Add Your Business With Our Services",
-    "oneContent": "Unlock Your Potential and Drive Growth. We help business to perform with our customized solutions helping them take business decisions.",
-    "oneButtonLeft": "Play Store",
-    "oneButtonRight": "App Store",
-    "twoName": "About Us Partner With Our Trusted Platform Today.",
-    "twoTop": "Experience the Flavors of the World, Delivered to Your Doorstep! Discover culinary delights from around the globe with our convenient food delivery platform. Satisfy your cravings with a diverse selection of mouthwatering dishes, all just a few taps away.",
-    "twoBoot": "Whether you're in the mood for savory, spicy, or sweet, we've got you covered. Fast, fresh, and hassle-free – we bring your favorite restaurants to you. Order now and let your taste buds embark on a global culinary journey without leaving your home!",
-    "threeName": "Takeaway Services We Offered",
-    "threeTitle": "At KUAIZI, we have a passionate and experienced team committed to bringing you the best dining experiences. Our team is comprised of individuals who share a love for food, technology, and customer satisfaction. At KUAIZI, we have a passionate and experienced team committed to bringing you the best dining experiences. Our team is comprised of individuals who share a love for food, technology, and customer satisfaction.",
-    "threeLeftTopName": "Endless Culinary Choices",
-    "threeLeftTopTitle": "Explore a vast array of restaurants and cuisines at your fingertips. From local favorites to international delicacies, there's something to satisfy every craving.",
-    "threeLeftBootName": "Swift Delivery",
-    "threeLeftBootTitle": "We take pride in delivering your meal quickly and reliably. Our efficient delivery system ensures your food arrives hot and fresh at your doorstep in no time.",
-    "threeRightTopName": "Convenient Ordering",
-    "threeRightTopTitle": "Order your favorite dishes with just a few taps on our user-friendly app or website. Our intuitive interface makes ordering a breeze, and you can customize your meal to your exact preferences.",
-    "threeRightBootName": "Quality Assurance",
-    "threeRightBootTitle": "We prioritize quality and safety, from the restaurants we partner with to our food packaging. Enjoy peace of mind knowing that your meal is prepared and delivered with care."
+    "oneTitle": "Bienvenido a KuaiZi",
+    "oneName": "Agregue su negocio a través de nuestros servicios",
+    "oneContent": "Libere su potencial y fomente el crecimiento,Ayudamos a las organizaciones a tomar decisiones comerciales con soluciones personalizadas que mejoran el rendimiento",
+    "oneButtonLeft": "Descargar en Google",
+    "oneButtonRight": "Descargar en Apple",
+    "twoName": "Colabore con nuestra plataforma de confianza。",
+    "twoTop": "¡Pruebe sabores del mundo, entregas a domicilio! A través de nuestra plataforma de entrega de alimentos, explore platos de todo el mundo. Con solo unos pocos clics, disfrute de una variedad de platos irresistibles que satisfarán su paladar。",
+    "twoBoot": "Ya sea que le apetezca algo salado, picante o dulce, lo tenemos cubierto. Rápido, fresco y sin complicaciones: le traemos sus restaurantes favoritos. Ordene ahora y recíbalo Lleve sus papilas gustativas a un viaje culinario global ¡Sin salir de casa！",
+    "threeName": "Servicios de entrega que ofrecemos",
+    "threeTitle": "En KUAIZI, contamos con un equipo apasionado y experimentado dedicado a brindarle la mejor experiencia gastronómica. Nuestro equipo está formado por personas que aman la comida, la tecnología y la satisfacción del cliente. En KUAIZI, contamos con un equipo apasionado y experimentado dedicado a brindarle Para ti la mejor experiencia gastronómica. Nuestro equipo está formado por personas amantes de la comida, la tecnología y la satisfacción del cliente。",
+    "threeLeftTopName": "Selección ilimitada de comida",
+    "threeLeftTopTitle": "Explore una variedad de restaurantes y comidas, al alcance de su mano.Desde delicias locales hasta delicias internacionales, hay algo para satisfacer todas sus necesidades。",
+    "threeLeftBootName": "Entrega rápida",
+    "threeLeftBootTitle": "Nos enorgullecemos de ofrecer una entrega rápida y confiable.Nuestro eficiente sistema de entrega garantiza que sus comidas lleguen calientes y frescas a su puerta en poco tiempo。",
+    "threeRightTopName": "Pedido fácil",
+    "threeRightTopTitle": "Pedir sus platos favoritos requiere solo unos pocos clics en nuestra aplicación o sitio web fácil de usar. Nuestra interfaz intuitiva hace que ordenar sea muy sencillo y usted puede personalizar su comida a su gusto。",
+    "threeRightBootName": "Garantía de calidad",
+    "threeRightBootTitle": "Desde restaurantes asociados hasta envases de alimentos, siempre damos prioridad a la calidad y la seguridad. Puede estar seguro de que nuestras comidas se preparan y entregan con cuidado。"
   },
   "footer": {
     "footerItem": {
-      "title": "Wishing you a flavorful journey and bon appétit"
+      "title": "¡Disfrute de su comida y buen provecho!"
     },
     "Company": {
-      "name": "Company",
-      "content": "Home",
-      "desc": "Contact"
+      "name": "Compañía",
+      "content": "casa",
+      "desc": "Contacto "
     },
     "UsefulLinks": {
-      "name": "Useful Links",
-      "content": "Endless Culinary Choices",
-      "desc": "Convenient Ordering",
-      "contentOne": "Swift Delivery",
-      "descOne": "Convenient Ordering"
+      "name": "Enlaces útiles",
+      "content": "Selección ilimitada de comida",
+      "desc": "Pedido fácil",
+      "contentOne": "Entrega rápida ",
+      "descOne": "Garantía de calidad"
     },
     "SubscribeToOurNewsletter": {
-      "name": "Subscribe To Our Newsletter",
-      "content": "May our service continue to simplify your life and enhance your dining experiences"
+      "name": "Suscríbase a nuestras noticias",
+      "content": "Esperamos que nuestros servicios sigan simplificando su vida y mejorando su experiencia gastronómica。"
     },
     "footerBottom": {
-      "desc": "Copyright © 2024.KUAIZI All rights reserved. "
+      "desc": "Derechos reservados © 2024.KUAIZI Todos los derechos reservados。"
     }
   },
   "creation": {
-    "oneTitle": "Aún no hay más",
-    "title": "Haga clic para cargar más",
-    "cerrado": "cerrado",
-    "gastos": "Sin gastos de envío",
-    "Agotado": "Agotado ya",
-    "disponibles": "Especificaciones opcionales disponibles"
+    "oneTitle": "No más",
+    "title": "Descubre más",
+    "cerrado": "Cerrado",
+    "gastos": "Entrega gratuita",
+    "Agotado": "Agotado",
+    "disponibles": "Especificaciones disponibles"
   },
   "contentDetail": {
-    "title": "Ha elegido",
-    "name": "Orden"
+    "title": "Seleccionado",
+    "name": "Realizar pedido"
   },
   "loginPopup": {
-    "name": "Pago/dirección",
-    "fromOne": "Calle ciudad país",
-    "fromTwo": "Número de habitación",
-    "fromTree": "código postal",
-    "fromFour": "tel",
-    "fromFive": "La tarjeta"
+    "name": "Pago/Dirección",
+    "fromOne": "Dirección",
+    "fromTwo": "Número de puerta",
+    "fromTree": "Destinatario",
+    "fromFour": "Número de teléfono móvi",
+    "fromFive": "Número de tarjeta"
   },
   "loginOrRegister": {
     "title": "Iniciar sesión o registrarse",
     "formLabel": [
-      "Países de la región",
+      "País/Región",
       "Número de teléfono",
-      "Código de verificación móvil",
-      "Verificación gráfica"
+      "Código de verificación por SMS",
+      "Verificación de imagen"
     ],
     "btnText": [
       "Iniciar sesión o registrarse",
-      "Obtener el captcha",
-      "Recuperar después"
+      "Obtenga el código de verificación",
+      "nuevamente después de recibirlo"
     ],
     "placeholder": [
       "Por favor ingrese",
@@ -101,50 +101,50 @@
     ]
   },
   "addAddr": {
-    "name": "Añadir una dirección",
+    "name": "Agregar dirección",
     "ingrese": "Por favor ingrese"
   },
-  "asentar": "asentar",
-  "Guardar": "Guardar el éxito",
-  "save": "conservaci",
+  "asentar": "ok",
+  "Guardar": "Guardado exitosamente ",
+  "save": "Guardar",
   "bank": {
-    "bank": "La tarjeta de crédito",
-    "name": "Por favor vincule su tarjeta bancaria",
-    "type": "Tipo de tarjeta",
-    "bankName": "Nombre de tarjeta",
-    "cardNumber": "El número de la tarjeta",
+    "bank": "Tarjeta bancaria",
+    "name": "Vincular tarjeta bancaria",
+    "type": "Tipo",
+    "bankName": "Nombre",
+    "cardNumber": "Número",
     "year": "Año",
-    "month":"mes",
-    "cvc": "El Código de Seguridad",
-    "but": "Confirmar enlace"
+    "month":"Mes",
+    "cvc": "CVC",
+    "but": "Confirmar vinculación"
   },
-  "importetotal":"El importe total",
-  "partir": "Mandó a partir",
-  "productos": "Inventario insuficiente de productos",
-  "salida": "Cantidad total inferior al precio de salida",
+  "importetotal":"Total",
+  "partir": "Entrega mínima",
+  "productos": "Stock insuficiente",
+  "salida": "El importe total es inferior al precio inicial.",
   "online_pay": "Pago en línea",
-  "is_daofu": "Pago en efectivo a la comida",
-  "is_pos": "Comida contra pago con tarjeta",
-  "addView":"Pedido realizado con éxito",
-  "enviado": "El pedido ha sido enviado",
-  "all": "cuan,cuanto/ta,totalidad",
-  "depago": "La forma de pago",
-  "comprador": "Mensaje del comprador",
-  "searchaddress": "Buscar una dirección",
-  "search": "valida",
-  "PleaseSearchFirst": "Por favor busque primero",
+  "is_daofu": "Pago en efectivo",
+  "is_pos": "Pago en tarjeta",
+  "addView":"Pedido realizado",
+  "enviado": "Pedido enviado",
+  "all": "Total",
+  "depago": "Método de pago",
+  "comprador": "Nota",
+  "searchaddress": "Buscar dirección",
+  "search": "Buscar",
+  "PleaseSearchFirst": "Realice una búsqueda",
   "PleaseNumber":"Por favor ingrese el número de tarjeta",
-  "Thebankcard":"Tarjeta bancaria vinculada si aún lo necesita, elimine la tarjeta anterior",
+  "Thebankcard":"Tarjeta bancaria ya vinculada, elimine la tarjeta anterior si desea vincular una nueva",
   "failtoadd": "Error al agregar",
-  "Commodityamount": "Cantidad de bienes",
-  "postagefee": "Gastos de entrega",
-  "packingexpense": "packing expense",
+  "Commodityamount": "Precio de producto",
+  "postagefee": "Tarifa de entrega",
+  "packingexpense": "Costo de empaque",
   "Deletethiscard": "Eliminar esta tarjeta",
   "confirm": {
-    "one": "Confirmar la eliminación? Sí no continuar",
-    "two": "recordatorio,soplar",
-    "tree": "La cancelación de la elección",
-    "five": "Eliminado con éxito"
+    "one": "¿Confirmar eliminación? ¿Desea continuar?",
+    "two": "Aviso",
+    "tree": "Cancelar",
+    "five": "Eliminado exitosament "
   },
-  "city": "city"
+  "city": "Ciudad"
 }

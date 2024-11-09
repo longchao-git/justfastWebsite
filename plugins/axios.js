@@ -18,12 +18,13 @@ export default ({redirect, $axios,$cookies}) => {
     config.timeout = 1000 * 60
     // 不同请求方式不同处理
     config.data.CLIENT_OS = 'ANDROID'
+
     config.data.CLIENT_API = 'CUSTOM'
     config.data.LANG = localStorage.getItem('locale')?localStorage.getItem('locale'):'es'
     if(localStorage.getItem('token')){
       config.data.TOKEN =  localStorage.getItem('token') || '';
     }
-
+    config.data.CITY_ID = localStorage.getItem('city_id' )?localStorage.getItem('city_id' ):2
     config.data.LNG =  localStorage.getItem('LNG') || -3.7160397;
     config.data.LAT =  localStorage.getItem('LAT') || 40.4202472;
     if(config.data.data){

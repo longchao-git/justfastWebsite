@@ -42,7 +42,7 @@
                alt="" />
           <div class='disflex' style='align-items: center'>
             <div style='color: #ee8080 ;font-size: 14px;flex-shrink: 0'>{{$t(`city`)}}</div>
-            <el-select clearable @change='bindTapCityId' v-model='city_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+            <el-select  @change='bindTapCityId' v-model='city_id'  :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='width: 100px;margin-left: 16px' >
               <el-option v-for='(item, index) in cityList' :key='index' :label='item.city_name'
                          :value='item.city_id'></el-option>
