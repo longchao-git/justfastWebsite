@@ -103,7 +103,6 @@
 						this.$emit('paymentOrder', {
 							card_id: this.card_id,
 							code: 'stripe'
-
 						});
 						return;
 					}

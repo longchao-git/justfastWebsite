@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="detail_container">
-      <expansion-market :lists='lists'/>
+      <expansion-market :lists='lists' :type='1'/>
       <div class="flex flex-a-c flex-j-c mt3" style="cursor: pointer" @click='bindTapCilck'>
         <span class=" font18" style='font-weight: 500;color: #ee8080'>{{morehidden? $t('creation.title') : $t('creation.oneTitle')}}</span>
       </div>

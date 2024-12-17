@@ -3,26 +3,51 @@
     <div class='flex flex-bw flex-a-c title'>
       <h3 class='module_title'>{{ $t('home.moduleTitle') }}</h3>
     </div>
-    <div class='card_container'>
-      <div @click='goDetail(item.shop_id)' class='card_item' v-for='(item,index) in lists' :key='index'>
-        <div class='card_img_container'>
-          <img class='card_img fit-cover' :src='item.logo' />
-          <div class='state' v-if="item.yyst != '1'">{{ $t('creation.cerrado') }}</div>
-        </div>
-        <div class='flex flex-column'>
-          <span class='font18 fontb beyond'>{{ item.title }}</span>
-          <div class='flex' style='align-items: center'>
-            <div class='text_amount'>
-              {{ $t('home.partir') }}€{{item.min_amount }}
-            </div>
+    <div class='card_container' :class="type==1?'isVafeView':''">
+      <div @click='goDetail(item.shop_id)' :class="type==1?'card_item':''" style='margin-bottom: 20px' v-for='(item,index) in lists' :key='index'>
+        <div style='display: flex;align-items: center;'>
+          <div class='  ' style='position: relative'>
+            <img class=' fit-cover' :src='item.logo' style='width: 100px;height: 100px'/>
+            <div class='state'>{{ $t('creation.cerrado') }}</div>
+          </div>
+          <div class='flex flex-column' style='margin-left: 16px'>
+            <span class='font18 fontb beyond'>{{ item.title }}</span>
+            <div class='flex' style='align-items: center'>
+              <div class='text_amount'>
+                {{ $t('home.partir') }}€{{item.min_amount }}
+              </div>
 
-            <div class='text_freight'>
-              <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
-              <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee') }}{{ item.reduceEd_freight }}</span>
-              <span v-else>{{ $t('home.Gastos') }}€{{ item.freight }}</span>
+              <div class='text_freight'>
+                <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
+                <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee') }}{{ item.reduceEd_freight }}</span>
+                <span v-else>{{ $t('home.Gastos') }}€{{ item.freight }}</span>
+              </div>
             </div>
           </div>
         </div>
+        <div class='flex ' style='flex-wrap: wrap;margin-top: 20px' v-if='type!=1'>
+          <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'  >
+            <div class='card_img_container'>
+              <img class='card_img fit-cover' :src='item.photo' />
+            </div>
+            <div class='flex flex-column' style='margin-left: 16px'>
+              <span class='font18 fontb beyond2' style='width: 160px'>{{ items.title }}吃撒擦拭擦擦手撒CAS是擦擦 </span>
+              <div style='display: flex;flex-direction: row; justify-content: space-between;'>
+              <span class=' line22 classNameView' style='color: #ee8080;'>
+                	<span>€</span>
+								{{ items.price }}
+								<span>/ {{ items.unit }}</span>
+								<span class='del ml5' v-if="items.is_discount == '1'">
+								{{ items.oldprice }}/{{ items.unit }}
+								</span>
+              </span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
@@ -39,6 +64,10 @@ export default {
     lists: {
       type: Array,
       default: []
+    },
+    type:{
+      type: Number,
+      default: 0
     }
   },
   methods: {
@@ -53,7 +82,18 @@ export default {
 .cloud_sales_expansion_market {
   width: 80%;
   margin: 0 auto;
-
+  .state {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 16px;
+    text-align: center;
+    background: #bbb;
+    color: #fff;
+    display: block;
+    font-size: 11px;
+  }
   .title {
     margin-bottom: 16px;
   }
@@ -93,15 +133,19 @@ export default {
     cursor: pointer;
   }
 }
-
-.card_container {
-  width: 100%;
+.isVafeView{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+.card_container {
+  width: 100%;
+
 
   .card_item {
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: calc((100% - 180px) / 3);
     margin-bottom: 16px;
 
@@ -110,23 +154,12 @@ export default {
       margin-bottom: 16px;
 
       .card_img {
-        width: 400px;
-        height: 220px;
+        width: 200px;
+        height: 200px;
         border-radius: 8px;
       }
 
-      .state {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        line-height: 16px;
-        text-align: center;
-        background: #bbb;
-        color: #fff;
-        display: block;
-        font-size: 11px;
-      }
+
 
 
     }
@@ -147,7 +180,7 @@ export default {
         width: calc((100% - 96px) / 4);
 
         .card_img {
-          height: 250px;
+          height: 200px;
         }
       }
     }
@@ -173,7 +206,7 @@ export default {
         }
 
         .card_img {
-          height: 212px;
+          height: 200px;
         }
 
       }

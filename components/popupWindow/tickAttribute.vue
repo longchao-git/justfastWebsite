@@ -7,7 +7,6 @@
                alt=""/>
         </div>
         <div class="loginClass">
-
           <div class=' '>
             <div class='font20 beyond' style='width: 200px;text-align: left'>{{ productInfo.title }}</div>
             <div class='color-4B4B4B font14 line22' style='text-align: left'>
@@ -43,32 +42,34 @@
             <div class='buttonView' @click='addCart(8)' style='cursor: pointer'>+</div>
           </div>
         </div>
+        <div style='overflow-y: scroll;max-height: 470px'>
+          <div v-for='(item,index) in specification' v-if='specification.length>0'>
+            <h3 class='module_title'>{{ item.key}}</h3>
+            <div class='mxTick'>
+              <div v-for='(items,indexs) in item.val' @click='addCilck(index,indexs)'>
+                <div class='font14'>{{ items }}</div>
+                <img v-if='item.spk === indexs' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
+                     alt=""/>
+                <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
+                     alt=""/>
+              </div>
+            </div>
+          </div>
 
-        <div v-for='(item,index) in specification' v-if='specification.length>0'>
-          <h3 class='module_title'>{{ item.key}}</h3>
-          <div class='mxTick'>
-            <div v-for='(items,indexs) in item.val' @click='addCilck(index,indexs)'>
-              <div class='font14'>{{ items }}</div>
-              <img v-if='item.spk === indexs' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
+
+          <h3 class='module_title' v-if='specs.length>0'>{{ $t('home.tasa')}}</h3>
+          <div  class='mxTick' v-if='specs.length>0'>
+            <div v-for='(item,index) in specs' @click='bindspecsIndex(index)'>
+              <div class='font14'>{{ item.spec_name }}</div>
+              <img v-if='specsIndex === index' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
                    alt=""/>
               <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
                    alt=""/>
             </div>
           </div>
         </div>
-        <h3 class='module_title' v-if='specs.length>0'>{{ $t('home.tasa')}}</h3>
-        <div  class='mxTick' v-if='specs.length>0'>
-          <div v-for='(item,index) in specs' @click='bindspecsIndex(index)'>
-            <div class='font14'>{{ item.spec_name }}</div>
-            <img v-if='specsIndex === index' class="logoCard" src="../../assets/images/cloudSales/popupWindow/le.png"
-                 alt=""/>
-            <img v-else class="logoCard" src="../../assets/images/cloudSales/popupWindow/le-1.png"
-                 alt=""/>
-          </div>
-        </div>
-<!--        <div class="flex_center">-->
-<!--          <div @click="handleConfirmSubbit" class="button_info">{{ $t(`asentar`) }}</div>-->
-<!--        </div>-->
+
+
       </div>
     </div>
   </div>
@@ -169,6 +170,7 @@ export default {
 }
 /** 登录卡片样式 */
 .login-window-card {
+  padding-bottom: 30px;
   border-radius: 8px;
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
