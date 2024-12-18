@@ -382,8 +382,6 @@ export default {
         data: {
           shop_id: this.shop_id,
           addr_id: value.addr_id,
-          coupon_id: value.coupon_id,
-          hongbao_id: value.hongbao_id,
           pei_type: 0,
           online_pay: onlinepay,
           products: this.product_info,
@@ -395,8 +393,14 @@ export default {
           pei_time: 0
         }
       };
-      console.log(params)
-      return
+      if(value.coupon_id){
+        params.data.coupon_id = value.coupon_id
+      }
+      if(value.hongbao_id){
+        params.data.hongbao_id = value.hongbao_id
+      }
+      // console.log(params)
+      // return
       this.$axios.post('/client/waimai/order/create', params).then(res => {
         if (value.code == 1) {
           this.$message.success(this.$t(`enviado`));
