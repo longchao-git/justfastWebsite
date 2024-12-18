@@ -19,7 +19,7 @@
           </div>
           <div v-if='type===2' class='login_input'>
             <div>{{ $t(`depago`) }}</div>
-            <el-select v-model='code' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+            <el-select v-model='code' @change="bindCode" filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in payitem' :key='index' :label='item.title'
                          :value='item.code'></el-option>
@@ -31,7 +31,7 @@
             <el-select v-model='hongbao_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.hongbao_list' :key='index' :disabled="item.is_canuse != 1"
-                         :value='item.hongbao_id'>€{{item.amount}},满{{item.min_amount}}可用</el-option>
+                         :value='item.hongbao_id' :label="`满${item.min_amount}可减€${item.amount}`"></el-option>
             </el-select>
           </div>
           <div v-if='type===2&&code==1' class='login_input'>
@@ -39,13 +39,25 @@
             <el-select v-model='coupon_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.coupon_list' :key='index' :disabled="item.is_canuse != 1"
-                         :value='item.coupon_id'>€{{item.coupon_amount}},满{{item.order_amount}}可用</el-option>
+                         :value='item.coupon_id' :label="`满${item.order_amount}可减€${item.coupon_amount}`"></el-option>
             </el-select>
           </div>
+
           <div v-if='type===2' class='login_input'>
             <div>{{ $t(`comprador`) }}</div>
             <input v-model='intro' :placeholder="$t('addAddr.ingrese')" class='c-input' />
           </div>
+
+          <div v-if='type===2&&code==1&&orderInfo.cards.length>0' class='login_input'>
+            <div>{{ orderInfo.peicard_id!=0 ?$t(`配送会员卡`) :$t(`购买配送会员卡`)}}</div>
+            <el-select v-model='peicard_id' filterable clearable :disabled="orderInfo.peicard_id!=0" :placeholder="$t('loginOrRegister.placeholder')[1]"
+                       style='flex: 1'>
+              <el-option v-for='(item, index) in orderInfo.cards' :key='index'
+                         :value='item.card_id' :label="`每单立减${item.reduce}€配送费,价格${item.amount}`"></el-option>
+            </el-select>
+          </div>
+
+
           <div v-if='type===2' class='line22 mt1'
                style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 126px;text-align: right'>
@@ -71,7 +83,34 @@
             </div>
             <div>€{{ orderInfo.package_price }}</div>
           </div>
+          <div v-if='type===2&&hongbao_id' class='line22 mt1'
+               style='width: 100%;display: flex;justify-content: space-between;'>
+            <div class='' style='width: 126px;text-align: right'>
+              {{ $t(`红包优惠`) }}
+            </div>
+            <template v-for="(item,index) in orderInfo.hongbao_list">
+              <div v-if="hongbao_id==item.hongbao_id" style="color: #ee8080">-€{{ item.amount }}</div>
+            </template>
 
+          </div>
+          <div v-if='type===2&&coupon_id' class='line22 mt1'
+               style='width: 100%;display: flex;justify-content: space-between;'>
+            <div class='' style='width: 126px;text-align: right'>
+              {{ $t(`优惠券优惠`) }}
+            </div>
+            <template v-for="(item,index) in orderInfo.coupon_list">
+              <div v-if="coupon_id==item.coupon_id" style="color: #ee8080">-€{{ item.coupon_amount }}</div>
+            </template>
+          </div>
+          <div v-if='type===2&&peicard_id&&(orderInfo.peicard_id==0||!orderInfo.peicard_id) ' class='line22 mt1'
+               style='width: 100%;display: flex;justify-content: space-between;'>
+            <div class='' style='width: 126px;text-align: right'>
+              {{ $t(`购买配送会员卡`) }}
+            </div>
+            <template v-for="(item,index) in orderInfo.cards">
+              <div v-if="peicard_id==item.card_id" >€{{ item.amount }}</div>
+            </template>
+          </div>
           <div v-if='type===2&&orderInfo.youhui&&orderInfo.youhui.length>0'>
             <div v-for='(item,index) in orderInfo.youhui' class='line22 mt1'
                  style='width: 100%;display: flex;justify-content: space-between;'>
@@ -152,7 +191,8 @@ export default {
       intro: '',
       isFirst:0,
       hongbao_id:'',
-      coupon_id:''
+      coupon_id:'',
+      peicard_id:''
     };
   },
 
@@ -166,6 +206,26 @@ export default {
   },
 
   methods: {
+    bindCode(){
+      if(this.code == 1){
+        for(let item of this.orderInfo.hongbao_list){
+          if(item.is_canuse == 1){
+            this.hongbao_id =item.hongbao_id
+            break
+          }
+        }
+        for(let item of this.orderInfo.coupon_list){
+          if(item.is_canuse == 1){
+            this.coupon_id =item.coupon_id
+            break
+          }
+        }
+
+          if(this.orderInfo.peicard_id!=0){
+            this.peicard_id =this.orderInfo.peicard_id
+          }
+      }
+    },
     // changebing(){
     //   this.$emit('changebing',this.isFirst );
     // },
@@ -197,7 +257,8 @@ export default {
           intro: this.intro,
           isFirst:this.isFirst,
           hongbao_id:this.hongbao_id,
-          coupon_id:this.coupon_id
+          coupon_id:this.coupon_id,
+          peicard_id:this.peicard_id
         });
       }
 
@@ -207,6 +268,7 @@ export default {
 </script>
 <style lang='scss'>
 .loginClass {
+
   .login_input {
 
     .v-input__slot {
@@ -292,10 +354,13 @@ export default {
     }
 
     .loginClass {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      max-height: 500px;
+      width: 540px;
+      overflow-y:scroll ;
+      //display: flex;
+      //flex-direction: column;
+      //align-items: center;
+      //justify-content: center;
       margin-top: 8px;
       padding: 0 48px;
 
