@@ -4,7 +4,7 @@
       <h3 class='module_title'>{{ $t('home.moduleTitle') }}</h3>
     </div>
     <div class='card_container' :class="type==1?'isVafeView':''">
-      <div @click='goDetail(item.shop_id)' :class="type==1?'card_item':''" style='margin-bottom: 20px' v-for='(item,index) in lists' :key='index'>
+      <div @click='goDetail(item.shop_id)' :class="type==1?'card_item':''" style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists' :key='index'>
         <div style='display: flex;align-items: center;'>
           <div class='  ' style='position: relative'>
             <img class=' fit-cover' :src='item.logo' style='width: 100px;height: 100px'/>
@@ -31,7 +31,7 @@
               <img class='card_img fit-cover' :src='item.photo' />
             </div>
             <div class='flex flex-column' style='margin-left: 16px'>
-              <span class='font18 fontb beyond2' style='width: 160px'>{{ items.title }}吃撒擦拭擦擦手撒CAS是擦擦 </span>
+              <span class='font18 fontb beyond2' style='width: 160px'>{{ items.title }} </span>
               <div style='display: flex;flex-direction: row; justify-content: space-between;'>
               <span class=' line22 classNameView' style='color: #ee8080;'>
                 	<span>€</span>

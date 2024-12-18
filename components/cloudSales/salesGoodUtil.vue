@@ -14,7 +14,7 @@
           </div>
           <div class='flex flex-column'>
             <span class='font18 fontb beyond'>{{ items.title }} </span>
-            <div style='display: flex;flex-direction: row; justify-content: space-between;'>
+            <div style='display: flex;flex-direction: row; justify-content: space-between;margin-top: 4px'>
               <span class=' line22 classNameView' style='color: #ee8080;'>
                 	<span>€</span>
 								{{ items.price }}
@@ -226,12 +226,13 @@ export default {
   .serg_btn {
     background: #FF797C !important;
     font-size: 10px !important;
-    line-height: 16px !important;
-    height: 16px !important;
+    line-height: 24px !important;
+    height: 24px !important;
     padding: 0 7px !important;
     color: #fff !important;
     position: relative;
     cursor: pointer;
+    border-radius: 4px;
 
     .viewNUm {
       width: 18px;
@@ -289,12 +290,12 @@ export default {
 
   .card_item {
     width: calc((100% - 120px) / 6);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     margin-right: 12px;
 
     .card_img_container {
       position: relative;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
 
       .card_img {
         width: 100%;
@@ -305,7 +306,7 @@ export default {
     }
 
     .classNameView {
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .buttonView {
@@ -323,9 +324,9 @@ export default {
     }
   }
 
-  .card_item:nth-child(4n) {
-    margin-right: 0;
-  }
+  //.card_item:nth-child(4n) {
+  //  margin-right: 0;
+  //}
 }
 
 /* 中屏幕*/
@@ -373,7 +374,7 @@ export default {
         margin-bottom: 24px;
 
         .card_img_container {
-          margin-bottom: 12px;
+          margin-bottom: 4px;
         }
 
         .card_img {
@@ -382,9 +383,9 @@ export default {
 
       }
 
-      .card_item:nth-child(3n) {
-        margin-right: 0;
-      }
+      //.card_item:nth-child(3n) {
+      //  margin-right: 0;
+      //}
     }
   }
 }
@@ -412,7 +413,7 @@ export default {
         margin-bottom: 12px !important;
 
         .card_img_container {
-          margin-bottom: 8px;
+          margin-bottom: 4px;
         }
 
         .card_img {
@@ -421,9 +422,9 @@ export default {
 
       }
 
-      .card_item:nth-child(2n) {
-        margin-right: 0 !important;
-      }
+      //.card_item:nth-child(2n) {
+      //  margin-right: 0 !important;
+      //}
     }
   }
 }

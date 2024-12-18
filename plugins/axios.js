@@ -9,7 +9,6 @@ const agent = new https.Agent({
 export default ({redirect, $axios,$cookies}) => {
   // 请求拦截器
   $axios.interceptors.request.use(config => {
-    console.log(config)
     config.httpsAgent = agent
     // 如果当前配置的客客请求
     config.baseURL = config1.BASE_URL
