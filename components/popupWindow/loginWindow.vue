@@ -31,7 +31,7 @@
             <el-select v-model='hongbao_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.hongbao_list' :key='index' :disabled="item.is_canuse != 1"
-                         :value='item.hongbao_id' :label="`满${item.min_amount}可减€${item.amount}`"></el-option>
+                         :value='item.hongbao_id' :label="`满€${item.min_amount}可减€${item.amount}`"></el-option>
             </el-select>
           </div>
           <div v-if='type===2&&code==1' class='login_input'>
@@ -39,7 +39,7 @@
             <el-select v-model='coupon_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.coupon_list' :key='index' :disabled="item.is_canuse != 1"
-                         :value='item.coupon_id' :label="`满${item.order_amount}可减€${item.coupon_amount}`"></el-option>
+                         :value='item.coupon_id' :label="`满€${item.order_amount}可减€${item.coupon_amount}`"></el-option>
             </el-select>
           </div>
 
@@ -110,6 +110,13 @@
             <template v-for="(item,index) in orderInfo.cards">
               <div v-if="peicard_id==item.card_id" >€{{ item.amount }}</div>
             </template>
+          </div>
+          <div v-if='type===2&&peicard_id&&orderInfo.peicard_id!=0 ' class='line22 mt1'
+               style='width: 100%;display: flex;justify-content: space-between;'>
+            <div class='' style='width: 126px;text-align: right'>
+              {{ $t(`配送会员卡`) }}
+            </div>
+              <div style="color: #ee8080">-€{{ item.orderInfo.peicard_amount }}</div>
           </div>
           <div v-if='type===2&&orderInfo.youhui&&orderInfo.youhui.length>0'>
             <div v-for='(item,index) in orderInfo.youhui' class='line22 mt1'

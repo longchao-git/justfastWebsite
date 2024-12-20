@@ -2,7 +2,7 @@
   "header": {
     "lang": "Cambio de idioma",
     "information": "Descargar app",
-    "placeholder": "Buscar",
+    "placeholder": "Por favor ingrese para ver los comerciantes de pedidos",
     "login": "Iniciar sesión",
     "register": "Registrarse"
   },
@@ -146,5 +146,14 @@
     "tree": "Cancelar",
     "five": "Eliminado con éxito"
   },
-  "city": "Ciudad"
+  "city": "Ciudad",
+  "红包": "Sobre rojo",
+  "优惠券": "Cupones",
+  "配送会员卡": "Entrega tarjeta socio",
+  "购买配送会员卡": "Comprar entrega tarjeta de socio",
+  "红包优惠": "Ofertas sobre rojo",
+  "优惠券优惠": "Ofertas con cupones",
+  "首单优惠": "Oferta primera orden",
+  "恶劣天气附加配送费": "Gastos de entrega adicionales por mal tiempo",
+  "实付配送费": "Pago real por entrega"
 }

@@ -388,7 +388,7 @@ export default {
           intro: value.intro,
           hg_products: [],
           is_first: value.isFirst,
-          hongbao_package_id: 0,
+          hongbao_package_id: '',
           is_pos: is_pos,
           pei_time: 0
         }
@@ -397,11 +397,11 @@ export default {
         params.data.coupon_id = value.coupon_id
       }
       if(value.peicard_id){
-        if(this.orderInfo.peicard_id){
-          params.data.pcard_id = value.peicard_id
-        }else {
+        // if(this.orderInfo.peicard_id){
+        //   params.data.pcard_id = value.peicard_id
+        // }else {
           params.data.peicard_id = value.peicard_id
-        }
+        // }
       }
       if(value.hongbao_id){
         params.data.hongbao_id = value.hongbao_id
