@@ -116,8 +116,9 @@
             <div class='' style='width: 126px;text-align: right'>
               {{ $t(`配送会员卡`) }}
             </div>
-              <div style="color: #ee8080">-€{{ item.orderInfo.peicard_amount }}</div>
+              <div style="color: #ee8080">-€{{ orderInfo.peicard_amount }}</div>
           </div>
+
           <div v-if='type===2&&orderInfo.youhui&&orderInfo.youhui.length>0'>
             <div v-for='(item,index) in orderInfo.youhui' class='line22 mt1'
                  style='width: 100%;display: flex;justify-content: space-between;'>
