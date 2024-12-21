@@ -124,7 +124,7 @@ export default {
       // pk_live_51N6ZB2EXrtl05xVO2ptAxLtE5Thx8MAh4lLpui3dLNVEwG8amXBjq8AYCk48hMHBqVezIrlc1YwZANnDgXgwB1sm00MJrBfzOp
       // 'pk_test_51N6ZB2EXrtl05xVOkEOmanXteVdNjaN6zdjcyzCKuEUbkMkRob6O1GRZ75xSKMEnTGJvnrPCkmeAUziBLybNxeAR00IyIhtQES'
       this.stripe = Stripe(
-        'pk_live_51N6ZB2EXrtl05xVO2ptAxLtE5Thx8MAh4lLpui3dLNVEwG8amXBjq8AYCk48hMHBqVezIrlc1YwZANnDgXgwB1sm00MJrBfzOp'
+        'pk_test_51N6ZB2EXrtl05xVOkEOmanXteVdNjaN6zdjcyzCKuEUbkMkRob6O1GRZ75xSKMEnTGJvnrPCkmeAUziBLybNxeAR00IyIhtQES'
       );
       this.stripe.elements({
         locale: 'en',
