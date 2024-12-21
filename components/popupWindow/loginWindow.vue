@@ -8,7 +8,7 @@
         </div>
         <p>{{ type === 2 ? $t('loginPopup.name') : $t(`bank.bank`) }}</p>
         <div class='loginClass'>
-          <div v-if='type===2' class='login_input'>
+          <div v-if='type===2&&orderAddrList' class='login_input'>
             <div>{{ $t('loginPopup.fromOne') }}</div>
             <el-select v-model='addr_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
@@ -26,7 +26,7 @@
             </el-select>
           </div>
 
-          <div v-if='type===2&&code==1' class='login_input'>
+          <div v-if='type===2&&code==1&&orderInfo.hongbao_list' class='login_input'>
             <div>{{ $t(`红包`) }}</div>
             <el-select v-model='hongbao_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
@@ -34,7 +34,7 @@
                          :value='item.hongbao_id' :label="`满€${item.min_amount}可减€${item.amount}`"></el-option>
             </el-select>
           </div>
-          <div v-if='type===2&&code==1' class='login_input'>
+          <div v-if='type===2&&code==1&&orderInfo.coupon_list' class='login_input'>
             <div>{{ $t(`优惠券`) }}</div>
             <el-select v-model='coupon_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
@@ -48,7 +48,7 @@
             <input v-model='intro' :placeholder="$t('addAddr.ingrese')" class='c-input' />
           </div>
 
-          <div v-if='type===2&&code==1&&orderInfo.cards.length>0' class='login_input'>
+          <div v-if='type===2&&code==1&&orderInfo.cards&&orderInfo.cards.length>0' class='login_input'>
             <div>{{ orderInfo.peicard_id!=0 ?$t(`配送会员卡`) :$t(`购买配送会员卡`)}}</div>
             <el-select v-model='peicard_id' filterable clearable :disabled="orderInfo.peicard_id!=0" :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
@@ -83,7 +83,7 @@
             </div>
             <div>€{{ orderInfo.package_price }}</div>
           </div>
-          <div v-if='type===2&&hongbao_id' class='line22 mt1'
+          <div v-if='type===2&&orderInfo.hongbao_list&&hongbao_id' class='line22 mt1'
                style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 126px;text-align: right'>
               {{ $t(`红包优惠`) }}
@@ -93,7 +93,7 @@
             </template>
 
           </div>
-          <div v-if='type===2&&coupon_id' class='line22 mt1'
+          <div v-if='type===2&&orderInfo.coupon_list&&coupon_id' class='line22 mt1'
                style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 126px;text-align: right'>
               {{ $t(`优惠券优惠`) }}
@@ -102,7 +102,7 @@
               <div v-if="coupon_id==item.coupon_id" style="color: #ee8080">-€{{ item.coupon_amount }}</div>
             </template>
           </div>
-          <div v-if='type===2&&peicard_id&&(orderInfo.peicard_id==0||!orderInfo.peicard_id) ' class='line22 mt1'
+          <div v-if='type===2&&peicard_id&&orderInfo.cards&&(orderInfo.peicard_id==0||!orderInfo.peicard_id) ' class='line22 mt1'
                style='width: 100%;display: flex;justify-content: space-between;'>
             <div class='' style='width: 126px;text-align: right'>
               {{ $t(`购买配送会员卡`) }}
@@ -155,7 +155,7 @@
             <div class='' style='width: 126px;text-align: right'>
               {{ $t(`实付配送费`) }}
             </div>
-            <div v-if='orderInfo.youhui.length>0'>€{{ orderInfo.freight_stage }}</div>
+            <div v-if='orderInfo.youhui&&orderInfo.youhui.length>0'>€{{ orderInfo.freight_stage }}</div>
             <div>€{{ orderInfo.actual_freight }}</div>
           </div>
 
@@ -215,18 +215,23 @@ export default {
   methods: {
     bindCode(){
       if(this.code == 1){
-        for(let item of this.orderInfo.hongbao_list){
-          if(item.is_canuse == 1){
-            this.hongbao_id =item.hongbao_id
-            break
+        if(this.orderInfo.hongbao_list&&this.orderInfo.hongbao_list.length>0){
+          for(let item of this.orderInfo.hongbao_list){
+            if(item.is_canuse == 1){
+              this.hongbao_id =item.hongbao_id
+              break
+            }
           }
         }
-        for(let item of this.orderInfo.coupon_list){
-          if(item.is_canuse == 1){
-            this.coupon_id =item.coupon_id
-            break
+        if(this.orderInfo.coupon_list&&this.orderInfo.coupon_list.length>0){
+          for(let item of this.orderInfo.coupon_list){
+            if(item.is_canuse == 1){
+              this.coupon_id =item.coupon_id
+              break
+            }
           }
         }
+
 
           if(this.orderInfo.peicard_id!=0){
             this.peicard_id =this.orderInfo.peicard_id

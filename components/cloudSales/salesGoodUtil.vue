@@ -1,5 +1,5 @@
 <template>
-  <div class='content_tab'>
+  <div class='content_tab' :class='loginType!=-1?"isview_container":""'>
     <div class='flex flex-bw flex-a-c title'>
       <h3 class='module_title'>{{ topInfo.title }} <span v-if="topInfo.yy_status != '1'||topInfo.yysj_status != '1'"
                                                          style='color: #ee8080'>({{ $t('creation.cerrado') }})</span>
@@ -195,6 +195,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.isview_container{
+  height:  calc((100vh - 500px));
+  overflow: hidden;
+}
 .content_tab {
   width: 80%;
   margin: 0 auto 24px;

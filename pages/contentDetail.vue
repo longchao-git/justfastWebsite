@@ -1,5 +1,5 @@
 <template>
-  <div class='detail_container'>
+  <div class='detail_container' :class='loginType!=-1?"isview_container":""'>
     <sales-good-util :list='goodsArr' ref='child' :topInfo='topInfo' :shop_id='shop_id' @addCilck='addCilck' />
     <div class='flex flex-a-c butoonView' style='cursor: pointer;justify-content: flex-end;margin: 0 auto;'>
 			<span class='color-242424 font14 ' v-if='addCartAary.length>0'>{{ $t('contentDetail.title') }}
@@ -271,6 +271,7 @@ export default {
           return;
         }
         if (localStorage.getItem('token')) {
+
           this.orderForm().then(res => {
 
             let payitem = [];
@@ -641,7 +642,10 @@ input {
   padding: 24px 0;
 
 }
-
+.isview_container{
+  height:  calc((100vh - 350px));
+  overflow: hidden;
+}
 .butoonView {
   width: 60%;
 }

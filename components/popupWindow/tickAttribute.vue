@@ -1,6 +1,6 @@
 <template>
-  <div v-if="type === 2" class="login-window">
-    <div class="login-window-card" >
+  <div v-if="type === 2" class="login-window"  >
+    <div class="login-window-card">
       <div>
         <div class="loginView">
           <img @click="handleChangeType(-1)" src="../../assets/images/cloudSales/popupWindow/icon_delet.png"
@@ -68,7 +68,6 @@
             </div>
           </div>
         </div>
-
 
       </div>
     </div>
