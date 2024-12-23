@@ -10,7 +10,7 @@
         <div class='loginClass'>
           <div v-if='type===2&&orderAddrList' class='login_input'>
             <div>{{ $t('loginPopup.fromOne') }}</div>
-            <el-select v-model='addr_id' filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+            <el-select v-model='addr_id' clearable filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
                          :value='item.addr_id'></el-option>
@@ -19,7 +19,7 @@
           </div>
           <div v-if='type===2' class='login_input'>
             <div>{{ $t(`depago`) }}</div>
-            <el-select v-model='code' @change="bindCode" filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+            <el-select v-model='code' @change="bindCode" clearable filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in payitem' :key='index' :label='item.title'
                          :value='item.code'></el-option>

@@ -74,7 +74,7 @@ import LoginWindow from '../components/popupWindow/loginWindow.vue';
 import collaborationMechanism from '../components/cloudSales/collaborationMechanism.vue';
 import believeCooperation from '../components/cloudSales/believeCooperation.vue';
 import config from '../config';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import error from '@/layouts/error';
 import ExpansionMarket from '@/components/cloudSales/expansionMarket';
 export default {
@@ -103,7 +103,24 @@ export default {
       morehidden:false,
     };
   },
-
+  computed: {
+    ...mapGetters({
+      cityId: 'cityId',
+      locale:'getLocale'
+    })
+  },
+  watch: {
+    cityId(newVal, oldVal) {
+      this.page = 1
+      this.waimaiIndex();
+      this.shoplist()
+    },
+    locale(newVal, oldVal) {
+      this.page = 1
+      this.waimaiIndex();
+      this.shoplist()
+    }
+  },
   methods: {
     // 滚动事件
     scrollEvent() {

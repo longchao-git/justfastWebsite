@@ -37,6 +37,7 @@
 
 <script>
 import {
+  mapGetters,
   mapMutations
 } from 'vuex';
 import salesGoodUtil from '../components/cloudSales/salesGoodUtil';
@@ -74,7 +75,20 @@ export default {
 
     };
   },
-
+  computed: {
+    ...mapGetters({
+      cityId: 'cityId',
+      locale:'getLocale'
+    })
+  },
+  watch: {
+    cityId(newVal, oldVal) {
+      this.shopDetail();
+    },
+    locale(newVal, oldVal) {
+      this.shopDetail();
+    }
+  },
   methods: {
     //添加购物车
     addCilck(e) {
@@ -252,7 +266,7 @@ export default {
 
     /** 处理登录弹框的关闭操作 */
     async handleCloseLoginDialog(value) {
-      // this.loginType = 9;
+      // this.loginType = 4;
       // this.memberCardIndex();
       // return
       if (value === 2) {

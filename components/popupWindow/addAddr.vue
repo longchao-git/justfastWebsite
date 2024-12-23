@@ -102,13 +102,14 @@ export default {
           center: location,
           zoom: 16
         });
-        let warehouseGpsPosition = new window.google.maps.LatLng(40.4202472, -3.7160397);
+        // let warehouseGpsPosition = new window.google.maps.LatLng(40.4202472, -3.7160397);
 
-        // 在地图上生成仓库的标记，仓库图标自定义
-        this.marker = new window.google.maps.Marker({
-          position: warehouseGpsPosition
-          // title: '标记'
-        });
+        // // 在地图上生成仓库的标记，仓库图标自定义
+        // this.marker = new window.google.maps.Marker({
+        //   position: warehouseGpsPosition,
+        //   title: '标记'
+        // });
+        // this.marker.setMap(this.googleMap);
         this.service = new window.google.maps.places.PlacesService(this.googleMap);
       });
 
@@ -156,14 +157,23 @@ export default {
       });
     },
     handleSelect(item){
-      console.log(item)
       this.listInfo = item
-      let warehouseGpsPosition = new window.google.maps.LatLng(item.lat, item.log);
-      // 在地图上生成仓库的标记，仓库图标自定义
-      this.marker = new window.google.maps.Marker({
-        position: warehouseGpsPosition
-        // title: '标记'
+      this.$nextTick(() => {
+        let newPyrmont = new window.google.maps.LatLng(item.lat, item.log);
+        this.googleMap = new window.google.maps.Map(this.$refs.mapContainer, {
+          center: newPyrmont,
+          zoom: 16
+        });
+        // // 在地图上生成仓库的标记，仓库图标自定义
+        this.marker = new window.google.maps.Marker({
+          position: newPyrmont,
+          title: '标记'
+        });
+        this.marker.setMap(this.googleMap);
+
       });
+
+
     },
     nnewsa(data) {
       let gcode = new window.google.maps.Geocoder();

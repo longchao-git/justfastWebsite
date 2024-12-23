@@ -9,7 +9,7 @@
 
 <script>
 import config from '../config';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 import ExpansionMarket from '@/components/cloudSales/expansionMarket';
 export default {
@@ -55,6 +55,20 @@ export default {
       }).catch(err => {
         this.$message.info(err.message);
       });
+    }
+  },
+  computed: {
+    ...mapGetters({
+      cityId: 'cityId',
+      locale:'getLocale'
+    })
+  },
+  watch: {
+    cityId(newVal, oldVal) {
+      this.shopSearch()
+    },
+    locale(newVal, oldVal) {
+      this.shopSearch();
     }
   },
   mounted() {
