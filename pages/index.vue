@@ -206,7 +206,8 @@ export default {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         res => {
-          console.log(res);
+          localStorage.setItem('LNG', res.coords.longitude);
+          localStorage.setItem('LAT', res.coords.latitude);
         },
         error => {
           console.log(error);
