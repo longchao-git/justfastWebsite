@@ -22,7 +22,7 @@
 
             <el-input :placeholder="$t('loginOrRegister.placeholder')[0]" @mousewheel.native.prevent type='number'
                       style='width: 350px;height: 40px' v-model='phone'>
-              <template slot='prepend'>+34</template>
+              <template slot='prepend'>+{{ conPhone }}</template>
             </el-input>
             <span class='button' style='cursor: pointer' @click='bindSendCode()'>{{
                 isGetCode ? $t('loginOrRegister.btnText')[1] : `${countdown}s${$t('loginOrRegister.btnText')[2]}`

@@ -267,7 +267,8 @@
 
 			.login-input {
         flex:1;
-				//width: 600px;
+				min-width: 200px;
+        flex-shrink: 0;
 				height: 52px;
 				margin: 0 126px 0 166px;
 				border-radius: 60px;

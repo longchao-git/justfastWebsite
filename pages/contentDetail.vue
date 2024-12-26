@@ -276,16 +276,16 @@ export default {
         });
         this.loginType = 3;
       } else if (value === 1) {
-        if (this.addCartAary.length <= 0) {
-          this.$message.info(this.$t(`loginOrRegister.placeholder`)[1]);
-          return;
-        }
-        if (this.min_amount < this.topInfo.min_amount) {
-          this.$message.info(this.$t(`salida`));
-          return;
-        }
-        if (localStorage.getItem('token')) {
 
+        if (localStorage.getItem('token')) {
+          if (this.addCartAary.length <= 0) {
+            this.$message.info(this.$t(`loginOrRegister.placeholder`)[1]);
+            return;
+          }
+          if (this.min_amount < this.topInfo.min_amount) {
+            this.$message.info(this.$t(`salida`));
+            return;
+          }
           this.orderForm().then(res => {
 
             let payitem = [];
