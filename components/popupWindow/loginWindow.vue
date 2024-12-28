@@ -14,6 +14,11 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
                          :value='item.addr_id'></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
             <span @click='handleChangeType(3)' style='cursor: pointer'> {{ $t(`addAddr.name`) }}</span>
           </div>
@@ -23,6 +28,11 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in payitem' :key='index' :label='item.title'
                          :value='item.code'></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
           </div>
 
@@ -32,6 +42,11 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.hongbao_list' :key='index' :disabled="item.is_canuse != 1"
                          :value='item.hongbao_id' :label="`满€${item.min_amount}可减€${item.amount}`"></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
           </div>
           <div v-if='type===2&&code==1&&orderInfo.coupon_list' class='login_input'>
@@ -40,6 +55,11 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.coupon_list' :key='index' :disabled="item.is_canuse != 1"
                          :value='item.coupon_id' :label="`满€${item.order_amount}可减€${item.coupon_amount}`"></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
           </div>
 
@@ -54,6 +74,11 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.cards' :key='index'
                          :value='item.card_id' :label="`每单立减${item.reduce}€配送费,价格${item.amount}`"></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
           </div>
 
@@ -156,7 +181,7 @@
             <div class='' style='width: 126px;text-align: right'>
               {{ $t(`实付配送费`) }}
             </div>
-            <div v-if='orderInfo.youhui&&orderInfo.youhui.length>0'>€{{ orderInfo.freight_stage }}</div>
+            <div v-if='orderInfo.youhui&&orderInfo.youhui.length>0' style='text-decoration: line-through;color: #909090'>€{{ orderInfo.freight_stage }}</div>
             <div>€{{ orderInfo.actual_freight }}</div>
           </div>
 
@@ -166,6 +191,11 @@
                        :placeholder="$t('loginOrRegister.placeholder')[1]" style='flex: 1'>
               <el-option v-for='(item, index) in cardList' :key='index' :label='item.card_name'
                          :value='item.card_id'></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
 
             <el-button type='primary' @click='handleChangeType(9)'

@@ -46,6 +46,11 @@
                        style='width: 100px;margin-left: 16px' >
               <el-option v-for='(item, index) in cityList' :key='index' :label='item.city_name'
                          :value='item.city_id'></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
           </div>
         </div>

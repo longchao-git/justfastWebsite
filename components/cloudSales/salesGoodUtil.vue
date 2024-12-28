@@ -246,6 +246,7 @@ export default {
       right: -6px;
       text-align: center;
       border-radius: 50px;
+      line-height: 18px;
       background: #ff9900;
     }
   }

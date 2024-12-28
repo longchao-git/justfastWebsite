@@ -26,6 +26,11 @@
 <!--                       style='flex: 1' @change='bindtapChange'>-->
 <!--              <el-option v-for='(item, index) in list' :key='index' :label='item.name'-->
 <!--                         :value='item.id'></el-option>-->
+<!--          <template #empty>-->
+<!--            <div class="no-data " style='padding: 10px'>-->
+<!--              {{ $t(`creation.twoTitle`) }}-->
+<!--            </div>-->
+<!--          </template>-->
 <!--            </el-select>-->
 <!--          </div>-->
           <div class='login_input'>
@@ -34,6 +39,11 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in cityList' :key='index' :label='item.city_name'
                          :value='item.city_id'></el-option>
+              <template #empty>
+                <div class="no-data " style='padding: 10px'>
+                  {{ $t(`creation.twoTitle`) }}
+                </div>
+              </template>
             </el-select>
 
           </div>

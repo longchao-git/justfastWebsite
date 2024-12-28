@@ -5,19 +5,19 @@
     </div>
     <div class='card_container' :class="type==1?'isVafeView':''">
       <div @click='goDetail(item.shop_id)' :class="type==1?'card_item':''" style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists' :key='index'>
-        <div style='display: flex;align-items: center;'>
-          <div class='  ' style='position: relative'>
-            <img class=' fit-cover' :src='item.logo' style='width: 100px;height: 100px'/>
-            <div class='state'>{{ $t('creation.cerrado') }}</div>
+        <div style='display: flex;align-items: center;' :class="type==1?'listView':''">
+          <div class='photo' style='position: relative'>
+            <img class='fit-cover' :src='item.logo' style='width: 100px;height: 100px'/>
+            <div class='state'  v-if="(item.yy_status != '1'||item.yysj_status != '1')&&type==1">{{ $t('creation.cerrado') }}</div>
           </div>
-          <div class='flex flex-column' style='margin-left: 16px'>
-            <span class='font18 fontb beyond'>{{ item.title }}</span>
+          <div class='flex flex-column viewViewCkass' style='padding-left: 16px'>
+            <span class='font18 fontb beyond classcolor'>{{ item.title }}</span>
             <div class='flex' style='align-items: center'>
               <div class='text_amount'>
                 {{ $t('home.partir') }}€{{item.min_amount }}
               </div>
 
-              <div class='text_freight'>
+              <div class='text_freight classcolor'>
                 <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
                 <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee') }}{{ item.reduceEd_freight }}</span>
                 <span v-else>{{ $t('home.Gastos') }}€{{ item.freight }}</span>
@@ -79,6 +79,33 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.listView{
+  width: 100%;
+  height: 200px;
+  position: relative;
+    border-radius: 12px;
+  .photo{
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    .fit-cover{
+      width: 100% !important;
+      height: 200px !important;
+    }
+  }
+  .viewViewCkass{
+    left: 0;
+    right: 0;
+    height:70px ;
+    padding: 10px 0;
+    background: #ee8080;
+    position: absolute;
+    bottom: 0;
+    .classcolor{
+      color: #fff !important;
+    }
+  }
+}
 .cloud_sales_expansion_market {
   width: 80%;
   margin: 0 auto;
