@@ -41,7 +41,7 @@
             <el-select v-model='hongbao_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.hongbao_list' :key='index' :disabled="item.is_canuse != 1"
-                         :value='item.hongbao_id' :label="`满€${item.min_amount}可减€${item.amount}`"></el-option>
+                         :value='item.hongbao_id' :label="$t(`满`) +'€' +item.min_amount+$t('可减')+ '€'+item.amount"></el-option>
               <template #empty>
                 <div class="no-data " style='padding: 10px'>
                   {{ $t(`creation.twoTitle`) }}
@@ -54,7 +54,7 @@
             <el-select v-model='coupon_id' filterable clearable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.coupon_list' :key='index' :disabled="item.is_canuse != 1"
-                         :value='item.coupon_id' :label="`满€${item.order_amount}可减€${item.coupon_amount}`"></el-option>
+                         :value='item.coupon_id' :label="$t(`满`)  + `€${item.order_amount}`+$t('可减')+`€${item.coupon_amount}`"></el-option>
               <template #empty>
                 <div class="no-data " style='padding: 10px'>
                   {{ $t(`creation.twoTitle`) }}
@@ -73,7 +73,7 @@
             <el-select v-model='peicard_id' filterable clearable :disabled="orderInfo.peicard_id!=0" :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.cards' :key='index'
-                         :value='item.card_id' :label="`每单立减${item.reduce}€配送费,价格${item.amount}`"></el-option>
+                         :value='item.card_id' :label="$t(`每单立减`) + `${item.reduce}€`+'配送费,价格'+`${item.amount}`"></el-option>
               <template #empty>
                 <div class="no-data " style='padding: 10px'>
                   {{ $t(`creation.twoTitle`) }}
