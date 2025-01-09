@@ -293,6 +293,15 @@ export default {
     /** 处理呼叫父级 - 设置type状态 */
     handleChangeType(value) {
       if (value === -1 || value === 3 || value === 9) {
+        if(value === -1){
+           this.addr_id = ''
+           this.code =''
+            this.intro = ''
+           this.isFirst = 0
+           this.hongbao_id =''
+            this.coupon_id = ''
+            this.peicard_id = ''
+        }
         this.$emit('handleCloseLoginDialog', value);
       } else if (value === 19) {
         this.$emit('handledeteleLoginDialog', this.card_id);
@@ -321,6 +330,13 @@ export default {
           coupon_id:this.coupon_id,
           peicard_id:this.peicard_id
         });
+        this.addr_id = ''
+        this.code =''
+        this.intro = ''
+        this.isFirst = 0
+        this.hongbao_id =''
+        this.coupon_id = ''
+        this.peicard_id = ''
       }
 
     }
