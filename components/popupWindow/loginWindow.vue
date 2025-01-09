@@ -416,7 +416,7 @@ export default {
 
     .loginClass {
       max-height: 500px;
-      width: 540px;
+      width: 650px;
       overflow-y:scroll ;
       //display: flex;
       //flex-direction: column;

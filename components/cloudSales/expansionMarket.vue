@@ -4,7 +4,7 @@
       <h3 class='module_title'>{{ $t('home.moduleTitle') }}</h3>
     </div>
     <div class='card_container' :class="type==1?'isVafeView':''">
-      <div @click='goDetail(item.shop_id)' :class="type==1?'card_item':''" style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists' :key='index'>
+      <div @click='goDetail(item.shop_id)' :class="type==1?'card_item ovhsaView':''" style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists' :key='index'>
         <div style='display: flex;align-items: center;' :class="type==1?'listView':''">
           <div class='photo' style='position: relative'>
             <img class='fit-cover' :src='type==1?item.shop_show:item.logo' style='width: 100px;height: 100px'/>
@@ -168,7 +168,10 @@ export default {
 .card_container {
   width: 100%;
 
-
+  .ovhsaView{
+    border-radius: 16px;
+    overflow: hidden;
+  }
   .card_item {
     display: flex;
     flex-direction: row;
