@@ -7,7 +7,7 @@
       <div @click='goDetail(item.shop_id)' :class="type==1?'card_item':''" style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists' :key='index'>
         <div style='display: flex;align-items: center;' :class="type==1?'listView':''">
           <div class='photo' style='position: relative'>
-            <img class='fit-cover' :src='item.logo' style='width: 100px;height: 100px'/>
+            <img class='fit-cover' :src='type==1?item.shop_show:item.logo' style='width: 100px;height: 100px'/>
             <div class='state'  v-if="(item.yy_status != '1'||item.yysj_status != '1')&&type==1">{{ $t('creation.cerrado') }}</div>
           </div>
           <div class='flex flex-column viewViewCkass' style='padding-left: 16px'>

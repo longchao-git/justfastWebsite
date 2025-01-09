@@ -14,11 +14,10 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in companyTypeList' :key='index' :label='item.name'
                          :value='item.value'></el-option>
-              <template #empty>
-                <div class="no-data " style='padding: 10px'>
-                  {{ $t(`creation.twoTitle`) }}
-                </div>
-              </template>
+              <el-option v-if="companyTypeList.length === 0"  value="" disabled>
+                {{ $t(`creation.twoTitle`) }}
+              </el-option>
+
             </el-select>
           </div>
 

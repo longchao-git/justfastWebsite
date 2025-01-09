@@ -10,7 +10,7 @@
       <div class='card_container'>
         <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs' @click='loginbindTap(items,index,indexs)' >
           <div class='card_img_container'>
-            <img class='card_img fit-cover' :src='item.photo' />
+            <img class='card_img fit-cover' :src='items.photo' />
           </div>
           <div class='flex flex-column'>
             <span class='font18 fontb beyond'>{{ items.title }} </span>

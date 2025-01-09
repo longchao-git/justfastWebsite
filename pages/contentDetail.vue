@@ -412,9 +412,9 @@
 					params.data.coupon_id = value.coupon_id
 				}
 				if (value.peicard_id) {
-					if (this.orderInfo.peicard_id) {
+					if (this.orderInfo.peicard_id&&this.orderInfo.peicard_id!=0) {
 						params.data.peicard_id = value.peicard_id
-						//   
+						//
 					} else {
 						params.data.pcard_id = value.peicard_id
 					}
@@ -422,7 +422,7 @@
 				if (value.hongbao_id) {
 					params.data.hongbao_id = value.hongbao_id
 				}
-				// console.log(params) 
+				// console.log(params)
 				// return
 				this.$axios.post('/client/waimai/order/create', params).then(res => {
 					if (value.code == 1) {

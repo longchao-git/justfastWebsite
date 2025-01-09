@@ -10,15 +10,18 @@
         <div class='loginClass'>
           <div v-if='type===2&&orderAddrList' class='login_input'>
             <div>{{ $t('loginPopup.fromOne') }}</div>
-            <el-select v-model='addr_id' clearable filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
+            <el-select v-model='addr_id'    clearable filterable :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderAddrList' :key='index' :label='item.addr'
                          :value='item.addr_id'></el-option>
-              <template #empty>
-                <div class="no-data " style='padding: 10px'>
-                  {{ $t(`creation.twoTitle`) }}
-                </div>
-              </template>
+              <el-option v-if="orderAddrList.length === 0"  value="" disabled>
+                {{ $t(`creation.twoTitle`) }}
+              </el-option>
+<!--              <template #empty>-->
+<!--                <div class="no-data " style='padding: 10px'>-->
+<!--                  {{ $t(`creation.twoTitle`) }}-->
+<!--                </div>-->
+<!--              </template>-->
             </el-select>
             <span @click='handleChangeType(3)' style='cursor: pointer'> {{ $t(`addAddr.name`) }}</span>
           </div>
@@ -28,11 +31,14 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in payitem' :key='index' :label='item.title'
                          :value='item.code'></el-option>
-              <template #empty>
-                <div class="no-data " style='padding: 10px'>
-                  {{ $t(`creation.twoTitle`) }}
-                </div>
-              </template>
+              <el-option v-if="payitem.length === 0"  value="" disabled>
+                {{ $t(`creation.twoTitle`) }}
+              </el-option>
+<!--              <template #empty>-->
+<!--                <div class="no-data " style='padding: 10px'>-->
+<!--                  {{ $t(`creation.twoTitle`) }}-->
+<!--                </div>-->
+<!--              </template>-->
             </el-select>
           </div>
 
@@ -42,11 +48,14 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.hongbao_list' :key='index' :disabled="item.is_canuse != 1"
                          :value='item.hongbao_id' :label="$t(`满`) +'€' +item.min_amount+$t('可减')+ '€'+item.amount"></el-option>
-              <template #empty>
-                <div class="no-data " style='padding: 10px'>
-                  {{ $t(`creation.twoTitle`) }}
-                </div>
-              </template>
+              <el-option v-if="orderInfo.hongbao_list.length === 0"  value="" disabled>
+                {{ $t(`creation.twoTitle`) }}
+              </el-option>
+<!--              <template #empty>-->
+<!--                <div class="no-data " style='padding: 10px'>-->
+<!--                  {{ $t(`creation.twoTitle`) }}-->
+<!--                </div>-->
+<!--              </template>-->
             </el-select>
           </div>
           <div v-if='type===2&&code==1&&orderInfo.coupon_list' class='login_input'>
@@ -55,11 +64,14 @@
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.coupon_list' :key='index' :disabled="item.is_canuse != 1"
                          :value='item.coupon_id' :label="$t(`满`)  + `€${item.order_amount}`+$t('可减')+`€${item.coupon_amount}`"></el-option>
-              <template #empty>
-                <div class="no-data " style='padding: 10px'>
-                  {{ $t(`creation.twoTitle`) }}
-                </div>
-              </template>
+              <el-option v-if="orderInfo.coupon_list.length === 0"  value="" disabled>
+                {{ $t(`creation.twoTitle`) }}
+              </el-option>
+<!--              <template #empty>-->
+<!--                <div class="no-data " style='padding: 10px'>-->
+<!--                  {{ $t(`creation.twoTitle`) }}-->
+<!--                </div>-->
+<!--              </template>-->
             </el-select>
           </div>
 
@@ -73,12 +85,15 @@
             <el-select v-model='peicard_id' filterable clearable :disabled="orderInfo.peicard_id!=0" :placeholder="$t('loginOrRegister.placeholder')[1]"
                        style='flex: 1'>
               <el-option v-for='(item, index) in orderInfo.cards' :key='index'
-                         :value='item.card_id' :label="$t(`每单立减`) + `${item.reduce}€`+'配送费,价格'+`${item.amount}`"></el-option>
-              <template #empty>
-                <div class="no-data " style='padding: 10px'>
-                  {{ $t(`creation.twoTitle`) }}
-                </div>
-              </template>
+                         :value='item.card_id' :label="$t(`每单立减`) + `${item.reduce}€`+$t('配送费,价格')+`${item.amount}`"></el-option>
+              <el-option v-if="orderInfo.cards.length === 0"  value="" disabled>
+                {{ $t(`creation.twoTitle`) }}
+              </el-option>
+<!--              <template #empty>-->
+<!--                <div class="no-data " style='padding: 10px'>-->
+<!--                  {{ $t(`creation.twoTitle`) }}-->
+<!--                </div>-->
+<!--              </template>-->
             </el-select>
           </div>
 
@@ -191,11 +206,14 @@
                        :placeholder="$t('loginOrRegister.placeholder')[1]" style='flex: 1'>
               <el-option v-for='(item, index) in cardList' :key='index' :label='item.card_name'
                          :value='item.card_id'></el-option>
-              <template #empty>
-                <div class="no-data " style='padding: 10px'>
-                  {{ $t(`creation.twoTitle`) }}
-                </div>
-              </template>
+              <el-option v-if="cardList.length === 0"  value="" disabled>
+                {{ $t(`creation.twoTitle`) }}
+              </el-option>
+<!--              <template #empty>-->
+<!--                <div class="no-data " style='padding: 10px'>-->
+<!--                  {{ $t(`creation.twoTitle`) }}-->
+<!--                </div>-->
+<!--              </template>-->
             </el-select>
 
             <el-button type='primary' @click='handleChangeType(9)'
@@ -365,7 +383,7 @@ export default {
   border-radius: 8px;
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
-  width: 540px;
+  width: 650px;
   height: 740px;
   position: relative;
 
