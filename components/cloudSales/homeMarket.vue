@@ -3,50 +3,28 @@
     <div class='flex flex-bw flex-a-c title'>
       <h3 class='module_title'>{{ $t('home.moduleTitle') }}</h3>
     </div>
-    <div class='card_container'>
-      <div @click='goDetail(item.shop_id)' style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists'
-           :key='index'>
-        <div style='display: flex;align-items: center;'>
+    <div class='card_container isVafeView'>
+      <div @click='goDetail(item.shop_id)' class="card_item ovhsaView" style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists' :key='index'>
+        <div style='display: flex;align-items: center;' class="listView">
           <div class='photo' style='position: relative'>
-            <img class='fit-cover' :src='item.logo' style='width: 100px;height: 100px' />
+            <img class='fit-cover' :src='item.shop_show?item.shop_show:item.logo' style='width: 100px;height: 100px'/>
+            <div class='state'  v-if="item.yy_status != '1'||item.yysj_status != '1'">{{ $t('creation.cerrado') }}</div>
           </div>
-          <div class='flex flex-column viewViewCkass' style='padding-left: 16px'>
-            <span class='font18 fontb beyond classcolor'>{{ item.title }}</span>
-            <div class='flex' style='align-items: center'>
+          <div class='flex flex-column viewViewCkass' style='padding: 0 16px'>
+            <span class='font18 fontb beyond classcolor ' style='text-align: center;height: 36px;line-height: 36px'>{{ item.title }}</span>
+            <div class='flex' style='align-items: center ;justify-content: space-between;'>
               <div class='text_amount'>
-                {{ $t('home.partir') }}€{{ item.min_amount }}
+                {{ $t('home.partir') }}€{{item.min_amount }}
               </div>
+
               <div class='text_freight classcolor' style='font-size: 14px'>
                 <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
-                <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee')
-                  }}{{ item.reduceEd_freight }}</span>
+                <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee') }}{{ item.reduceEd_freight }}</span>
                 <span v-else>{{ $t('home.Gastos') }}€{{ item.freight }}</span>
               </div>
             </div>
           </div>
         </div>
-        <div class='flex ' style='flex-wrap: wrap;margin-top: 20px' v-if='item.products.length>0'>
-          <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'>
-            <div class='card_img_container'>
-              <img class='card_img fit-cover' :src='items.photo' />
-            </div>
-            <div class='flex flex-column' style='margin-left: 16px'>
-              <span class='font18 fontb beyond2' style='width: 160px'>{{ items.title }} </span>
-              <div style='display: flex;flex-direction: row; justify-content: space-between;'>
-              <span class=' line22 classNameView' style='color: #ee8080;'>
-                	<span>€</span>
-								{{ items.price }}
-								<span v-if='items.unit'>/ {{ items.unit }}</span>
-								<span class='del ml5' v-if="items.is_discount == '1'">
-								{{ items.oldprice }} <span v-if='items.unit'>/{{ items.unit }}</span>
-								</span>
-              </span>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
 
       </div>
     </div>
@@ -65,56 +43,50 @@ export default {
       type: Array,
       default: []
     },
-    type: {
+    type:{
       type: Number,
       default: 0
     }
   },
   methods: {
     goDetail(shop_id) {
-      window.location.href = '/contentDetail?shop_id=' + shop_id;
+      window.location.href = '/contentDetail?shop_id='+shop_id;
     }
   }
 };
 </script>
 
 <style lang='scss' scoped>
-.listView {
+.listView{
   width: 100%;
   height: 200px;
   position: relative;
   border-radius: 12px;
-
-  .photo {
+  .photo{
     width: 100%;
     height: 200px;
     border-radius: 12px;
-
-    .fit-cover {
+    .fit-cover{
       width: 100% !important;
       height: 200px !important;
     }
   }
-
-  .viewViewCkass {
+  .viewViewCkass{
     left: 0;
     right: 0;
-    height: 70px;
+    height:70px ;
     padding: 10px 0;
     background: #ee8080;
     position: absolute;
     bottom: 0;
-
-    .classcolor {
+    .classcolor{
       color: #fff !important;
     }
   }
 }
-
 .cloud_sales_expansion_market {
   width: 80%;
   margin: 0 auto;
-
   .state {
     position: absolute;
     left: 0;
@@ -127,7 +99,6 @@ export default {
     display: block;
     font-size: 11px;
   }
-
   .title {
     margin-bottom: 16px;
   }
@@ -141,11 +112,11 @@ export default {
 
   .text_amount {
     min-width: 44px;
-    padding: 0 6px;
-    background: #ee8080;
+    //padding: 0 6px;
+    //background: #ee8080;
     box-shadow: 0px 0px 20px 0px rgba(163, 163, 164, 0.1);
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     line-height: 24px;
     margin-right: 5px;
@@ -167,21 +138,18 @@ export default {
     cursor: pointer;
   }
 }
-
-.isVafeView {
+.isVafeView{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
 .card_container {
   width: 100%;
 
-  .ovhsaView {
+  .ovhsaView{
     border-radius: 16px;
     overflow: hidden;
   }
-
   .card_item {
     display: flex;
     flex-direction: row;
@@ -191,13 +159,15 @@ export default {
 
     .card_img_container {
       position: relative;
-      //margin-bottom: 16px;
+      margin-bottom: 16px;
 
       .card_img {
-        width: 120px;
-        height: 120px;
+        width: 200px;
+        height: 200px;
         border-radius: 8px;
       }
+
+
 
 
     }
@@ -218,7 +188,7 @@ export default {
         width: calc((100% - 96px) / 4);
 
         .card_img {
-          height: 120px;
+          height: 200px;
         }
       }
     }
@@ -239,12 +209,12 @@ export default {
         width: calc((100% - 48px) / 3);
 
 
-        //.card_img_container {
-        //  margin-bottom: 12px;
-        //}
+        .card_img_container {
+          margin-bottom: 12px;
+        }
 
         .card_img {
-          height: 120px;
+          height: 200px;
         }
 
       }
@@ -281,12 +251,12 @@ export default {
       .card_item {
         width: calc((100% - 12px) / 2);
 
-        //.card_img_container {
-        //  margin-bottom: 8px;
-        //}
+        .card_img_container {
+          margin-bottom: 8px;
+        }
 
         .card_img {
-          height: 120px;
+          height: 150px;
         }
 
 

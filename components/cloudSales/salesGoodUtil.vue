@@ -1,21 +1,22 @@
 <template>
   <div class='content_tab' :class='loginType!=-1?"isview_container":""'>
     <div class='flex flex-bw flex-a-c title'>
-      <h3 class='module_title'>{{ topInfo.title }} <span v-if="topInfo.yy_status != '1'||topInfo.yysj_status != '1'"
-                                                         style='color: #ee8080'>({{ $t('creation.cerrado') }})</span>
+      <h3 class='module_title'>{{ topInfo.title }}
+        <span v-if="topInfo.yy_status != '1'||topInfo.yysj_status != '1'"
+              style='color: #ee8080'>({{ $t('creation.cerrado') }})</span>
       </h3>
     </div>
     <div v-for='(item,index) in list' :key='index'>
-      <div style='color: #ee8080;margin-bottom: 12px' class=' font14'>{{ item.title }}</div>
+      <div style='color: #ee8080;margin-bottom: 12px' class=' font18'>{{ item.title }}</div>
       <div class='card_container'>
         <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs' @click='loginbindTap(items,index,indexs)' >
           <div class='card_img_container'>
             <img class='card_img fit-cover' :src='items.photo' />
           </div>
-          <div class='flex flex-column'>
-            <span class='font18 fontb beyond'>{{ items.title }} </span>
-            <div style='display: flex;flex-direction: row; justify-content: space-between;margin-top: 4px'>
-              <span class=' line22 classNameView' style='color: #ee8080;'>
+          <div class='flex flex-column ml1'>
+            <span class='font16  beyond' style='max-width: 160px'>{{ items.title }} </span>
+            <div style='display: flex;flex-direction: row; margin-top: 10px'>
+              <span class=' line22 classNameView' style='color: #ee8080;margin-right: 6px'>
                 	<span>€</span>
 								{{ items.price }}
 								<span>/ {{ items.unit }}</span>
@@ -23,7 +24,7 @@
 								{{ items.oldprice }}/{{ items.unit }}
 								</span>
               </span>
-              <div class='flex flex-j-end'
+              <div class='flex '
                    v-if='items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0'>
                 <div class='buttonView' @click.stop='addCart(1,index,indexs)' style='cursor: pointer' v-if='items.num'>-
                 </div>
@@ -261,10 +262,10 @@ export default {
   }
 
   .module_title {
-    font-size: 48px;
+    font-size: 32px;
     font-weight: 700;
     line-height: 58px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 
     &::before {
       content: '';
@@ -294,16 +295,19 @@ export default {
   }
 
   .card_item {
-    width: calc((100% - 120px) / 6);
+    width: calc((100% - 120px) / 4);
     margin-bottom: 24px;
     margin-right: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
     .card_img_container {
       position: relative;
-      margin-bottom: 8px;
+      //margin-bottom: 8px;
 
       .card_img {
-        width: 100%;
+        width: 120px;
         height: 120px;
         border-radius: 8px;
       }
@@ -378,9 +382,9 @@ export default {
         margin-right: 24px;
         margin-bottom: 24px;
 
-        .card_img_container {
-          margin-bottom: 4px;
-        }
+        //.card_img_container {
+        //  margin-bottom: 4px;
+        //}
 
         .card_img {
           height: 212px;
@@ -416,10 +420,10 @@ export default {
         width: calc((100% - 12px) / 2);
         margin-right: 12px !important;
         margin-bottom: 12px !important;
-
-        .card_img_container {
-          margin-bottom: 4px;
-        }
+        //
+        //.card_img_container {
+        //  margin-bottom: 4px;
+        //}
 
         .card_img {
           height: 150px !important;

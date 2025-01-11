@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="detail_container">
-      <expansion-market :lists='lists' :type='1'/>
+      <home-market :lists='lists' :type='1'/>
       <div class="flex flex-a-c flex-j-c mt3" style="cursor: pointer" @click='bindTapCilck'>
         <span class=" font18" style='font-weight: 500;color: #ee8080'>{{morehidden? $t('creation.title') : $t('creation.oneTitle')}}</span>
       </div>
@@ -76,7 +76,7 @@ import believeCooperation from '../components/cloudSales/believeCooperation.vue'
 import config from '../config';
 import { mapGetters, mapMutations } from 'vuex';
 import error from '@/layouts/error';
-import ExpansionMarket from '@/components/cloudSales/expansionMarket';
+import homeMarket from '@/components/cloudSales/homeMarket';
 export default {
 
   components: {
@@ -84,7 +84,7 @@ export default {
     LoginWindow,
     believeCooperation,
     collaborationMechanism,
-    ExpansionMarket
+    homeMarket
   },
   data() {
     return {
