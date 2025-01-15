@@ -14,7 +14,7 @@
             <img class='card_img fit-cover' :src='items.photo' />
           </div>
           <div class='flex flex-column ml1'>
-            <span class='font16  beyond' style='max-width: 160px'>{{ items.title }} </span>
+            <span class='font16  beyond3' style='max-width: 160px'>{{ items.title }} </span>
             <div style='display: flex;flex-direction: row; margin-top: 10px'>
               <span class=' line22 classNameView' style='color: #ee8080;margin-right: 6px'>
                 	<span>€</span>
@@ -201,7 +201,7 @@ export default {
   overflow: hidden;
 }
 .content_tab {
-  width: 80%;
+  width: 85%;
   margin: 0 auto 24px;
 
   .tabs {

@@ -8,7 +8,7 @@
         </div>
         <div class="loginClass">
           <div class=' '>
-            <div class='font20 beyond' style='width: 200px;text-align: left'>{{ productInfo.title }}</div>
+            <div class='font20 beyond3' style='width: 400px;text-align: left'>{{ productInfo.title }}</div>
             <div class='color-4B4B4B font14 line22' style='text-align: left'>
               <span class=' line22 classNameView' style='color: #ee8080;'>
                 	<span>€</span>
