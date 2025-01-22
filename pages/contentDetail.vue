@@ -313,6 +313,7 @@
 							this.orderInfo = res;
 							// this.is_first  = res.is_first
 							this.payitem = payitem;
+							this.memberCardIndex();
 							this.loginType = 2;
 						});
 					} else {
@@ -327,7 +328,7 @@
 					this.loginType = -1;
 				} else if (value === -9) {
 					this.memberCardIndex();
-					this.loginType = -1;
+					this.loginType = 2;
 				} else if (value === 9) {
 					this.loginType = 9;
 				} else {
@@ -412,7 +413,7 @@
 					params.data.coupon_id = value.coupon_id
 				}
 				if (value.peicard_id) {
-					if (this.orderInfo.peicard_id&&this.orderInfo.peicard_id!=0) {
+					if (this.orderInfo.peicard_id && this.orderInfo.peicard_id != 0) {
 						params.data.peicard_id = value.peicard_id
 						//
 					} else {
@@ -428,7 +429,11 @@
 					if (value.code == 1) {
 						this.$message.success(this.$t(`enviado`));
 						this.order_id = res.order_id;
-						this.memberCardIndex();
+						this.paymentOrder({
+							card_id: value.card_id,
+							code: 'stripe'
+						})
+						// this.memberCardIndex();
 					} else {
 						this.$message.success(this.$t(`addView`));
 						this.handleCloseLoginDialog(-1);
@@ -447,7 +452,7 @@
 				};
 				this.$axios.post('/client/member/card/index', params).then(res => {
 					this.cardList = res;
-					this.loginType = 5;
+					// this.loginType = 5;
 				}).catch(err => {
 					this.$message.info(err.message);
 				});
@@ -620,6 +625,9 @@
 		},
 
 		mounted() {
+			// 测试环境
+			// localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
+			// 正式环境
 			// localStorage.setItem('token', '2-KT10BB55638D8DD57317EEE51B5A74044C');
 			if (this.$route.query.shop_id) {
 				this.shop_id = this.$route.query.shop_id;
