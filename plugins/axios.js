@@ -53,9 +53,14 @@ export default ({redirect, $axios,$cookies}) => {
       if (response.data.error=='0') {
         return Promise.resolve(response.data.data);
       } else {
+        if(response.data.error == '101'){
+          console.log(response.data)
+          localStorage.removeItem('token')
+        }
         return Promise.reject(response.data);
       }
     } else {
+
       return Promise.reject(response.data);
     }
   }, error => {

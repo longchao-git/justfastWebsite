@@ -336,7 +336,7 @@
 			},
 			//删除银行卡
 			handledeteleLoginDialog(card_id) {
-				var params = {
+				let params = {
 					data: {
 						card_id: card_id
 					}
@@ -620,7 +620,7 @@
 		},
 
 		mounted() {
-			// localStorage.setItem('token', '2-KT5F50CB82EC23055AC3AD693EA5AD39FD');
+			// localStorage.setItem('token', '2-KT10BB55638D8DD57317EEE51B5A74044C');
 			if (this.$route.query.shop_id) {
 				this.shop_id = this.$route.query.shop_id;
 			}
