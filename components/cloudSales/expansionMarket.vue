@@ -37,11 +37,10 @@
                 	<span>€</span>
 								{{ items.price }}
 								<span v-if='items.unit'>/ {{ items.unit }}</span>
-								<span class='del ml5' v-if="items.is_discount == '1'">
+								<span class='del ml5' style='font-size: 14px;color: #999999;text-decoration: line-through' v-if="items.is_discount == '1'">
 								{{ items.oldprice }} <span v-if='items.unit'>/{{ items.unit }}</span>
 								</span>
               </span>
-
               </div>
             </div>
           </div>
