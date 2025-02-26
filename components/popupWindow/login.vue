@@ -25,13 +25,13 @@
             <div>{{ $t('loginOrRegister.formLabel')[1] }}</div>
 
             <el-input :placeholder="$t('loginOrRegister.placeholder')[0]" @mousewheel.native.prevent type='number'
-                      style='width: 350px;height: 40px' v-model='phone'>
+                      style='width: 450px;height: 40px' v-model='phone'>
               <template slot='prepend'>+{{ conPhone }}</template>
             </el-input>
             <span v-if='imgCode' class='button' style='cursor: pointer' @click='bindSendCode()'>{{
                 isGetCode ? $t('loginOrRegister.btnText')[1] : `${countdown}s${$t('loginOrRegister.btnText')[2]}`
               }}</span>
-            <span v-else @click='getVerifyCode' class='button' style='cursor: pointer'>获取图形验证</span>
+            <span v-else @click='getVerifyCode' class='button' style='cursor: pointer'>{{$t('获取图形验证')}}</span>
           </div>
 
           <div class='login_input p-relative' v-if='imgCode'>
@@ -246,7 +246,6 @@ export default {
   top: 0;
   right: 0;
   bottom: 0;
-
   min-width: 100vw;
   width: 100%;
   z-index: 100;
@@ -259,7 +258,7 @@ export default {
   border-radius: 8px;
   background: radial-gradient(50% 26.6% at 50% 3.77%, rgba(238, 128, 128, 0.20) 0%, rgba(10, 218, 254, 0.00) 100%), #FFF;
   margin: auto;
-  width: 540px;
+  width: 640px;
   height: 500px;
   position: relative;
 
