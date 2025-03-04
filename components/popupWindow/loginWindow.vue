@@ -213,6 +213,13 @@
 							style='text-decoration: line-through;color: #909090'>€{{ orderInfo.freight_stage }}</div>
 						<div>€{{ orderInfo.actual_freight }}</div>
 					</div>
+          <div v-if='type===2&&orderInfo.amount' class='line22 mt1'
+               style='width: 100%;display: flex;justify-content: space-between;'>
+            <div class='' style='width: 126px;text-align: right'>
+              {{ $t(`合计`) }}
+            </div>
+            <div>€{{ orderInfo.amount }}</div>
+          </div>
 					<!-- v-if='type===5' -->
 
 					<v-btn width='100%' height='48px' class='try-out-bt mt3'
