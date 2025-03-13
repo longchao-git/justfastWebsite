@@ -266,8 +266,7 @@
 
 			/** 处理登录弹框的关闭操作 */
 			async handleCloseLoginDialog(value) {
-				// this.loginType = 4;
-				// this.memberCardIndex();
+
 				// return
 				if (value === 2) {
 					this.$html2canvas(this.$refs.posterHtml, {}).then((canvas) => {

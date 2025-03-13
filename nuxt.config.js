@@ -61,9 +61,10 @@ export default {
         href: '//cdn.jsdelivr.net/npm/font-awesome@4.x/fonts/fontawesome-webfont.woff2?v=4.7.0'
       }
     ],
+    // AIzaSyDWG-HwH8F2CLS5aqYS12Me0qyxi9vkuig
     script: [
       { src: 'https://js.stripe.com/v3/', ssr: false },
-      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDWG-HwH8F2CLS5aqYS12Me0qyxi9vkuig&libraries=places&v=weekly', ssr: false }
+      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAGLysjcpc2O8o98jKd6BLhcce0GwJIkFc&libraries=places&v=weekly', ssr: false }
     ]
   },
 
@@ -126,14 +127,28 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios', // 可选配置项可以根据需求调整
-
     ['vue-scrollto/nuxt', {
       duration: 0,
       cancelable: false,
       easing: 'linear'
     }]
   ],
-
+  security: {
+    headers: {
+      xXSSProtection: "1; mode=block",
+      xFrameOptions: "DENY", // 防止点击劫持
+      strictTransportSecurity: "max-age=63072000; includeSubdomains",
+      contentSecurityPolicy: {
+        'default-src': ["'self'"],
+        'connect-src': ["'self'", "https://www.cuai-zi.net"]
+        // 自定义策略
+      }
+    },
+    rateLimiter: {
+      tokensPerInterval: 100,
+      interval: 'hour'
+    }
+  },
   axios: {
     withCredentials: true,
     credentials: true,
@@ -151,7 +166,13 @@ export default {
   },
 
   render: {
-    resourceHints: false
+    resourceHints: false,
+    csp: {
+      policies: {
+        'script-src': ["'self'", "trusted-cdn.com"],
+        'object-src': ["'none'"]
+      }
+    }
   },
   performance: {
     prefetch: false

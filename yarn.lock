@@ -2040,6 +2040,11 @@
   dependencies:
     http-proxy-middleware "^1.0.6"
 
+"@nuxtjs/security@0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/security/-/security-0.0.0.tgz#1a270dd325bf830b1ea17cca5c81d86c59067c0d"
+  integrity sha512-nIujjPqVP4iijzkJ0ajjjHwPtqnB6U1/B++v84itePec/jb8CRIxpC0o2eBN5VQzWACAHJfuhRZuKFqfKblMuQ==
+
 "@nuxtjs/vuetify@^1.11.3":
   version "1.12.3"
   resolved "https://registry.npmmirror.com/@nuxtjs/vuetify/-/vuetify-1.12.3.tgz"
