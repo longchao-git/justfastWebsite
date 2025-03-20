@@ -189,7 +189,7 @@ export default {
     treeShake: true
   },
   generate: {
-    routes: ['/', '/about', '/fr', '/fr/about']
+    routes: ['/']
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
