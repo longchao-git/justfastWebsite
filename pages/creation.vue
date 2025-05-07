@@ -84,17 +84,12 @@ export default {
   }
 };
 </script>
-<style>
-.main-content {
-  background-color: #f5f5f5;
-}
-</style>
+
 <style scoped lang='scss'>
 .detail_container {
-  width: 90%;
   margin: 0 auto;
   padding: 24px 0;
-
+  background: white;
 }
 
 </style>

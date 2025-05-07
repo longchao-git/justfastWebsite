@@ -3,41 +3,41 @@
     <div class='disflex p-relative contact-box'>
       <div class='asy-box'>
         <div class='f-title '>
-          <img class='footer_icon' src='~/assets/images/cloudSales/header2-logo.svg' alt='' />
-          <span class='service_title'> {{ $t('footer.footerItem.title') }}</span>
+          <img class='footer_icon' src='~/assets/images/logo2.png' alt='' />
+          <span class='service_title' style='color: #fff;font-size: 18px'> {{ $t('footer.footerItem.title') }}</span>
         </div>
 
       </div>
-<!--      <div class='asy-box'>-->
-<!--        <div class='f-title'>-->
-<!--          <div class='isViewTxet'>{{ $t('footer.Company.name') }}</div>-->
-<!--        </div>-->
+      <!--      <div class='asy-box'>-->
+      <!--        <div class='f-title'>-->
+      <!--          <div class='isViewTxet'>{{ $t('footer.Company.name') }}</div>-->
+      <!--        </div>-->
 
-<!--        <div class='asy-phone'>-->
-<!--          <div class='service_title'>{{ $t('footer.Company.content') }}</div>-->
-<!--          <div class='service_title'>{{ $t('footer.Company.desc') }}</div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class='asy-box'>-->
-<!--        <div class='f-title '>-->
-<!--          <div class='isViewTxet'>{{ $t('footer.UsefulLinks.name') }}</div>-->
-<!--        </div>-->
+      <!--        <div class='asy-phone'>-->
+      <!--          <div class='service_title'>{{ $t('footer.Company.content') }}</div>-->
+      <!--          <div class='service_title'>{{ $t('footer.Company.desc') }}</div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      <div class='asy-box'>-->
+      <!--        <div class='f-title '>-->
+      <!--          <div class='isViewTxet'>{{ $t('footer.UsefulLinks.name') }}</div>-->
+      <!--        </div>-->
 
-<!--        <div class='asy-phone'>-->
-<!--          <div class='service_title'>{{ $t('footer.UsefulLinks.content') }}</div>-->
-<!--          <div class='service_title'>{{ $t('footer.UsefulLinks.desc') }}</div>-->
-<!--          <div class='service_title'>{{ $t('footer.UsefulLinks.contentOne') }}</div>-->
-<!--          <div class='service_title'>{{ $t('footer.UsefulLinks.descOne') }}</div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class='asy-box'>-->
-<!--        <div class='f-title '>-->
-<!--          <div class='isViewTxet'>{{ $t('footer.SubscribeToOurNewsletter.name') }}</div>-->
-<!--        </div>-->
-<!--        <div class='asy-phone'>-->
-<!--          <div class='service_title'>{{ $t('footer.SubscribeToOurNewsletter.content') }}</div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--        <div class='asy-phone'>-->
+      <!--          <div class='service_title'>{{ $t('footer.UsefulLinks.content') }}</div>-->
+      <!--          <div class='service_title'>{{ $t('footer.UsefulLinks.desc') }}</div>-->
+      <!--          <div class='service_title'>{{ $t('footer.UsefulLinks.contentOne') }}</div>-->
+      <!--          <div class='service_title'>{{ $t('footer.UsefulLinks.descOne') }}</div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      <div class='asy-box'>-->
+      <!--        <div class='f-title '>-->
+      <!--          <div class='isViewTxet'>{{ $t('footer.SubscribeToOurNewsletter.name') }}</div>-->
+      <!--        </div>-->
+      <!--        <div class='asy-phone'>-->
+      <!--          <div class='service_title'>{{ $t('footer.SubscribeToOurNewsletter.content') }}</div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
     <div class='disflex al-center copyright-box ju-center font12'>
       <div><a target='_blank' :href="'//' ">{{ $t('footer.footerBottom.desc') }}</a>&nbsp;</div>
@@ -78,9 +78,9 @@ export default {
 
 <style scoped lang='scss'>
 .footer-box {
-  background: #FFFFFF;
   padding: 32px 0 0;
-
+  background-image: url("../../assets/images/footerIconImg.png");
+  background-size: cover;
   a {
     color: inherit;
   }
@@ -92,18 +92,19 @@ export default {
     margin-bottom: 16px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     .footer_icon {
-      width: 150px;
-      height: 49px;
-      margin-bottom: 8px;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
     }
 
     .isViewTxet {
       font-size: 24px;
       font-style: normal;
       font-weight: 500;
-      color: #03163B;
+      color: #fff;
     }
   }
 
@@ -115,7 +116,7 @@ export default {
   }
 
   .asy-box {
-    width: 250px;
+    width: 600px;
     height: 141px;
     margin: 0 72px 8px 72px;
     display: flex;
@@ -132,8 +133,6 @@ export default {
       > div {
         font-size: 16px;
       }
-
-
     }
   }
 
@@ -141,7 +140,7 @@ export default {
     display: flex;
     text-align: center;
     padding-bottom: 16px;
-    color: #616976;
+    color: #fff;
     margin-top: 32px;
 
     span {
@@ -208,7 +207,6 @@ export default {
     //margin-bottom: 88px;
 
     .f-title {
-      font-size: 12px;
       margin-bottom: 8px;
     }
 

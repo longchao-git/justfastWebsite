@@ -3,48 +3,48 @@
     <div class='flex flex-bw flex-a-c title'>
       <h3 class='module_title'>{{ $t('home.moduleTitle') }}</h3>
     </div>
-    <div class='card_container'>
-      <div @click='goDetail(item.shop_id)' style='margin-bottom: 20px;cursor: pointer;' v-for='(item,index) in lists'
+    <div class='card_container isVafeView'>
+      <div class='card_item' @click='goDetail(item.shop_id)' style='margin-bottom: 30px;cursor: pointer;' v-for='(item,index) in lists'
            :key='index'>
-        <div style='display: flex;align-items: center;'>
+        <div style='display: flex;'>
           <div class='photo' style='position: relative'>
-            <img class='fit-cover' :src='item.logo' style='width: 100px;height: 100px' />
+            <img class='fit-cover' :src='item.logo' style='width: 100px;height: 100px;border-radius: 8px' />
           </div>
-          <div class='flex flex-column viewViewCkass' style='padding-left: 16px'>
-            <span class='font18 fontb beyond classcolor'>{{ item.title }}</span>
-            <div class='flex' style='align-items: center'>
-              <div class='text_amount'>
+          <div  class=' flex-column viewViewCkass' style='padding-left: 16px;display: flex;'>
+            <span class='font18 fontb beyond classcolor ' style='margin-bottom: 12px'>{{ item.title }}</span>
+            <div  style='align-items: center;display: flex;'>
+              <div class='text_amount' style='font-size: 14px;'>
                 {{ $t('home.partir') }}€{{ item.min_amount }}
               </div>
-              <div class='text_freight classcolor' style='font-size: 14px'>
+              <div class='text_freight classcolor' style='font-size: 14px;margin-left: 10px'>
                 <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
-                <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee')
-                  }}{{ item.reduceEd_freight }}</span>
-                <span v-else>{{ $t('home.Gastos') }}€{{ item.freight }}</span>
+                <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.postageandpackingfee')
+                  }}€{{ item.reduceEd_freight }}</span>
+                <span v-else>{{ $t('home.postageandpackingfee') }}€{{ item.freight }}</span>
               </div>
             </div>
           </div>
         </div>
-        <div class='flex ' style='flex-wrap: wrap;margin-top: 20px' v-if='item.products.length>0'>
-          <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'>
-            <div class='card_img_container'>
-              <img class='card_img fit-cover' :src='items.photo' />
-            </div>
-            <div class='flex flex-column' style='margin-left: 16px'>
-              <span class='font18 fontb beyond2' style='width: 160px'>{{ items.title }} </span>
-              <div style='display: flex;flex-direction: row; justify-content: space-between;'>
-              <span class=' line22 classNameView' style='color: #ee8080;'>
-                	<span>€</span>
-								{{ items.price }}
-								<span v-if='items.unit'>/ {{ items.unit }}</span>
-								<span class='del ml5' style='font-size: 14px;color: #999999;text-decoration: line-through' v-if="items.is_discount == '1'">
-								{{ items.oldprice }} <span v-if='items.unit'>/{{ items.unit }}</span>
-								</span>
-              </span>
-              </div>
-            </div>
-          </div>
-        </div>
+<!--        <div  style='flex-wrap: wrap;margin-top: 20px;display: flex;' v-if='item.products.length>0'>-->
+<!--          <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'>-->
+<!--            <div class='card_img_container'>-->
+<!--              <img class='card_img fit-cover' :src='items.photo' />-->
+<!--            </div>-->
+<!--            <div class=' flex-column' style='margin-left: 16px;display: flex;'>-->
+<!--              <span class='font18 fontb beyond2' style='width: 160px'>{{ items.title }} </span>-->
+<!--              <div style='display: flex;flex-direction: row; justify-content: space-between;'>-->
+<!--              <span class=' line22 classNameView' style='color: #ee8080;'>-->
+<!--                	<span>€</span>-->
+<!--								{{ items.price }}-->
+<!--								<span v-if='items.unit'>/ {{ items.unit }}</span>-->
+<!--								<span class='del ml5' style='font-size: 14px;color: #999999;text-decoration: line-through' v-if="items.is_discount == '1'">-->
+<!--								{{ items.oldprice }} <span v-if='items.unit'>/{{ items.unit }}</span>-->
+<!--								</span>-->
+<!--              </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
 
       </div>
@@ -78,6 +78,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+
 .listView {
   width: 100%;
   height: 200px;
@@ -111,7 +112,7 @@ export default {
 }
 
 .cloud_sales_expansion_market {
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
 
   .state {
@@ -132,8 +133,8 @@ export default {
   }
 
   .module_title {
-    font-size: 36px;
-    color: #13161b;
+    font-size: 18px;
+    color: #1D2129;
     font-weight: 500;
     //font-family: 'Source Han Sans CN';
   }

@@ -8,9 +8,9 @@
         </div>
         <div class="loginClass">
           <div class=' '>
-            <div class='font20 beyond3' style='width: 400px;text-align: left'>{{ productInfo.title }}</div>
-            <div class='color-4B4B4B font14 line22' style='text-align: left'>
-              <span class=' line22 classNameView' style='color: #ee8080;'>
+            <div class='font20 beyond3' style='width: 360px;text-align: left'>{{ productInfo.title }}</div>
+            <div class='color-4B4B4B font24 line36' style='text-align: left'>
+              <span class='font24 line36 classNameView' style='color: #ee8080;'>
                 	<span>€</span>
                 {{specs.length>0?specs[specsIndex].price:productInfo.price}}
 								<span>/ {{productInfo.unit}}</span>
@@ -42,6 +42,7 @@
             <div class='buttonView' @click='addCart(8)' style='cursor: pointer'>+</div>
           </div>
         </div>
+
         <div style='overflow-y: scroll;max-height: 470px'>
           <div v-for='(item,index) in specification' v-if='specification.length>0'>
             <h3 class='module_title'>{{ item.key}}</h3>
@@ -204,8 +205,8 @@ export default {
       align-items: center;
       justify-content: space-between;
       margin-top: 48px;
-      padding: 0 48px 24px;
-      border-bottom: 1px solid #999999;
+      padding: 0 24px 24px;
+      border-bottom: 1px solid #eee;
 
       .card_img{
         width: 50px;
@@ -232,8 +233,8 @@ export default {
       &::before {
         content: '';
         display: inline-block;
-        width: 2px;
-        height: 10px;
+        width: 4px;
+        height: 16px;
         background-color: #ee8080;
         margin-right: 8px;
         flex-shrink: 0;
@@ -255,8 +256,8 @@ export default {
 
         }
         .logoCard{
-          width: 32px;
-          height: 32px;
+          width: 24px;
+          height: 24px;
         }
       }
     }

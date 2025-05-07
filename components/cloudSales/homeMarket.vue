@@ -1,5 +1,5 @@
 <template>
-  <div class='cloud_sales_expansion_market'>
+  <div class='cloud_sales_expansion_market' v-if='lists&&lists.length>0'>
     <div class='flex flex-bw flex-a-c title'>
       <h3 class='module_title'>{{ $t('home.moduleTitle') }}</h3>
     </div>
@@ -8,19 +8,18 @@
         <div style='display: flex;align-items: center;' class="listView">
           <div class='photo' style='position: relative'>
             <img class='fit-cover' :src='item.shop_show?item.shop_show:item.logo' style='width: 100px;height: 100px'/>
-            <div class='state'  v-if="item.yy_status != '1'||item.yysj_status != '1'">{{ $t('creation.cerrado') }}</div>
           </div>
           <div class='flex flex-column viewViewCkass' style='padding: 0 16px'>
-            <span class='font18 fontb beyond classcolor ' style='text-align: center;height: 36px;line-height: 36px'>{{ item.title }}</span>
-            <div class='flex' style='align-items: center ;justify-content: space-between;'>
-              <div class='text_amount'>
+            <span class='font20  beyond classcolor ' style='text-align: center;height: 32px;line-height: 32px'>{{ item.title }}</span>
+            <div class='flex ' style='align-items: center ;justify-content: space-between;height: 24px;line-height: 24px'>
+              <div class='text_amount'  style='font-size: 14px'>
                 {{ $t('home.partir') }}€{{item.min_amount }}
               </div>
 
-              <div class='text_freight classcolor' style='font-size: 14px'>
-                <span v-if='item.freight == 0'>{{ $t('creation.gastos') }}</span>
-                <span v-else-if='item.is_reduce_pei == 1'>{{ $t('home.Gastos') }}{{ $t('home.postageandpackingfee') }}{{ item.reduceEd_freight }}</span>
-                <span v-else>{{ $t('home.Gastos') }}€{{ item.freight }}</span>
+              <div class='text_freight classcolor' >
+                <span v-if='item.freight == 0' style='font-size: 14px' >{{ $t('creation.gastos') }}</span>
+                <span v-else-if='item.is_reduce_pei == 1' style='font-size: 14px'>{{ $t('home.postageandpackingfee') }}€{{ item.reduceEd_freight }}</span>
+                <span v-else style='font-size: 14px'>{{ $t('home.postageandpackingfee') }}€{{ item.freight }}</span>
               </div>
             </div>
           </div>
@@ -61,11 +60,10 @@ export default {
   width: 100%;
   height: 200px;
   position: relative;
-  border-radius: 12px;
   .photo{
     width: 100%;
     height: 200px;
-    border-radius: 12px;
+
     .fit-cover{
       width: 100% !important;
       height: 200px !important;
@@ -74,7 +72,7 @@ export default {
   .viewViewCkass{
     left: 0;
     right: 0;
-    height:70px ;
+    height:60px ;
     padding: 10px 0;
     background: #ee8080;
     position: absolute;
@@ -104,8 +102,8 @@ export default {
   }
 
   .module_title {
-    font-size: 36px;
-    color: #13161b;
+    font-size: 18px;
+    color: #1D2129;
     font-weight: 500;
     //font-family: 'Source Han Sans CN';
   }

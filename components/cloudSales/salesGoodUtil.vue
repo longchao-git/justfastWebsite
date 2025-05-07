@@ -1,48 +1,59 @@
 <template>
   <div class='content_tab' :class='loginType!=-1?"isview_container":""'>
-    <div class='flex flex-bw flex-a-c title'>
-      <h3 class='module_title'>{{ topInfo.title }}
-        <span v-if="topInfo.yy_status != '1'||topInfo.yysj_status != '1'"
-              style='color: #ee8080'>({{ $t('creation.cerrado') }})</span>
-      </h3>
+    <div class='conViewLeft'>
+      <div v-for='(item,index) in list' :key='item.cate_id'
+           style='padding: 0 20px ;height: 60px;border-bottom: 1px solid #EEE'
+           :class="['menu-item', { active: activeCategory === item.cate_id }]"
+           @click='scrollToCategory(item.cate_id)'>
+        <div style='line-height: 60px' class='font14'>{{ item.title }}</div>
+      </div>
     </div>
-    <div v-for='(item,index) in list' :key='index'>
-      <div style='color: #ee8080;margin-bottom: 12px' class=' font18'>{{ item.title }}</div>
-      <div class='card_container'>
-        <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs' @click='loginbindTap(items,index,indexs)' >
-          <div class='card_img_container'>
-            <img class='card_img fit-cover' :src='items.photo' />
-          </div>
-          <div class='flex flex-column ml1'>
-            <span class='font16  beyond3' style='max-width: 160px'>{{ items.title }} </span>
-            <div style='display: flex;flex-direction: row; margin-top: 10px'>
-              <span class=' line22 classNameView' style='color: #ee8080;margin-right: 6px'>
-                	<span>€</span>
-								{{ items.price }}
-								<span>/ {{ items.unit }}</span>
-								<span class='del ml5' style='font-size: 14px;color: #999999;text-decoration: line-through' v-if="items.is_discount == '1'">
+    <div class='right-list' style='flex: 1' ref='scrollContainer' @scroll='handleScroll'>
+      <div v-for='(item,index) in list' :key='item.cate_id' :ref="(el) => setCategoryRef(el, item.cate_id)"
+           class='category-section'>
+        <div style='color: #181818;margin-bottom: 10px' class=' font14'>{{ item.title }}</div>
+        <div class='card_container'>
+          <div class='card_item' v-for='(items,indexs) in item.products' :key='indexs'
+               @click='loginbindTap(items,index,indexs)'>
+            <div class='card_img_container'>
+              <img class='card_img fit-cover' :src='items.photo' />
+            </div>
+            <div class=' flex-column ml1' style='display: flex;flex: 1;justify-content: space-between;height: 100px'>
+              <span class='font16  beyond3' style='width: 100%'>{{ items.title }} </span>
+              <div
+                style='display: flex;flex-direction: row; margin-top: 10px;justify-content: space-between;align-items: center'>
+                <div class=' line22 classNameView' style='color: #ee8080;margin-right: 6px'>
+                  <span>€</span>
+                  {{ items.price }}
+                  <span>/ {{ items.unit }}</span>
+                  <span class='del ml5' style='font-size: 14px;color: #999999;text-decoration: line-through'
+                        v-if="items.is_discount == '1'">
 								{{ items.oldprice }}/{{ items.unit }}
 								</span>
-              </span>
-              <div class='flex '
-                   v-if='items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0'>
-                <div class='buttonView' @click.stop='addCart(1,index,indexs)' style='cursor: pointer' v-if='items.num'>-
                 </div>
-                <div class='num mr1' v-if='items.num'>
-                  {{ items.num }}
+                <div style='display: flex;'
+                     v-if='items.specs.length == 0 && items.specification.length == 0&&items.sale_sku>0'>
+                  <div class='buttonView' @click.stop='addCart(1,index,indexs)' style='cursor: pointer'
+                       v-if='items.num'>-
+                  </div>
+                  <div class='num mr1' v-if='items.num'>
+                    {{ items.num }}
+                  </div>
+                  <div class='buttonView' @click.stop='addCart(2,index,indexs)' style='cursor: pointer'>+</div>
                 </div>
-                <div class='buttonView' @click.stop='addCart(2,index,indexs)' style='cursor: pointer'>+</div>
-              </div>
-              <div class='spec serg_btnss' v-else-if='items.sale_sku<=0'>{{ $t('creation.Agotado') }}</div>
-              <div class='spec serg_btn' @click.stop='loginbindTap(items,index,indexs)' v-else>
-                {{ $t('creation.disponibles') }}
-                <span class='num viewNUm' v-if='items.num > 0'>{{ items.num }}</span>
+
+                <div class='spec serg_btnss' v-else-if='items.sale_sku<=0'>{{ $t('creation.Agotado') }}</div>
+                <div class='spec serg_btn' @click.stop='loginbindTap(items,index,indexs)' v-else>
+                  {{ $t('creation.disponibles') }}
+                  <span class='num viewNUm' v-if='items.num > 0'>{{ items.num }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
 
     <tick-attribute @addCart='addNewCart' :priceDatass='priceDatass' :isValueNumber='isValueNumber' :type='loginType'
                     @addspkCilck='addspkCilck' @bindspNewecsIndex='bindspNewecsIndex' :specsIndex='specsIndex'
@@ -71,7 +82,6 @@ export default {
       type: String,
       default: ''
     }
-
   },
   data() {
     return {
@@ -86,10 +96,112 @@ export default {
       specsIndex: -1,
       addIndex: {},
       isValueNumber: 0,
-      priceDatass: []
+      priceDatass: [],
+      activeCategory: '',
+      categoryPositions: [],
+      isManualScroll: false,
+      categoryRefs: [],       // 存储DOM引用
+      scrollDebounce:null,
+
     };
   },
+  mounted() {
+
+    window.addEventListener('resize', this.calculatePositions);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.calculatePositions);
+  },
   methods: {
+    // 设置分类元素引用
+    setCategoryRef(el, categoryId) {
+      console.log(123123123123123123)
+      if (!el) return
+
+      const index = this.categoryRefs.findIndex(item => item.id === categoryId)
+      if (index === -1) {
+        this.categoryRefs.push({ id: categoryId, el })
+      } else {
+        this.categoryRefs[index].el = el
+      }
+      console.log(this.categoryRefs.length==this.list.length)
+      if(this.categoryRefs.length==this.list.length){
+        this.calculatePositions();
+        if(!this.activeCategory){
+          this.activeCategory = this.categoryRefs[0].id
+        }
+
+      }
+
+
+    },
+
+    // 计算各分类位置
+    calculatePositions() {
+      this.$nextTick(() => {
+
+        try {
+          this.categoryPositions = this.categoryRefs
+            .filter(item => item.el)
+            .map(item => {
+              const rect = item.el.getBoundingClientRect()
+              const containerTop = this.$refs.scrollContainer.getBoundingClientRect().top
+              return {
+                id: item.id,
+                top: rect.top - containerTop + this.$refs.scrollContainer.scrollTop,
+                height: rect.height
+              }
+            })
+            .sort((a, b) => a.top - b.top)
+        } catch (error) {
+          console.error('位置计算失败:', error)
+        }
+        console.log(this.categoryPositions)
+      })
+    },
+
+    // 处理滚动事件
+    handleScroll() {
+      if (this.isManualScroll) return;
+
+      // 防抖处理
+      clearTimeout(this.scrollDebounce)
+      this.scrollDebounce = setTimeout(() => {
+        const scrollTop = this.$refs.scrollContainer.scrollTop
+        const containerHeight = this.$refs.scrollContainer.clientHeight
+
+        // 查找当前可见的分类
+        const current = this.categoryPositions.find(pos =>
+          pos.top <= scrollTop + containerHeight * 0.3 &&
+          pos.top + pos.height > scrollTop + containerHeight * 0.3
+        )
+
+        if (current && this.activeCategory !== current.id) {
+          this.activeCategory = current.id
+        }
+      }, 50)
+    },
+
+    // 点击分类跳转
+    scrollToCategory(categoryId) {
+      const target = this.categoryPositions.find(pos => pos.id === categoryId)
+      console.log(target)
+      if (!target) return
+      this.activeCategory = target.id
+      this.isManualScroll = true
+      const headerHeight = 32 // 根据实际header高度调整
+      this.$refs.scrollContainer.scrollTo({
+        top: target.top - headerHeight,
+        behavior: 'smooth'
+      })
+
+      // 滚动完成后重置状态
+      setTimeout(() => {
+        this.isManualScroll = false
+      }, 500)
+    },
+
+
     handleChangeTabs(tab) {
       this.active = tab;
     },
@@ -119,14 +231,12 @@ export default {
     handleCloseLoginDialog(value) {
       this.loginType = value;
     },
-    childMethod(item,index, indexs,specsIndex,isValueNumber){
-
-
+    childMethod(item, index, indexs, specsIndex, isValueNumber) {
       this.loginType = 2;
       this.productInfo = item;
       this.specification = item.specification;
       this.specsIndex = specsIndex;
-      this.isValueNumber = isValueNumber
+      this.isValueNumber = isValueNumber;
       this.specs = item.specs;
       this.addIndex = {
         index,
@@ -134,7 +244,7 @@ export default {
       };
     },
     loginbindTap(item, index, indexs) {
-      if(( item.specs.length > 0 ||item.specification.length > 0)&&item.sale_sku>0){
+      if ((item.specs.length > 0 || item.specification.length > 0) && item.sale_sku > 0) {
         this.loginType = 2;
         this.productInfo = item;
         this.specification = item.specification;
@@ -157,8 +267,6 @@ export default {
           indexs
         };
       }
-
-
     },
     addNewCart(type) {
       if (type === 3 || type === 4) {
@@ -167,18 +275,18 @@ export default {
           ...this.addIndex,
           specsIndex: this.specsIndex
         });
-      } else  if (type === 5 || type === 6){
+      } else if (type === 5 || type === 6) {
         this.$emit('addCilck', {
           type,
           ...this.addIndex,
           specsIndex: this.isValueNumber
         });
-      }else  if (type === 7 || type === 8){
+      } else if (type === 7 || type === 8) {
         this.$emit('addCilck', {
           type,
           ...this.addIndex,
           specsIndex: this.specsIndex,
-          isValueNumber:this.isValueNumber
+          isValueNumber: this.isValueNumber
         });
       }
     },
@@ -196,13 +304,46 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.isview_container{
-  height:  calc((100vh - 500px));
+.conViewLeft {
+  width: 178px;
+  margin-right: 30px;
+  overflow-y: auto;
+}
+
+.right-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.menu-item {
+  padding: 15px;
+  cursor: pointer;
+
+  transition: all 0.3s;
+  >div{
+    color: #181818;
+  }
+}
+
+.menu-item.active {
+
+  background: #ff797c !important;
+  font-weight: bold;
+  >div{
+    color: #FFFFFF !important;
+  }
+}
+
+.isview_container {
+  height: calc((100vh - 500px));
   overflow: hidden;
 }
+
 .content_tab {
-  width: 85%;
-  margin: 0 auto 24px;
+  width: 80%;
+  display: flex;
+  margin: 30px auto 24px;
+  height: calc(100vh - 400px);
 
   .tabs {
     display: flex;
@@ -230,14 +371,14 @@ export default {
 
   .serg_btn {
     background: #FF797C !important;
-    font-size: 10px !important;
-    line-height: 24px !important;
-    height: 24px !important;
-    padding: 0 7px !important;
+    font-size: 14px !important;
+    line-height: 22px !important;
+    height: 32px !important;
+    padding: 5px 16px !important;
     color: #fff !important;
     position: relative;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 32px;
 
     .viewNUm {
       width: 18px;
@@ -248,13 +389,13 @@ export default {
       text-align: center;
       border-radius: 50px;
       line-height: 18px;
-      background: #ff9900;
+      background: #FF797C;
     }
   }
 
   .serg_btnss {
     background: #ffffff !important;
-    font-size: 10px !important;
+    font-size: 14px !important;
     line-height: 16px !important;
     height: 16px !important;
     padding: 0 7px !important;
@@ -295,27 +436,31 @@ export default {
   }
 
   .card_item {
-    width: calc((100% - 120px) / 4);
-    margin-bottom: 24px;
-    margin-right: 12px;
+    width: calc((100% - 120px) / 3);
+    margin-bottom: 10px;
+    margin-right: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    border-radius: 12px;
+    border: 1px solid var(---3, #E7E7E7);
+    background: #FFF;
+    padding: 10px;
 
     .card_img_container {
       position: relative;
       //margin-bottom: 8px;
 
       .card_img {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
         border-radius: 8px;
       }
 
     }
 
     .classNameView {
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .buttonView {
@@ -345,7 +490,7 @@ export default {
       width: calc((100% - 96px) / 4);
 
       .card_img {
-        height: 250px;
+        height: 100px;
       }
     }
 
@@ -387,7 +532,7 @@ export default {
         //}
 
         .card_img {
-          height: 212px;
+          height: 100px;
         }
 
       }
@@ -426,7 +571,7 @@ export default {
         //}
 
         .card_img {
-          height: 150px !important;
+          height: 100px !important;
         }
 
       }
