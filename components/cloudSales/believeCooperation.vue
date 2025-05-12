@@ -49,6 +49,7 @@ export default {};
 .cloud_sales_believe-cooperation {
   position: relative;
   overflow: hidden;
+
   > .content {
     display: flex;
     flex-direction: column;
@@ -79,20 +80,20 @@ export default {};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 512px;
+    //height: 512px;
     width: 70%;
     margin-left: 15%;
     //background: red;
-
+margin-bottom: 60px;
 
     > div {
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 412px;
+      //height: 412px;
       width: 280px;
       border-radius: 20px;
-      border: 1px solid  #DCDCDC;
+      border: 1px solid #DCDCDC;
       padding: 40px 20px;
       margin-top: 40px;
 

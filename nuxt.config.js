@@ -133,22 +133,22 @@ export default {
       easing: 'linear'
     }]
   ],
-  security: {
-    headers: {
-      xXSSProtection: "1; mode=block",
-      xFrameOptions: "DENY", // 防止点击劫持
-      strictTransportSecurity: "max-age=63072000; includeSubdomains",
-      contentSecurityPolicy: {
-        'default-src': ["'self'"],
-        'connect-src': ["'self'", "https://www.cuai-zi.net"]
-        // 自定义策略
-      }
-    },
-    rateLimiter: {
-      tokensPerInterval: 100,
-      interval: 'hour'
-    }
-  },
+  // security: {
+  //   headers: {
+  //     xXSSProtection: "1; mode=block",
+  //     xFrameOptions: "DENY", // 防止点击劫持
+  //     strictTransportSecurity: "max-age=63072000; includeSubdomains",
+  //     contentSecurityPolicy: {
+  //       'default-src': ["'self'"],
+  //       'connect-src': ["'self'", "https://www.cuai-zi.net"]
+  //       // 自定义策略
+  //     }
+  //   },
+  //   rateLimiter: {
+  //     tokensPerInterval: 100,
+  //     interval: 'hour'
+  //   }
+  // },
   axios: {
     withCredentials: true,
     credentials: true,
@@ -167,12 +167,12 @@ export default {
 
   render: {
     resourceHints: false,
-    csp: {
-      policies: {
-        'script-src': ["'self'", "trusted-cdn.com"],
-        'object-src': ["'none'"]
-      }
-    }
+    // csp: {
+    //   policies: {
+    //     'script-src': ["'self'", "trusted-cdn.com"],
+    //     'object-src': ["'none'"]
+    //   }
+    // }
   },
   performance: {
     prefetch: false
