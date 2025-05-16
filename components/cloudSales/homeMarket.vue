@@ -10,7 +10,7 @@
             <img class='fit-cover' :src='item.shop_show?item.shop_show:item.logo' style='width: 100px;height: 100px'/>
           </div>
           <div class='flex flex-column viewViewCkass' style='padding: 0 16px'>
-            <span class='font20  beyond classcolor ' style='text-align: center;height: 32px;line-height: 32px'>{{ item.title }}</span>
+            <span class='font20  beyond classcolor ' style='height: 32px;line-height: 32px'>{{ item.title }}</span>
             <div class='flex ' style='align-items: center ;justify-content: space-between;height: 24px;line-height: 24px'>
               <div class='text_amount'  style='font-size: 14px'>
                 {{ $t('home.partir') }}€{{item.min_amount }}

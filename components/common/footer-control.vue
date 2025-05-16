@@ -1,7 +1,7 @@
 <template>
   <div class='footer-box disflex al-center max-width f-column'>
     <div class='disflex p-relative contact-box'>
-      <div class='asy-box'>
+      <div class='asy-box' v-if='getActiveMenuInx<0'>
         <div class='f-title '>
           <img class='footer_icon' src='~/assets/images/logo2.png' alt='' />
           <span class='service_title' style='color: #fff;font-size: 18px'> {{ $t('footer.footerItem.title') }}</span>
@@ -39,14 +39,14 @@
       <!--        </div>-->
       <!--      </div>-->
     </div>
-    <div class='disflex al-center copyright-box ju-center font12'>
+    <div class='disflex al-center copyright-box ju-center font12' style="{'marginTop':getActiveMenuInx<0?'32px':'0px'}">
       <div><a target='_blank' :href="'//' ">{{ $t('footer.footerBottom.desc') }}</a>&nbsp;</div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'footer-control',
@@ -55,7 +55,22 @@ export default {
       isShowDialog: false // 是否展示弹窗
     };
   },
-  computed: {},
+  computed: {
+
+    // 获取url 路径
+    getUrlPath() {
+      return this.$route.path;
+    },
+
+    // 获取菜单选中下标
+    getActiveMenuInx() {
+      const activeMenus = [
+        ['/contentDetail']
+      ];
+        console.log(activeMenus.findIndex(item => item.includes(this.getUrlPath)))
+      return activeMenus.findIndex(item => item.includes(this.getUrlPath));
+    }
+  },
   methods: {
     // 在线咨询
     onlineAdvisory() {
@@ -141,7 +156,7 @@ export default {
     text-align: center;
     padding-bottom: 16px;
     color: #fff;
-    margin-top: 32px;
+
 
     span {
       display: block;

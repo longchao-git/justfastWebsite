@@ -2,10 +2,10 @@
   <div class='content_tab' :class='loginType!=-1?"isview_container":""'>
     <div class='conViewLeft'>
       <div v-for='(item,index) in list' :key='item.cate_id'
-           style='padding: 0 20px ;height: 60px;border-bottom: 1px solid #EEE'
+           style='padding: 0 20px ;height: 60px;border-bottom: 1px solid #EEE;display: flex;align-items: center;'
            :class="['menu-item', { active: activeCategory === item.cate_id }]"
            @click='scrollToCategory(item.cate_id)'>
-        <div style='line-height: 60px' class='font14'>{{ item.title }}</div>
+        <div  class='font14'>{{ item.title }}</div>
       </div>
     </div>
     <div class='right-list' style='flex: 1' ref='scrollContainer' @scroll='handleScroll'>
@@ -115,7 +115,6 @@ export default {
   methods: {
     // 设置分类元素引用
     setCategoryRef(el, categoryId) {
-      console.log(123123123123123123)
       if (!el) return
 
       const index = this.categoryRefs.findIndex(item => item.id === categoryId)
@@ -124,7 +123,6 @@ export default {
       } else {
         this.categoryRefs[index].el = el
       }
-      console.log(this.categoryRefs.length==this.list.length)
       if(this.categoryRefs.length==this.list.length){
         this.calculatePositions();
         if(!this.activeCategory){
@@ -156,7 +154,6 @@ export default {
         } catch (error) {
           console.error('位置计算失败:', error)
         }
-        console.log(this.categoryPositions)
       })
     },
 
@@ -302,7 +299,27 @@ export default {
   }
 };
 </script>
+<style>
+::-webkit-scrollbar {
+  width: 4px;
+}
 
+/* 设置滚动条轨道的样式 */
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* 设置滑块的样式 */
+::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* 设置滑块在鼠标悬停时的样式 */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+</style>
 <style lang='scss' scoped>
 .conViewLeft {
   width: 178px;
@@ -343,7 +360,7 @@ export default {
   width: 80%;
   display: flex;
   margin: 30px auto 24px;
-  height: calc(100vh - 400px);
+  height: calc(100vh - 360px);
 
   .tabs {
     display: flex;

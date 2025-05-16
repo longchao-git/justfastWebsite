@@ -4,9 +4,9 @@
               style='width: 100%;height: 160px'></el-image>
     <div class='iconLogo'>
       <el-image class='logoView' fit='cover' :src='topInfo.logo?topInfo.logo:topInfo.shop_show'
-                style='width: 160px;height: 160px'></el-image>
+                style='width: 130px;height: 130px'></el-image>
       <div class='' style='display: flex;flex-direction: row;align-items: center;justify-content: space-between'>
-        <div class=' flex-column viewViewCkass' style='margin-top: 50px; display: flex;margin-left: 30px'>
+        <div class=' flex-column viewViewCkass' style='margin-top: 30px; display: flex;margin-left: 30px'>
           <div class='font18  ' style='font-size: 30px;font-weight: 600'>
             {{ topInfo.title }}
             <span v-if="topInfo.yy_status != '1'||topInfo.yysj_status != '1'"

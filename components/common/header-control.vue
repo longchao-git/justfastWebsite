@@ -37,7 +37,7 @@
       <div class='disflex ju-center max-width al-center col-f pc-menu-box'>
         <div class='disflex' style='align-items: center'>
           <img @click='handleHome' :src="require('~/assets/images/cloudSales/header2-logo.svg')"
-               style='width: 100px; height: 33px; margin-right: 14px; cursor: pointer; object-fit: cover'
+               style='width: 120px; height: 40px; margin-right: 14px; cursor: pointer; object-fit: cover'
                alt='' />
           <div class='disflex' style='align-items: center'>
             <!--            <div style='color: #ee8080 ;font-size: 14px;flex-shrink: 0'>{{ $t(`city`) }}</div>-->
